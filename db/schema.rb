@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_28_114815) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_28_124130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,13 +55,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_28_114815) do
     t.datetime "remember_created_at"
     t.string "first_name"
     t.string "last_name"
-    t.boolean "COD_1"
-    t.boolean "CATE"
-    t.boolean "CE_INC"
-    t.boolean "EQ_INC"
-    t.boolean "EQ_SAP"
-    t.boolean "STG"
-    t.boolean "validator"
+    t.boolean "COD_1", default: false, null: false
+    t.boolean "CATE", default: false, null: false
+    t.boolean "CE_INC", default: false, null: false
+    t.boolean "EQ_INC", default: false, null: false
+    t.boolean "EQ_SAP", default: false, null: false
+    t.boolean "STG", default: false, null: false
+    t.boolean "validator", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "team_id", null: false
