@@ -3,14 +3,18 @@ class AvailabiltiesController < ApplicationController
     @availabilities = Availabilty.all
   end
 
+  def new
+    @user = current_user
+    @availability = Availabilty.new
+  end
+
   def create
-    @availability = Availabilty.new(availability_params)
-    @availability.user = current_user
-    if @availability.save
-      redirect_to users_path(current_user)
-    else
-      render 'new'
+    availabilities = availability_params[:day].split(", ")
+    availabilities.each do |day|
+      @availability = Availabilty.new(day: day, user: current_user)
+      @availability.save
     end
+    redirect_to user_path(current_user)
   end
 
   def destroy
@@ -19,6 +23,6 @@ class AvailabiltiesController < ApplicationController
   private
 
   def availability_params
-    params.require(:availabilty).permit(:day, :month, :year, :user_id)
+    params.require(:availabilty).permit(:day, :user_id)
   end
 end

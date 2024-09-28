@@ -1,0 +1,5 @@
+<%= link_to "Dispo mois suivant", new_user_availabilty_path(current_user) %>
+
+<% current_user.availabilties.each do |availability| %>
+  <%= availability.day %>
+<% end %>

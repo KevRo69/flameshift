@@ -1,0 +1,6 @@
+<%= simple_form_for [@user, @availability] do |f| %>
+  <%= f.input :day,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+  <%= f.submit %>
+<% end %>
