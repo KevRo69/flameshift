@@ -6,6 +6,6 @@ class User < ApplicationRecord
   belongs_to :team
   has_many :user_cares
   has_many :cares, through: :user_cares
-  has_many :availabilities, dependant: :destroy
+  has_many :availabilities, dependent: :destroy
   validates :first_name, :last_name, presence: true
 end

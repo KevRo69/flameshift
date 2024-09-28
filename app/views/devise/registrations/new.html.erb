@@ -4,6 +4,37 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :first_name,
+                required: true,
+                autofocus: true%>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true%>
+    <%= f.input :COD_1,
+                label: "COD1",
+                autofocus: true%>
+    <%= f.input :CATE,
+                label: "CATE",
+                autofocus: true%>
+    <%= f.input :CE_INC,
+                label: "CE_INC",
+                autofocus: true%>
+    <%= f.input :EQ_INC,
+                label: "EQ_INC",
+                autofocus: true%>
+    <%= f.input :EQ_SAP,
+                label: "EQ_SAP",
+                autofocus: true%>
+    <%= f.input :validator,
+                label: "Validateur ?",
+                autofocus: true%>
+    <%= f.input :team_id,
+                label: "Equipe",
+                collection: Team.all,
+                label_method: :number,
+                value_method: :id,
+                default: 1,
+                autofocus: true%>
     <%= f.input :email,
                 required: true,
                 autofocus: true,
