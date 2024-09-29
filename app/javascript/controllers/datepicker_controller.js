@@ -48,6 +48,9 @@ export default class extends Controller {
         dateFormat: "d-m-Y",
         minDate: minDate,
         maxDate: maxDate,
+        "locale": {
+        "firstDayOfWeek": 1 // start week on Monday
+        }
       }
     )
   }

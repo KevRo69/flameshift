@@ -1,5 +1,18 @@
-<%= link_to "Dispo mois suivant", new_user_availabilty_path(current_user) %>
-
-<% current_user.availabilties.each do |availability| %>
+<p>Mes dispos du mois:
+<% @availabilities_month.each do |availability| %>
   <%= availability.day %>
+<% end %></p>
+
+
+<% if @availabilities_next.empty? %>
+  <h3>A remplir avant le 15</h3>
+  <%= simple_form_for [@user, @availability] do |f| %>
+    <%= f.input :day,
+              as: :string,
+              label: "Disponilités à remplir",
+              input_html: { data: { controller: "datepicker" } } %>
+    <%= f.submit "Valider" %>
+  <% end %>
+<% else %>
+<p>Disponibilités OK (edit avec prérempli)</p>
 <% end %>
