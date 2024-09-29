@@ -14,12 +14,14 @@
     <%= f.submit "Valider" %>
   <% end %>
 <% else %>
-<p>Disponibilités OK (edit avec prérempli)</p>
-<%= simple_form_for [@user, @availability] do |f| %>
-    <%= f.input :day,
-              as: :string,
-              label: "Disponibilités remplies",
-              input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
-    <%= f.submit "Valider" %>
-  <% end %>
+  <p>Disponibilités OK (edit avec prérempli)</p>
+  <div id="flatpickr-show">
+    <%= simple_form_for [@user, @availability] do |f| %>
+        <%= f.input :day,
+                  as: :string,
+                  label: "Disponibilités remplies",
+                  input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
+        <%= f.submit "Valider" %>
+      <% end %>
+  </div>
 <% end %>
