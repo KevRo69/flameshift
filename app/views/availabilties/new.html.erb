@@ -1,6 +1,7 @@
 <%= simple_form_for [@user, @availability] do |f| %>
   <%= f.input :day,
             as: :string,
+            label: "Dispo du mois",
             input_html: { data: { controller: "datepicker" } } %>
-  <%= f.submit %>
+  <%= f.submit "Valider" %>
 <% end %>
