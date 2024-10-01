@@ -15,8 +15,6 @@ class AvailabiltiesController < ApplicationController
     avaibilities_next_days = availabilities_next.map { |date| date.day.strftime('%Y-%m-%d') }
     availabilities = availability_params[:day].split(", ")
     days_to_destroy = avaibilities_next_days - availabilities
-    puts "to destroy"
-    puts days_to_destroy
     days_to_destroy.each do |day|
       Availabilty.find_by(day: day, user:current_user).destroy
     end

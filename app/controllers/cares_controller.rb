@@ -9,11 +9,14 @@ class CaresController < ApplicationController
 
   def new
     @care = Care.new
+    @start_of_next = Date.today.beginning_of_month + 1.months
+    end_of_next = Date.today.end_of_month + 1.months
+    @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
   end
 
   def create
-    start_of_month = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months : Date.today.beginning_of_month + 2.months
-    end_of_month = Date.today.day < 16 ? Date.today.end_of_month + 1.months : Date.today.end_of_month + 2.months
+    start_of_month = Date.today.beginning_of_month + 1.months
+    end_of_month = Date.today.end_of_month + 1.months
     days = (start_of_month..end_of_month).to_a
     days.each do |day|
       @care = Care.new(day: day)
@@ -31,24 +34,38 @@ class CaresController < ApplicationController
       @care.users << user_stg unless get_users_stg(day).empty? || user_stg.nil?
       @care.save
     end
-    redirect_to @care
+    redirect_to root_path
   end
 
   def edit
   end
 
   def update
+    @care.users.clear
     if @care.update(care_params)
-      redirect_to @care
+      redirect_to @care, notice: 'Garde modifiée avec succès.'
     else
-      render 'edit'
+      render :edit, notice: 'Erreur lors de la modification de la garde.'
     end
+  end
+
+  def destroy_month
+    start_of_next =  Date.today.beginning_of_month + 1.months
+    end_of_next =  Date.today.end_of_month + 1.months
+    @cares = Care.where(day: (start_of_next)..(end_of_next))
+    @cares.each do |care|
+      care.destroy
+    end
+    redirect_to root_path, status: :see_other
   end
 
   private
 
   def care_params
-    params.require(:care).permit(:day, :month, :year, :user_id)
+    params.require(:care).permit(
+      :day,
+      user_cares_attributes: [:id, :user_id, :care_id, :_destroy] # Allow :id and :_destroy for editing/removing
+    )
   end
 
   def find_care

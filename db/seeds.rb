@@ -15,7 +15,7 @@ User.create!(email: "user1@test.fr", password: "123456", first_name: "Denis", la
 User.create!(email: "user2@test.fr", password: "123456", first_name: "David", last_name: "Quibel", CATE: "1", COD_1: "1", validator: "1", team_id: Team.where(number: 2)[0].id)
 User.create!(email: "user3@test.fr", password: "123456", first_name: "Franck", last_name: "Combe", CATE: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
 User.create!(email: "user4@test.fr", password: "123456", first_name: "Stéphane", last_name: "Janaudy", CA1E: "1", team_id: Team.where(number: 3)[0].id)
-User.create!(email: "user5@test.fr", password: "123456", first_name: "Raphael", last_name: "Poulin", CATE: "1", COD_1: "1", CA1E: "1", team_id: Team.where(number: 2)[0].id)
+User.create!(email: "user5@test.fr", password: "123456", first_name: "Raphael", last_name: "Poulin", COD_1: "1", CA1E: "1", team_id: Team.where(number: 2)[0].id)
 User.create!(email: "user6@test.fr", password: "123456", first_name: "Nicolas", last_name: "Debost", CE_INC: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
 User.create!(email: "user7@test.fr", password: "123456", first_name: "Alexandre", last_name: "Barbier", CE_INC: "1", COD_1: "1", team_id: Team.where(number: 3)[0].id)
 User.create!(email: "user8@test.fr", password: "123456", first_name: "Meggane", last_name: "Devillard", EQ_INC: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
@@ -35,7 +35,7 @@ puts "Users created!"
 puts "Creating availabilities..."
 
 User.all.each do |user|
-  rand(30).times do
+  rand(100).times do
     random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
     user.availabilties.create!(day: random_date)
   end
