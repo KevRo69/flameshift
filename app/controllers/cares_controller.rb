@@ -68,19 +68,19 @@ class CaresController < ApplicationController
   end
 
   def get_users_ce_inc(day)
-    User.where(CE_INC:"1").select do |user|
+    User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
 
   def get_users_eq_inc(day)
-    User.where(EQ_INC:"1").select do |user|
+    User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
 
   def get_users_eq_sap(day)
-    User.where(EQ_SAP:"1").select do |user|
+    User.where('"EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end

@@ -1,7 +1,18 @@
-<h1>Cares#show</h1>
-<p>Find me in app/views/cares/show.html.erb</p>
-
 <p><%= @care.day %></p>
-<% @care.users.each do |user| %>
-  <p><%= user.first_name %> <%= user.COD_1 %> <%= user.CATE %> <%= user.CE_INC %> <%= user.EQ_INC %> <%= user.EQ_SAP %> <%= user.STG %></p>
+<% @care.users.each_with_index do |user, index| %>
+  <% case index %>
+    <% when 0 %>
+    <h3>COD1</h3>
+    <% when 1 %>
+    <h3>CATE</h3>
+    <% when 2 %>
+    <h3>CE INC</h3>
+    <% when 3 %>
+    <h3>EQ INC</h3>
+    <% when 4 %>
+    <h3>EQ SAP / EQ INC</h3>
+    <% when 5 %>
+    <h3>STG</h3>
+  <% end %>
+  <p><%= user.first_name %> <%= user.last_name %></p>
 <% end %>
