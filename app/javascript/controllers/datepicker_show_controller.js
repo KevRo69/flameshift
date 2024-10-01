@@ -2,6 +2,11 @@ import { Controller } from "@hotwired/stimulus";
 import flatpickr from "flatpickr";
 
 export default class extends Controller {
+
+  static values = {
+    availabilities: Array
+  }
+
   connect() {
     const today = new Date();
     let month = today.getMonth();
@@ -43,9 +48,10 @@ export default class extends Controller {
       {
         mode: "multiple",
         inline: true,
-        dateFormat: "d-m-Y",
+        dateFormat: "Y-m-d",
         minDate: minDate,
         maxDate: maxDate,
+        defaultDate: this.availabilitiesValue,
         "locale": {
         "firstDayOfWeek": 1 // start week on Monday
         }

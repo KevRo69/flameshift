@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
   belongs_to :team
-  has_many :user_cares
+  has_many :user_cares, dependent: :destroy
   has_many :cares, through: :user_cares
   has_many :availabilties, dependent: :destroy
   validates :first_name, :last_name, presence: true

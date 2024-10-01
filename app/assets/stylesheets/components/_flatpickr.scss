@@ -1,3 +1,7 @@
 .form-control.flatpickr-input {
   display: none;
 }
+
+#flatpickr-show {
+  pointer-events: none;
+}
