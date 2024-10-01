@@ -1,24 +1,2 @@
-<div class="care-cards">
-  <% @cares.each do |care| %>
-    <div class="care-card">
-      <p><%= care.day.strftime('%d-%m-%Y') %></p>
-        <% care.users.each_with_index do |user, index| %>
-          <% case index %>
-            <% when 0 %>
-            <h3>COD1</h3>
-            <% when 1 %>
-            <h3>CATE</h3>
-            <% when 2 %>
-            <h3>CE INC</h3>
-            <% when 3 %>
-            <h3>EQ INC</h3>
-            <% when 4 %>
-            <h3>EQ SAP / EQ INC</h3>
-            <% when 5 %>
-            <h3>STG</h3>
-          <% end %>
-        <p><%= user.first_name %> <%= user.last_name %></p>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<h1>Toutes les gardes (trier par mois, année)</h1>
+<%= render "shared/cares" %>

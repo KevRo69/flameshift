@@ -1,26 +1,20 @@
-<p>Mes dispos du mois:
-<% @availabilities_month.each do |availability| %>
-  <%= availability.day %>
-<% end %></p>
-
-
 <% if @availabilities_next.empty? %>
   <h3>A remplir avant le 15</h3>
   <%= simple_form_for [@user, @availability] do |f| %>
     <%= f.input :day,
               as: :string,
-              label: "Disponibilités à remplir",
+              label: "Disponibilités à remplir pour le mois suivant",
               input_html: { data: { controller: "datepicker" } } %>
     <%= f.submit "Valider" %>
   <% end %>
 <% else %>
-  <p>Disponibilités OK (edit avec prérempli)</p>
   <div id="flatpickr-show">
     <%= simple_form_for [@user, @availability] do |f| %>
         <%= f.input :day,
                   as: :string,
-                  label: "Disponibilités remplies",
+                  label: "Disponibilités remplies pour le mois suivant",
                   input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
       <% end %>
   </div>
+  <%= link_to "Modifier", edit_user_availabilty_path(current_user) %>
 <% end %>
