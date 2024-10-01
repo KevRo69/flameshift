@@ -45,6 +45,8 @@ class CaresController < ApplicationController
     # Remove user_cares where user_id is blank
     user_cares_params = care_params[:user_cares_attributes].values
 
+    @users_cod = get_users_cod(@care.day)
+
     user_cares_params.each do |user_care_params|
     if user_care_params[:user_id].blank? && user_care_params[:id].present?
       # If the user_id is blank and an id is present, destroy the user_care
@@ -112,7 +114,7 @@ rescue ActiveRecord::RecordInvalid => e
   end
 
   def get_users_eq_sap(day)
-    User.where('"EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1").select do |user|
+    User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
