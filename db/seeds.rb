@@ -35,22 +35,16 @@ puts "Users created!"
 puts "Creating availabilities..."
 
 User.all.each do |user|
-
-  rand(25..30).times do
-    # Define your array of dates to exclude
-    excluded_dates = []
-
-    # Keep generating dates until one is not in the excluded list
-    begin
-      random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
-    end while excluded_dates.include?(random_date.to_s)
-
-    excluded_dates << random_date.to_s
-
+  rand(30).times do
+    random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
     user.availabilties.create!(day: random_date)
   end
-  if user.availabilties != user.availabilties.uniq
-    puts "Error"
+  # Find days that have duplicates
+  user.availabilties.group(:day).having('COUNT(*) > 1').pluck(:day).each do |day|
+    # Get all availabilities for that day, sorted by ID
+    duplicates = user.availabilties.where(day: day).order(:id)
+    # Keep the first one, delete the rest
+    duplicates.offset(1).delete_all
   end
 end
 
