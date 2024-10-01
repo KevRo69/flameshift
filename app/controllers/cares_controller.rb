@@ -9,11 +9,14 @@ class CaresController < ApplicationController
 
   def new
     @care = Care.new
+    @start_of_next = Date.today.beginning_of_month + 1.months
+    end_of_next = Date.today.end_of_month + 1.months
+    @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
   end
 
   def create
-    start_of_month = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months : Date.today.beginning_of_month + 2.months
-    end_of_month = Date.today.day < 16 ? Date.today.end_of_month + 1.months : Date.today.end_of_month + 2.months
+    start_of_month = Date.today.beginning_of_month + 1.months
+    end_of_month = Date.today.end_of_month + 1.months
     days = (start_of_month..end_of_month).to_a
     days.each do |day|
       @care = Care.new(day: day)
@@ -31,24 +34,55 @@ class CaresController < ApplicationController
       @care.users << user_stg unless get_users_stg(day).empty? || user_stg.nil?
       @care.save
     end
-    redirect_to @care
+    redirect_to root_path
   end
 
   def edit
   end
 
   def update
-    if @care.update(care_params)
-      redirect_to @care
-    else
-      render 'edit'
+    @care.users.clear
+    # Remove user_cares where user_id is blank
+    user_cares_params = care_params[:user_cares_attributes].values
+
+    @users_cod = get_users_cod(@care.day)
+
+    user_cares_params.each do |user_care_params|
+    if user_care_params[:user_id].blank? && user_care_params[:id].present?
+      # If the user_id is blank and an id is present, destroy the user_care
+      user_care = @care.user_cares.find_by(id: user_care_params[:id])
+      user_care.destroy if user_care
+    elsif user_care_params[:user_id].present?
+      # If user_id is present, update or create as necessary
+      user_care = @care.user_cares.find_or_initialize_by(id: user_care_params[:id])
+      user_care.user_id = user_care_params[:user_id]
+      user_care.save
     end
+  end
+
+  redirect_to @care, notice: 'Garde modifiée avec succès.'
+rescue ActiveRecord::RecordInvalid => e
+  flash.now[:error] = e.message
+  render :edit
+  end
+
+  def destroy_month
+    start_of_next =  Date.today.beginning_of_month + 1.months
+    end_of_next =  Date.today.end_of_month + 1.months
+    @cares = Care.where(day: (start_of_next)..(end_of_next))
+    @cares.each do |care|
+      care.destroy
+    end
+    redirect_to root_path, status: :see_other
   end
 
   private
 
   def care_params
-    params.require(:care).permit(:day, :month, :year, :user_id)
+    params.require(:care).permit(
+      :day,
+      user_cares_attributes: [:id, :user_id, :care_id, :_destroy] # Allow :id and :_destroy for editing/removing
+    )
   end
 
   def find_care
@@ -80,7 +114,7 @@ class CaresController < ApplicationController
   end
 
   def get_users_eq_sap(day)
-    User.where('"EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1").select do |user|
+    User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end

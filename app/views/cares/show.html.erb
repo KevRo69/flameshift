@@ -1,5 +1,5 @@
 <p><%= @care.day %></p>
-<% @care.users.each_with_index do |user, index| %>
+<% 6.times do |index| %>
   <% case index %>
     <% when 0 %>
     <h3>COD1</h3>
@@ -14,5 +14,9 @@
     <% when 5 %>
     <h3>STG</h3>
   <% end %>
-  <p><%= user.first_name %> <%= user.last_name %></p>
+  <% unless @care.users[index].nil? %>
+    <p><%= @care.users[index].first_name %> <%= @care.users[index].last_name %></p>
+  <% end %>
 <% end %>
+
+<%= link_to "Modifier", edit_care_path(@care) %>

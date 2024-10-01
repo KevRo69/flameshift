@@ -1,6 +1,12 @@
-<h1>Cares#new</h1>
-<p>Find me in app/views/cares/new.html.erb</p>
-
-<%= simple_form_for @care do |f| %>
-    <%= f.submit "Valider" %>
+<% if @cares_next.empty? %>
+  <h2>Gardes à générer (<%= @start_of_next.strftime("%B") %>)</h2>
+  <%= simple_form_for @care do |f| %>
+    <%= f.submit "Générer" %>
   <% end %>
+<% else %>
+  <h2>Gardes déjà générées</h2>
+  <%= link_to "Supprimer les gardes générées",
+    cares_destroy_month_path,
+    data: {turbo_method: :delete, turbo_confirm: "Etes-vous sûr?"}
+  %>
+<% end %>

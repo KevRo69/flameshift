@@ -1,3 +1,9 @@
-<h1>Ajouter jours fériés, Manoeuvres, Total gardes annuelles, Equipes</h1>
+<h1>Ajouter jours fériés, Manoeuvres, Equipes</h1>
+
+<h2>Total des gardes (<%= Date.today.year %>)</h2>
+<% @users.each do |user| %>
+  <h2><%= user.first_name %> <%= user.last_name %></h2>
+  <p> <%= user.cares.where("EXTRACT(YEAR FROM day) = ?", Date.today.year).count %></p>
+<% end %>
 
 <%= render "shared/cares" %>

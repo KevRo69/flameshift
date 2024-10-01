@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
+
+  delete 'cares/destroy_month', to: 'cares#destroy_month'
 end
