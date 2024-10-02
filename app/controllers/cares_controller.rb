@@ -2,6 +2,13 @@ class CaresController < ApplicationController
   before_action :find_care, only: [:show, :edit, :update]
   def index
     @cares = Care.all
+
+    # Filter by selected month and year
+    if params[:month].present? && params[:year].present?
+      month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
+      year = params[:year].to_i
+      @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
+    end
   end
 
   def show

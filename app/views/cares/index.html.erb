@@ -1,2 +1,55 @@
-<h1>Toutes les gardes (trier par mois, année)</h1>
-<%= render "shared/cares" %>
+<h1>Toutes les gardes</h1>
+
+<div data-controller="sort-cares">
+  <div>
+    <label for="month">Mois:</label>
+    <select id="month" name="month" data-action="change->sort-cares#updateCares" data-sort-cares-target="month">
+      <% I18n.t('date.month_names').each_with_index do |month_name, index| %>
+        <% next if month_name.nil? %>
+        <option value="<%= month_name.downcase %>" <%= 'selected' if month_name.downcase == params[:month] %>>
+          <%= month_name %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div>
+    <label for="year">Année:</label>
+    <select id="year" name="year" data-action="change->sort-cares#updateCares" data-sort-cares-target="year">
+      <% (2024..2100).each do |year| %>
+        <option value="<%= year %>" <%= 'selected' if year.to_s == params[:year] %>>
+          <%= year %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<div class="care-cards">
+  <% @cares.each do |care| %>
+    <%= link_to care_path(care) do %>
+      <div class="care-card">
+        <p><%= care.day.strftime('%d-%m-%Y') %></p>
+        <% 6.times do |index| %>
+          <% case index %>
+            <% when 0 %>
+              <h3>COD1</h3>
+            <% when 1 %>
+              <h3>CATE</h3>
+            <% when 2 %>
+              <h3>CE INC</h3>
+            <% when 3 %>
+              <h3>EQ INC</h3>
+            <% when 4 %>
+              <h3>EQ SAP / EQ INC</h3>
+            <% when 5 %>
+              <h3>STG</h3>
+          <% end %>
+          <% unless care.users[index].nil? %>
+            <p><%= care.users[index].first_name %> <%= care.users[index].last_name %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
