@@ -4,13 +4,17 @@ User.destroy_all
 puts "Destroying all teams..."
 Team.destroy_all
 
+puts "Destroying all cares..."
+Care.destroy_all
+
 puts "Creating teams..."
 Team.create!(number: 1)
 Team.create!(number: 2)
 Team.create!(number: 3)
+Team.create!(number: 4)
 
 puts "Creating users..."
-
+User.create!(email: "usernil@test.fr", password: "123456", first_name: "/", last_name: "/", team_id: Team.where(number: 4)[0].id)
 User.create!(email: "user1@test.fr", password: "123456", first_name: "Denis", last_name: "Dannaud", CATE: "1", COD_1: "1", team_id: Team.where(number: 3)[0].id)
 User.create!(email: "user2@test.fr", password: "123456", first_name: "David", last_name: "Quibel", CATE: "1", COD_1: "1", validator: "1", team_id: Team.where(number: 2)[0].id)
 User.create!(email: "user3@test.fr", password: "123456", first_name: "Franck", last_name: "Combe", CATE: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
@@ -35,7 +39,7 @@ puts "Users created!"
 puts "Creating availabilities..."
 
 User.all.each do |user|
-  rand(100).times do
+  rand(20).times do
     random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
     user.availabilties.create!(day: random_date)
   end

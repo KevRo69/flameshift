@@ -19,11 +19,21 @@ class CaresController < ApplicationController
     @start_of_next = Date.today.beginning_of_month + 1.months
     end_of_next = Date.today.end_of_month + 1.months
     @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
+    @cares_missing = @cares_next.reject do |care|
+      if care.users.where(first_name: "/").count.zero?
+        true
+      elsif care.users.where(first_name: "/").count == 1 && care.users.last.first_name == "/"
+        true
+      else
+        false
+      end
+    end
   end
 
   def create
     start_of_month = Date.today.beginning_of_month + 1.months
     end_of_month = Date.today.end_of_month + 1.months
+    usernil = User.find_by(first_name: "/")
     days = (start_of_month..end_of_month).to_a
     days.each do |day|
       @care = Care.new(day: day)
@@ -33,15 +43,39 @@ class CaresController < ApplicationController
       user_eq_inc = (get_users_eq_inc(day) - [user_cod] - [user_cate] - [user_ce_inc]).sample
       user_eq_sap = (get_users_eq_sap(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc]).sample
       user_stg = (get_users_stg(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc] - [user_eq_sap]).sample
-      @care.users << user_cod unless get_users_cod(day).empty? || user_cod.nil?
-      @care.users << user_cate unless get_users_cate(day).empty? || user_cate.nil?
-      @care.users << user_ce_inc unless get_users_ce_inc(day).empty? || user_ce_inc.nil?
-      @care.users << user_eq_inc unless get_users_eq_inc(day).empty? || user_eq_inc.nil?
-      @care.users << user_eq_sap unless get_users_eq_sap(day).empty? || user_eq_sap.nil?
-      @care.users << user_stg unless get_users_stg(day).empty? || user_stg.nil?
+      unless get_users_cod(day).empty? || user_cod.nil?
+        @care.users << user_cod
+      else
+        @care.users << usernil
+      end
+      unless get_users_cate(day).empty? || user_cate.nil?
+        @care.users << user_cate
+      else
+        @care.users << usernil
+      end
+      unless get_users_ce_inc(day).empty? || user_ce_inc.nil?
+        @care.users << user_ce_inc
+      else
+        @care.users << usernil
+      end
+      unless get_users_eq_inc(day).empty? || user_eq_inc.nil?
+        @care.users << user_eq_inc
+      else
+        @care.users << usernil
+      end
+      unless get_users_eq_sap(day).empty? || user_eq_sap.nil?
+        @care.users << user_eq_sap
+      else
+        @care.users << usernil
+      end
+      unless get_users_stg(day).empty? || user_stg.nil?
+        @care.users << user_stg
+      else
+        @care.users << usernil
+      end
       @care.save
     end
-    redirect_to root_path
+    redirect_to new_care_path, notice: 'Gardes créées avec succès.'
   end
 
   def edit
@@ -67,7 +101,7 @@ class CaresController < ApplicationController
     end
   end
 
-  redirect_to @care, notice: 'Garde modifiée avec succès.'
+  redirect_to new_care_path, notice: 'Garde modifiée avec succès.'
 rescue ActiveRecord::RecordInvalid => e
   flash.now[:error] = e.message
   render :edit

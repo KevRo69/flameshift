@@ -1,12 +1,44 @@
 <% if @cares_next.empty? %>
-  <h2>Gardes à générer (<%= @start_of_next.strftime("%B") %>)</h2>
+  <h2>Gardes à générer (<%= I18n.l(@start_of_next, format: '%B') %>)</h2>
   <%= simple_form_for @care do |f| %>
     <%= f.submit "Générer" %>
   <% end %>
 <% else %>
-  <h2>Gardes déjà générées</h2>
+  <h2>Gardes générées</h2>
   <%= link_to "Supprimer les gardes générées",
     cares_destroy_month_path,
     data: {turbo_method: :delete, turbo_confirm: "Etes-vous sûr?"}
   %>
+<% end %>
+<% if !(@cares_missing.empty?) %>
+  <div class="care-cards">
+    <% @cares_missing.each do |care| %>
+      <%= link_to care_path(care) do %>
+        <div class="care-card">
+          <p><%= care.day.strftime('%d-%m-%Y') %></p>
+            <% 6.times do |index| %>
+              <% case index %>
+                <% when 0 %>
+                <h3>COD1</h3>
+                <% when 1 %>
+                <h3>CATE</h3>
+                <% when 2 %>
+                <h3>CE INC</h3>
+                <% when 3 %>
+                <h3>EQ INC</h3>
+                <% when 4 %>
+                <h3>EQ SAP / EQ INC</h3>
+                <% when 5 %>
+                <h3>STG</h3>
+              <% end %>
+              <% unless care.users[index].nil? %>
+                <p><%= care.users[index].first_name %> <%= care.users[index].last_name %></p>
+              <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% elsif !(@cares_next.empty?) %>
+  <h2>Toutes les gardes ont été vérifiées.</h2>
 <% end %>
