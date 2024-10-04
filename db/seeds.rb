@@ -39,7 +39,7 @@ puts "Users created!"
 puts "Creating availabilities..."
 
 User.all.each do |user|
-  rand(20).times do
+  rand(100).times do
     random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
     user.availabilties.create!(day: random_date)
   end

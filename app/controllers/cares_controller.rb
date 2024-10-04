@@ -37,12 +37,12 @@ class CaresController < ApplicationController
     days = (start_of_month..end_of_month).to_a
     days.each do |day|
       @care = Care.new(day: day)
-      user_cod = get_users_cod(day).sample
-      user_cate = (get_users_cate(day) - [user_cod]).sample
-      user_ce_inc = (get_users_ce_inc(day) - [user_cod] - [user_cate]).sample
-      user_eq_inc = (get_users_eq_inc(day) - [user_cod] - [user_cate] - [user_ce_inc]).sample
-      user_eq_sap = (get_users_eq_sap(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc]).sample
-      user_stg = (get_users_stg(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc] - [user_eq_sap]).sample
+      user_cod = weight_care(day, get_users_cod(day))
+      user_cate = weight_care(day, (get_users_cate(day) - [user_cod]))
+      user_ce_inc = weight_care(day, (get_users_ce_inc(day) - [user_cod] - [user_cate]))
+      user_eq_inc = weight_care(day, (get_users_eq_inc(day) - [user_cod] - [user_cate] - [user_ce_inc]))
+      user_eq_sap = weight_care(day, (get_users_eq_sap(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc]))
+      user_stg = weight_care(day, (get_users_stg(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc] - [user_eq_sap]))
       unless get_users_cod(day).empty? || user_cod.nil?
         @care.users << user_cod
       else
@@ -114,7 +114,7 @@ rescue ActiveRecord::RecordInvalid => e
     @cares.each do |care|
       care.destroy
     end
-    redirect_to root_path, status: :see_other
+    redirect_to new_care_path, status: :see_other
   end
 
   private
@@ -163,6 +163,37 @@ rescue ActiveRecord::RecordInvalid => e
   def get_users_stg(day)
     User.where(STG:"1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
+    end
+  end
+
+  def weight_care(day, users)
+    if users.empty?
+      return nil
+    else
+      users_cares = {
+        users: [],
+        cares: [],
+        sat: [],
+        sun: []
+      }
+      # Get cares for each user and shuffle for more randomness
+      users.shuffle.each do |user|
+        users_cares[:users] << user
+        users_cares[:cares] << user.cares.where("EXTRACT(MONTH FROM day) = ?", day.month).count
+        users_cares[:sat] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 6).count
+        users_cares[:sun] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 0).count
+      end
+      # Prority to weekends (saturday)
+      index_min_sat = users_cares[:sat].each_with_index.min[1]
+      return users_cares[:users][index_min_sat] if day.saturday?
+
+      # Prority to weekends (sunday)
+      index_min_sun = users_cares[:sun].each_with_index.min[1]
+      return users_cares[:users][index_min_sun] if day.sunday?
+
+      # Prority to users with less cares
+      index_min = users_cares[:cares].each_with_index.min[1]
+      return users_cares[:users][index_min]
     end
   end
 end

@@ -5,6 +5,8 @@
   <% unless user.first_name == "/" %>
     <h2><%= user.first_name %> <%= user.last_name %></h2>
     <p> <%= user.cares.where("EXTRACT(YEAR FROM day) = ?", Date.today.year).count %></p>
+    <p> <%= user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", (Date.today + 1.month).month, 6).count %></p>
+    <p> <%= user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", (Date.today + 1.month).month, 0).count %></p>
   <% end %>
 <% end %>
 
