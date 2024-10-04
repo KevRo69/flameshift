@@ -23,7 +23,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where(COD_1:"1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_cod, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne" %>
           <% end %>
         <% when 1%>
@@ -31,7 +31,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where(CATE:"1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_cate, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne" %>
           <% end %>
         <% when 2 %>
@@ -39,7 +39,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_ce_inc, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne" %>
           <% end %>
         <% when 3 %>
@@ -47,7 +47,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_eq_inc, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne" %>
           <% end %>
         <% when 4 %>
@@ -55,7 +55,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_eq_sap, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne" %>
           <% end %>
         <% when 5 %>
@@ -63,7 +63,7 @@
             <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
             <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
               <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                    options_from_collection_for_select(User.where(STG:"1"), :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
+                    options_from_collection_for_select(@users_stg, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                     label: "Sélectionner une autre personne",
                     include_blank: true %>
           <% end %>

@@ -7,5 +7,13 @@ class PagesController < ApplicationController
     days = (start_of_month..end_of_month).to_a
     @cares = Care.where(day: days)
     @users = User.all
+    @year = Date.today.year
+    @cares_data = @users.each_with_object({}) do |user, hash|
+      next if user.first_name == "/"
+      yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", @year).count
+      hash[user.id] = {
+        yearly_cares: yearly_cares,
+      }
+    end
   end
 end

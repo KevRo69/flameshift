@@ -79,6 +79,12 @@ class CaresController < ApplicationController
   end
 
   def edit
+    @users_cod = User.where(COD_1:"1")
+    @users_cate = User.where(CATE:"1")
+    @users_ce_inc = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1")
+    @users_eq_inc = User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1")
+    @users_eq_sap = User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1")
+    @users_stg = User.where(STG:"1")
   end
 
   def update
@@ -183,11 +189,11 @@ rescue ActiveRecord::RecordInvalid => e
         users_cares[:sat] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 6).count
         users_cares[:sun] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 0).count
       end
-      # Prority to weekends (saturday)
+      # Prority to weekends (Saturday)
       index_min_sat = users_cares[:sat].each_with_index.min[1]
       return users_cares[:users][index_min_sat] if day.saturday?
 
-      # Prority to weekends (sunday)
+      # Prority to weekends (Sunday)
       index_min_sun = users_cares[:sun].each_with_index.min[1]
       return users_cares[:users][index_min_sun] if day.sunday?
 
