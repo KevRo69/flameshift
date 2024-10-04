@@ -1,12 +1,10 @@
 <h1>Ajouter jours fériés, Manoeuvres, Equipes</h1>
 
-<h2>Total des gardes (<%= Date.today.year %>)</h2>
+<h2>Total des gardes (<%= @year %>)</h2>
 <% @users.each do |user| %>
   <% unless user.first_name == "/" %>
     <h2><%= user.first_name %> <%= user.last_name %></h2>
-    <p> <%= user.cares.where("EXTRACT(YEAR FROM day) = ?", Date.today.year).count %></p>
-    <p> <%= user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", (Date.today + 1.month).month, 6).count %></p>
-    <p> <%= user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", (Date.today + 1.month).month, 0).count %></p>
+    <p> <%= @cares_data[user.id][:yearly_cares] %> </p>
   <% end %>
 <% end %>
 
