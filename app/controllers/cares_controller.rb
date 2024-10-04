@@ -172,12 +172,26 @@ rescue ActiveRecord::RecordInvalid => e
     else
       users_cares = {
         users: [],
-        cares: []
+        cares: [],
+        sat: [],
+        sun: []
       }
+      # Get cares for each user and shuffle for more randomness
       users.shuffle.each do |user|
         users_cares[:users] << user
         users_cares[:cares] << user.cares.where("EXTRACT(MONTH FROM day) = ?", day.month).count
+        users_cares[:sat] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 6).count
+        users_cares[:sun] << user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", day.month, 0).count
       end
+      # Prority to weekends (saturday)
+      index_min_sat = users_cares[:sat].each_with_index.min[1]
+      return users_cares[:users][index_min_sat] if day.saturday?
+
+      # Prority to weekends (sunday)
+      index_min_sun = users_cares[:sun].each_with_index.min[1]
+      return users_cares[:users][index_min_sun] if day.sunday?
+
+      # Prority to users with less cares
       index_min = users_cares[:cares].each_with_index.min[1]
       return users_cares[:users][index_min]
     end
