@@ -14,17 +14,25 @@ class AvailabiltiesController < ApplicationController
     availabilities_next = current_user.availabilties.where(day: (start_of_next)..(end_of_next))
     avaibilities_next_days = availabilities_next.map { |date| date.day.strftime('%Y-%m-%d') }
     availabilities = availability_params[:day].split(", ")
+    saturdays = availabilities.select { |day| Date.parse(day).saturday? }
+    sundays = availabilities.select { |day| Date.parse(day).sunday? }
+    @no_weekend = !(saturdays.size > 0 && sundays.size > 0)
     days_to_destroy = avaibilities_next_days - availabilities
-    days_to_destroy.each do |day|
-      Availabilty.find_by(day: day, user:current_user).destroy
-    end
-    availabilities.each do |day|
-      if availabilities_next.select { |t| t.day.strftime('%Y-%m-%d') == day }.empty?
-        availability = Availabilty.new(day: day, user: current_user)
-        availability.save
+    unless @no_weekend
+      days_to_destroy.each do |day|
+        Availabilty.find_by(day: day, user:current_user).destroy
       end
+      availabilities.each do |day|
+        if availabilities_next.select { |t| t.day.strftime('%Y-%m-%d') == day }.empty?
+          availability = Availabilty.new(day: day, user: current_user)
+          availability.save
+        end
+      end
+      redirect_to user_path(current_user)
+    else
+      flash[:alert] = "Il manque un samedi et un dimanche"
+      redirect_to user_path(current_user) # Redirect with an alert message
     end
-    redirect_to user_path(current_user)
   end
 
   def edit
