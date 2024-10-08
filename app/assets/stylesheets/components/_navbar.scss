@@ -1,6 +1,11 @@
 .navbar-lewagon {
-  justify-content: space-between;
+  justify-content: space-evenly;
   background: $red-fire;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
 }
 
 .navbar-lewagon .navbar-collapse {

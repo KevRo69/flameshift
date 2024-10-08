@@ -7,12 +7,40 @@
   width: 308px;
 }
 
-.btn:hover {
-  background-color: $red-light;
+input.btn {
+  background-color: $red-fire;
   color: white;
   border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 308px;
+}
+
+.btn:hover {
+  background-color: $red-light;
+  color: white !important;
+  border: none !important;
+}
+
+/* Focus state (when the button is clicked and released) */
+.center-btn .btn:disabled {
+  background-color: $red-light !important; /* Same as hover color */
+  color: white !important;
+  border: none !important;
+}
+
+.center-btn .btn:active {
+  background-color: $red-light !important; /* Same as hover color */
+  color: white !important;
+  border: none !important;
 }
 
 .nav-link {
   color: white;
+}
+
+.center-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 }

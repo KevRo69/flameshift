@@ -23,6 +23,7 @@ class CaresController < ApplicationController
   def new
     @care = Care.new
     @start_of_next = Date.today.beginning_of_month + 1.months
+    @month = I18n.l(@start_of_next, format: '%B')
     end_of_next = Date.today.end_of_month + 1.months
     @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
     @cares_missing = @cares_next.reject do |care|
