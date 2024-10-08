@@ -1,0 +1,18 @@
+.btn {
+  background-color: $red-fire;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 308px;
+}
+
+.btn:hover {
+  background-color: $red-light;
+  color: white;
+  border: none;
+}
+
+.nav-link {
+  color: white;
+}

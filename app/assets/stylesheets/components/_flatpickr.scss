@@ -2,6 +2,19 @@
   display: none;
 }
 
+.flatpickr-day.selected {
+  background-color: $red-fire !important;
+  border: none !important;
+  color: #fff;
+}
+
+.availabilities {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
+}
+
 #flatpickr-show {
   pointer-events: none;
 }

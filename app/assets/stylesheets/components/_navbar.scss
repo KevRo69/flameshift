@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: $red-fire;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +8,20 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 64px;
+}
+
+.dropdown-item:hover {
+  background-color: $red-light;
+  color: white;
+}
+
+.dropdown-item:focus {
+  background-color: $red-light;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu {
+    position: absolute !important;
+  }
 }

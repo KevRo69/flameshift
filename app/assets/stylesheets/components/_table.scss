@@ -25,16 +25,16 @@ tbody tr th {
 }
 
 th {
-  background-color: #333; /* Dark background for table headers */
+  background-color: $red-fire;
   color: white; /* White text for headers */
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* Light grey for alternating rows */
+  background-color: #ffb0b0; /* Light grey for alternating rows */
 }
 
 tbody tr:hover {
-  background-color: #f1f1f1; /* Light hover effect on rows */
+  background-color: $red-light; /* Light hover effect on rows */
 }
 
 
