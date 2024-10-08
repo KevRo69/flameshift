@@ -25,31 +25,4 @@
   </div>
 </div>
 
-<div class="care-cards">
-  <% @cares.each do |care| %>
-    <%= link_to care_path(care) do %>
-      <div class="care-card">
-        <p><%= care.day.strftime('%d-%m-%Y') %></p>
-        <% 6.times do |index| %>
-          <% case index %>
-            <% when 0 %>
-              <h3>COD1</h3>
-            <% when 1 %>
-              <h3>CATE</h3>
-            <% when 2 %>
-              <h3>CE INC</h3>
-            <% when 3 %>
-              <h3>EQ INC</h3>
-            <% when 4 %>
-              <h3>EQ SAP / EQ INC</h3>
-            <% when 5 %>
-              <h3>STG</h3>
-          <% end %>
-          <% unless care.users[index].nil? %>
-            <p><%= care.users[index].first_name %> <%= care.users[index].last_name %></p>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+<%= render 'shared/cares' %>

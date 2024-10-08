@@ -1,28 +1,156 @@
-<div class="care-cards">
-  <% @cares.each do |care| %>
-    <%= link_to care_path(care) do %>
-      <div class="care-card">
-        <p><%= care.day.strftime('%d-%m-%Y') %></p>
-          <% 6.times do |index| %>
-            <% case index %>
-              <% when 0 %>
-              <h3>COD1</h3>
-              <% when 1 %>
-              <h3>CATE</h3>
-              <% when 2 %>
-              <h3>CE INC</h3>
-              <% when 3 %>
-              <h3>EQ INC</h3>
-              <% when 4 %>
-              <h3>EQ SAP / EQ INC</h3>
-              <% when 5 %>
-              <h3>STG</h3>
+<% unless @cares_week1.empty? %>
+  <div class="table-container">
+    <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares_week1.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares_week1.each do |care| %>
+              <td>
+                <% user = care.users[role_index] %>
+                <% if user %>
+                  <%= user.first_name %> <%= user.last_name %>
+                <% end %>
+              </td>
             <% end %>
-            <% unless care.users[index].nil? %>
-              <p><%= care.users[index].first_name %> <%= care.users[index].last_name %></p>
-            <% end %>
+          </tr>
         <% end %>
-      </div>
+      </tbody>
+    </table>
+
+    <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares_week2.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares_week2.each do |care| %>
+              <td>
+                <% user = care.users[role_index] %>
+                <% if user %>
+                  <%= user.first_name %> <%= user.last_name %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares_week3.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares_week3.each do |care| %>
+              <td>
+                <% user = care.users[role_index] %>
+                <% if user %>
+                  <%= user.first_name %> <%= user.last_name %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares_week4.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares_week4.each do |care| %>
+              <td>
+                <% user = care.users[role_index] %>
+                <% if user %>
+                  <%= user.first_name %> <%= user.last_name %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% unless @cares_week5.empty? %>
+      <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares_week5.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+          <% (7 - @cares_week5.size).times do %>
+            <th></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares_week5.each do |care| %>
+              <td>
+                <% user = care.users[role_index] %>
+                <% if user %>
+                  <%= user.first_name %> <%= user.last_name %>
+                <% end %>
+              </td>
+            <% end %>
+            <% (7 - @cares_week5.size).times do %>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
