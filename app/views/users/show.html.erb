@@ -1,22 +1,24 @@
-<% if @availabilities_next.empty? %>
-  <h3>A remplir avant le 15</h3>
-  <%= simple_form_for [@user, @availability] do |f| %>
-    <%= f.input :day,
-              as: :string,
-              label: "Disponibilités à remplir pour le mois suivant",
-              input_html: { data: { controller: "datepicker" } } %>
-    <%= f.submit "Valider" %>
-  <% end %>
-<% else %>
-  <div id="flatpickr-show">
-    <%= simple_form_for [@user, @availability] do |f| %>
+
+  <% if @availabilities_next.empty? %>
+    <div class="availabilities">
+      <%= simple_form_for [@user, @availability] do |f| %>
         <%= f.input :day,
                   as: :string,
-                  label: "Disponibilités remplies pour le mois suivant",
-                  input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
+                  label: "Disponibilités à remplir avant le 15",
+                  input_html: { data: { controller: "datepicker" } } %>
+        <%= f.submit "Valider", class: "btn" %>
       <% end %>
-  </div>
-  <%= link_to "Modifier", edit_user_availabilty_path(current_user) %>
-<% end %>
-
-<%= link_to "Modifier mon compte", edit_user_registration_path %>
+    </div>
+  <% else %>
+    <div class="availabilities">
+      <div id="flatpickr-show">
+        <%= simple_form_for [@user, @availability] do |f| %>
+            <%= f.input :day,
+                      as: :string,
+                      label: "Disponibilités pour le mois suivant",
+                      input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
+          <% end %>
+      </div>
+      <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
+    </div>
+  <% end %>

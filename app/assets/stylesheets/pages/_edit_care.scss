@@ -1,0 +1,42 @@
+.edit-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.edit-care-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  width: 320px;
+  background-color: $red-fire;
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+}
+
+/* Override the default styles for valid inputs */
+.edit-care-container .is-valid {
+  background-image: none !important; /* Remove the green checkmark */
+}
+
+/* Optionally, remove the green border for valid inputs */
+.edit-care-container .is-valid {
+  border-color: initial !important; /* Reset border color */
+}
+
+.users-dropdown {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.form-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}

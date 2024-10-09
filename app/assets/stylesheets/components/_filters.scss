@@ -1,0 +1,19 @@
+.filter {
+  display: flex;
+  margin: 20px 8px 0px 20px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+}
+
+#month {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#year {
+  border-radius: 8px;
+  padding: 10px;
+}

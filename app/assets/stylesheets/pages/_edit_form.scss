@@ -1,0 +1,30 @@
+.edit-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.edit-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  width: 320px;
+  background-color: $red-fire;
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+}
+
+.edit-form .form-text {
+  color: white;
+}
+
+.modify-global {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: row;
+}

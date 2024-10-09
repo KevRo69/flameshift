@@ -2,12 +2,18 @@ class CaresController < ApplicationController
   before_action :find_care, only: [:show, :edit, :update]
   def index
     @cares = Care.all
-
+    @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
     # Filter by selected month and year
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
       year = params[:year].to_i
+      date = Date.new(year, month, 1)
       @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
+      @cares_week1 = @cares.where(day: (date)..(date + 6.days))
+      @cares_week2 = @cares.where(day: (date + 7.days)..(date + 13.days))
+      @cares_week3 = @cares.where(day: (date + 14.days)..(date + 20.days))
+      @cares_week4 = @cares.where(day: (date + 21.days)..(date + 27.days))
+      @cares_week5 = date + 28.days < date.end_of_month ? @cares.where(day: (date + 28.days)..(date.end_of_month)) : []
     end
   end
 
@@ -17,6 +23,7 @@ class CaresController < ApplicationController
   def new
     @care = Care.new
     @start_of_next = Date.today.beginning_of_month + 1.months
+    @month = I18n.l(@start_of_next, format: '%B')
     end_of_next = Date.today.end_of_month + 1.months
     @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
     @cares_missing = @cares_next.reject do |care|

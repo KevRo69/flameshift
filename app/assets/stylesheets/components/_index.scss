@@ -5,3 +5,17 @@
 @import "navbar";
 @import "flatpickr";
 @import "care_card";
+@import "table";
+@import "btn";
+@import "filters";
+
+//Default values
+
+body {
+  width: 100%;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,22 +1,26 @@
-<p><%= @care.day %></p>
-<% 6.times do |index| %>
-  <% case index %>
-    <% when 0 %>
-    <h3>COD1</h3>
-    <% when 1 %>
-    <h3>CATE</h3>
-    <% when 2 %>
-    <h3>CE INC</h3>
-    <% when 3 %>
-    <h3>EQ INC</h3>
-    <% when 4 %>
-    <h3>EQ SAP / EQ INC</h3>
-    <% when 5 %>
-    <h3>STG</h3>
-  <% end %>
-  <% unless @care.users[index].nil? %>
-    <p><%= @care.users[index].first_name %> <%= @care.users[index].last_name %></p>
-  <% end %>
-<% end %>
+<div class="card-show-container">
+  <div class="care-card" id="card-show">
+    <h3><%= @care.day.strftime('%d-%m-%Y') %></h3>
+      <% 6.times do |index| %>
+        <% case index %>
+          <% when 0 %>
+          <h4>COD1</h4>
+          <% when 1 %>
+          <h4>CATE</h4>
+          <% when 2 %>
+          <h4>CE INC</h4>
+          <% when 3 %>
+          <h4>EQ INC</h4>
+          <% when 4 %>
+          <h4>EQ SAP / EQ INC</h4>
+          <% when 5 %>
+          <h4>STG</h4>
+        <% end %>
+        <% unless @care.users[index].nil? %>
+          <p><%= @care.users[index].first_name %> <%= @care.users[index].last_name %></p>
+        <% end %>
+    <% end %>
+  </div>
 
-<%= link_to "Modifier", edit_care_path(@care) %>
+  <%= link_to "Modifier", edit_care_path(@care), class: "btn" %>
+</div>
