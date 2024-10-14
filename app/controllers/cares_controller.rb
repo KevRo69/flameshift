@@ -95,6 +95,7 @@ class CaresController < ApplicationController
   end
 
   def update
+    @care = Care.find(params[:id])
     @care.users.clear
     # Remove user_cares where user_id is blank
     user_cares_params = care_params[:user_cares_attributes].values
@@ -102,22 +103,22 @@ class CaresController < ApplicationController
     @users_cod = get_users_cod(@care.day)
 
     user_cares_params.each do |user_care_params|
-    if user_care_params[:user_id].blank? && user_care_params[:id].present?
-      # If the user_id is blank and an id is present, destroy the user_care
-      user_care = @care.user_cares.find_by(id: user_care_params[:id])
-      user_care.destroy if user_care
-    elsif user_care_params[:user_id].present?
-      # If user_id is present, update or create as necessary
-      user_care = @care.user_cares.find_or_initialize_by(id: user_care_params[:id])
-      user_care.user_id = user_care_params[:user_id]
-      user_care.save
+      if user_care_params[:user_id].blank? && user_care_params[:id].present?
+        # If the user_id is blank and an id is present, destroy the user_care
+        user_care = @care.user_cares.find_by(id: user_care_params[:id])
+        user_care.destroy if user_care
+      elsif user_care_params[:user_id].present?
+        # If user_id is present, update or create as necessary
+        user_care = @care.user_cares.find_or_initialize_by(id: user_care_params[:id])
+        user_care.user_id = user_care_params[:user_id]
+        user_care.save
+      end
     end
-  end
 
-  redirect_to new_care_path, notice: 'Garde modifiée avec succès.'
-rescue ActiveRecord::RecordInvalid => e
-  flash.now[:error] = e.message
-  render :edit
+    redirect_to new_care_path, notice: 'Garde modifiée avec succès.'
+    # rescue ActiveRecord::RecordInvalid => e
+    #   flash.now[:error] = e.message
+    #   render :edit
   end
 
   def destroy_month

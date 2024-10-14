@@ -1,7 +1,8 @@
 <div class="edit-page-container">
-  <div class="edit-care-container">
     <h3><%= @care.day %></h3>
-    <%= simple_form_for @care do |f| %>
+    <div class="form-container">
+    <%= simple_form_for @care, url: care_path(@care), method: :patch do |f| %>
+    <div class="edit-care-container">
       <% 6.times do |index| %>
         <div class="form-card">
           <% case index %>
@@ -75,4 +76,5 @@
       </div>
       <%= f.submit "Valider", class: "btn" %>
     <% end %>
+    </div>
 </div>
