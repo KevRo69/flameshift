@@ -1,3 +1,27 @@
+<div class="user-container">
+  <div class="cares">
+      <div id="flatpickr-show">
+        <%= simple_form_for @care do |f| %>
+            <%= f.input :day,
+                      as: :string,
+                      label: "Mes gardes du mois en cours",
+                      input_html: { data: { controller: "datepicker-show-care-actual", datepicker_show_care_actual_cares_value: @cares_month } } %>
+          <% end %>
+      </div>
+      <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
+    </div>
+
+  <div class="cares">
+      <div id="flatpickr-show">
+        <%= simple_form_for @care do |f| %>
+            <%= f.input :day,
+                      as: :string,
+                      label: "Mes gardes du mois suivant",
+                      input_html: { data: { controller: "datepicker-show-care", datepicker_show_care_cares_value: @cares_next } } %>
+          <% end %>
+      </div>
+      <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today + 1.months, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
+    </div>
 
   <% if @availabilities_next.empty? %>
     <div class="availabilities">
@@ -22,3 +46,4 @@
       <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
     </div>
   <% end %>
+</div>
