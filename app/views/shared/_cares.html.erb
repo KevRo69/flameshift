@@ -17,8 +17,12 @@
           <tr>
             <th><%= role %></th>
             <% @cares_week1.each do |care| %>
-              <td>
-                <% user = care.users[role_index] %>
+              <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
                 <% if user %>
                   <%= user.first_name %> <%= user.last_name %>
                 <% end %>
@@ -46,11 +50,15 @@
           <tr>
             <th><%= role %></th>
             <% @cares_week2.each do |care| %>
-              <td>
-                <% user = care.users[role_index] %>
-                <% if user %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
+            <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user %>
+                <%= user.first_name %> <%= user.last_name %>
+              <% end %>
               </td>
             <% end %>
           </tr>
@@ -75,11 +83,15 @@
           <tr>
             <th><%= role %></th>
             <% @cares_week3.each do |care| %>
-              <td>
-                <% user = care.users[role_index] %>
-                <% if user %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
+              <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user %>
+                <%= user.first_name %> <%= user.last_name %>
+              <% end %>
               </td>
             <% end %>
           </tr>
@@ -104,11 +116,15 @@
           <tr>
             <th><%= role %></th>
             <% @cares_week4.each do |care| %>
-              <td>
-                <% user = care.users[role_index] %>
-                <% if user %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
+              <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user %>
+                <%= user.first_name %> <%= user.last_name %>
+              <% end %>
               </td>
             <% end %>
           </tr>
@@ -137,11 +153,15 @@
           <tr>
             <th><%= role %></th>
             <% @cares_week5.each do |care| %>
-              <td>
-                <% user = care.users[role_index] %>
-                <% if user %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
+              <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user %>
+                <%= user.first_name %> <%= user.last_name %>
+              <% end %>
               </td>
             <% end %>
             <% (7 - @cares_week5.size).times do %>
