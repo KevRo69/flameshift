@@ -3,6 +3,17 @@ class CaresController < ApplicationController
   def index
     @cares = Care.all
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
+    @users = User.all
+    @month = I18n.t('date.month_names').index(params[:month].capitalize)
+    @cares_data = @users.each_with_object({}) do |user, hash|
+      next if user.first_name == "/"
+      monthly_cares = user.cares.where("EXTRACT(MONTH FROM day) = ?", @month).count
+      hash[user.id] = {
+        monthly_cares: monthly_cares,
+        saturday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 6).count,
+        sunday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 0).count
+      }
+    end
     # Filter by selected month and year
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer

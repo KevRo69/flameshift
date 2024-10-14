@@ -19,6 +19,8 @@ class PagesController < ApplicationController
       yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", @year).count
       hash[user.id] = {
         yearly_cares: yearly_cares,
+        saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 6).count,
+        sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 0).count
       }
     end
   end
