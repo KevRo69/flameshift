@@ -5,6 +5,17 @@
   flex-direction: column;
 }
 
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-container .btn {
+  margin: 20px;
+}
+
 .edit-form {
   display: flex;
   justify-content: center;
