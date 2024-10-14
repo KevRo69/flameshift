@@ -36,10 +36,29 @@ User.create!(email: "user18@test.fr", password: "123456", first_name: "Aaron", l
 
 puts "Users created!"
 
+puts "Creating cares for October..."
+
+31.times do |i|
+  care = Care.new(day: "2024-10-#{i + 1}")
+  user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+  user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+  user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+  care.users << User.where(COD_1: "1").sample
+  care.users << User.where(CATE: "1").sample
+  care.users << user_ce
+  care.users << user_eq
+  care.users << user_sap
+  care.users << User.where(STG: "1").sample
+  care.save
+end
+
+puts "Cares for October created!"
+
 puts "Creating availabilities..."
 
 User.all.each do |user|
-  rand(100).times do
+  rand(300).times do
     random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
     user.availabilties.create!(day: random_date)
   end
