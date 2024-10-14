@@ -68,7 +68,7 @@
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_stg, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                         label: "Sélectionner une autre personne",
-                        include_blank: true, class: "users-dropdown" %>
+                        class: "users-dropdown" %>
               <% end %>
           <% end %>
         </div>

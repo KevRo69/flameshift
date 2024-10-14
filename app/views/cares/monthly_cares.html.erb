@@ -1,23 +1,30 @@
-<% if @cares_next.empty? %>
-  <div class="center-btn">
-    <%= simple_form_for @care do |f| %>
-      <%= f.submit "Générer les gardes de #{@month}", class: "btn" %>
-    <% end %>
+<div data-controller="sort-cares" class="filters">
+  <div class="filter">
+    <select id="month" name="month" data-action="change->sort-cares#updateCares" data-sort-cares-target="month">
+      <% I18n.t('date.month_names').each_with_index do |month_name, index| %>
+        <% next if month_name.nil? %>
+        <option value="<%= month_name.downcase %>" <%= 'selected' if month_name.downcase == params[:month] %>>
+          <%= month_name %>
+        </option>
+      <% end %>
+    </select>
   </div>
-<% else %>
-  <div class="center-btn">
-    <%= link_to "Supprimer les gardes générées",
-      cares_destroy_month_path,
-      class: "btn",
-      data: {turbo_method: :delete, turbo_confirm: "Etes-vous sûr?"}
-    %>
+
+  <div class="filter">
+    <select id="year" name="year" data-action="change->sort-cares#updateCares" data-sort-cares-target="year">
+      <% (2024..2100).each do |year| %>
+        <option value="<%= year %>" <%= 'selected' if year.to_s == params[:year] %>>
+          <%= year %>
+        </option>
+      <% end %>
+    </select>
   </div>
-<% end %>
-<% if !(@cares_missing.empty?) %>
-  <div class="cards-container">
+</div>
+
+<div class="cards-container">
     <h2>Gardes à compléter</h2>
     <div class="care-cards">
-      <% @cares_missing.each do |care| %>
+      <% @cares.each do |care| %>
         <%= link_to care_path(care) do %>
           <div class="care-card">
             <h3><%= care.day.strftime('%d-%m-%Y') %></h3>
@@ -45,6 +52,3 @@
       <% end %>
     </div>
   </div>
-<% elsif !(@cares_next.empty?) %>
-  <h2 class= "m-3">Toutes les gardes ont été vérifiées.</h2>
-<% end %>

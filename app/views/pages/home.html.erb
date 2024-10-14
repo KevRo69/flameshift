@@ -7,6 +7,8 @@
       <tr>
         <th>Nom</th>
         <th>Nombre de gardes</th>
+        <th>Nombre de samedis</th>
+        <th>Nombre de dimanches</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +17,8 @@
         <tr>
           <td><%= user.first_name %> <%= user.last_name %></td>
           <td><%= @cares_data[user.id][:yearly_cares] %></td>
+          <td><%= @cares_data[user.id][:saturday_cares] %></td>
+          <td><%= @cares_data[user.id][:sunday_cares] %></td>
         </tr>
       <% end %>
     <% end %>

@@ -1,8 +1,20 @@
 class CaresController < ApplicationController
   before_action :find_care, only: [:show, :edit, :update]
+
   def index
     @cares = Care.all
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
+    @users = User.all
+    @month = I18n.t('date.month_names').index(params[:month].capitalize)
+    @cares_data = @users.each_with_object({}) do |user, hash|
+      next if user.first_name == "/"
+      monthly_cares = user.cares.where("EXTRACT(MONTH FROM day) = ?", @month).count
+      hash[user.id] = {
+        monthly_cares: monthly_cares,
+        saturday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 6).count,
+        sunday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 0).count
+      }
+    end
     # Filter by selected month and year
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
@@ -30,6 +42,10 @@ class CaresController < ApplicationController
       if care.users.where(first_name: "/").count.zero?
         true
       elsif care.users.where(first_name: "/").count == 1 && care.users.last.first_name == "/"
+        true
+      elsif care.users.where(first_name: "/").count == 1 && care.users[-2].first_name == "/"
+        true
+      elsif care.users.where(first_name: "/").count == 2 && care.users.last.first_name == "/" && care.users[-2].first_name == "/"
         true
       else
         false
@@ -129,6 +145,30 @@ class CaresController < ApplicationController
       care.destroy
     end
     redirect_to new_care_path, status: :see_other
+  end
+
+  def monthly_cares
+    @user = current_user
+    @cares = @user.cares
+    # Filter by selected month and year
+    if params[:month].present? && params[:year].present?
+      month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
+      year = params[:year].to_i
+      date = Date.new(year, month, 1)
+      @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
+    end
+  end
+
+  def modify_cares
+    @user = current_user
+    @cares = Care.all
+    # Filter by selected month and year
+    if params[:month].present? && params[:year].present?
+      month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
+      year = params[:year].to_i
+      date = Date.new(year, month, 1)
+      @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
+    end
   end
 
   private

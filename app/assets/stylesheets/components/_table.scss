@@ -33,8 +33,13 @@ tbody tr:nth-child(even) {
   background-color: #ffb0b0; /* Light grey for alternating rows */
 }
 
-tbody tr:hover {
-  background-color: $red-light; /* Light hover effect on rows */
+tbody td:hover {
+  background-color: $red-light;
+}
+
+td.active {
+  background-color: green;
+  color: white;
 }
 
 

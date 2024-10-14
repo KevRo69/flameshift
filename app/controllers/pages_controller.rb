@@ -2,8 +2,10 @@ class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: :home
 
   def home
-    start_of_month = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months : Date.today.beginning_of_month + 2.months
-    end_of_month = Date.today.day < 16 ? Date.today.end_of_month + 1.months : Date.today.end_of_month + 2.months
+    # start_of_month = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months : Date.today.beginning_of_month + 2.months
+    # end_of_month = Date.today.day < 16 ? Date.today.end_of_month + 1.months : Date.today.end_of_month + 2.months
+    start_of_month = Date.today.beginning_of_month
+    end_of_month = Date.today.end_of_month
     days = (start_of_month..end_of_month).to_a
     @cares = Care.where(day: days)
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
@@ -19,6 +21,8 @@ class PagesController < ApplicationController
       yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", @year).count
       hash[user.id] = {
         yearly_cares: yearly_cares,
+        saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 6).count,
+        sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 0).count
       }
     end
   end

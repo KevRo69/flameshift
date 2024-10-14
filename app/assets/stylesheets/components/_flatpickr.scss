@@ -15,6 +15,18 @@
   margin: 20px;
 }
 
+.cares {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+
+.cares .flatpickr-day.selected {
+  background-color: green !important;
+}
+
 #flatpickr-show {
   pointer-events: none;
 }
