@@ -31,6 +31,10 @@ class CaresController < ApplicationController
         true
       elsif care.users.where(first_name: "/").count == 1 && care.users.last.first_name == "/"
         true
+      elsif care.users.where(first_name: "/").count == 1 && care.users[-2].first_name == "/"
+        true
+      elsif care.users.where(first_name: "/").count == 2 && care.users.last.first_name == "/" && care.users[-2].first_name == "/"
+        true
       else
         false
       end
