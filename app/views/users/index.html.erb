@@ -1,0 +1,32 @@
+<div class="modify-all-users">
+  <% @users.each do |user| %>
+    <% unless user.email == "nil" %>
+      <div class="edit-form-container">
+        <div class="edit-form">
+          <h2><%= user.first_name %></h2>
+          <h2 class="mb-3"><%= user.last_name %></h2>
+          <%= simple_form_for user, url: user_path(user), html: { method: :put } do |f| %>
+            <div class="form-inputs" data-controller="checkbox">
+              <%= f.input :COD_1, label: "COD1" %>
+              <%= f.input :CATE, label: "CATE" %>
+              <%= f.input :CA1E, label: "CA1E" %>
+              <%= f.input :CE_INC, label: "CE_INC",
+                          input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
+              <%= f.input :EQ_INC, label: "EQ_INC",
+                          input_html: { id: "eq_inc", data: { checkbox_target: "eqInc", action: "change->checkbox#preventIndependentCheck" }} %>
+              <%= f.input :EQ_SAP, label: "EQ_SAP",
+                          input_html: { id: "eq_sap", data: { checkbox_target: "eqSap", action: "change->checkbox#preventIndependentCheck" }} %>
+              <%= f.input :STG,
+                          label: "STG",
+                          autofocus: true%>
+              <%= f.input :validator, label: "Validateur" %>
+            </div>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, "Mettre à jour", class: "mb-3" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

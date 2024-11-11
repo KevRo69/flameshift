@@ -13,7 +13,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Accueil", root_path, class: "dropdown-item" %>
-              <%= link_to "Profil", user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Mes dispos / gardes", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Toutes les gardes", cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "dropdown-item" %>
               <% if current_user.validator %>
                 <%= link_to "Générer les gardes", new_care_path, class: "dropdown-item" %>
