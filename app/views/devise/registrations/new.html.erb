@@ -19,13 +19,13 @@
       <%= f.input :CATE,
                   label: "CATE",
                   autofocus: true%>
-      <%= f.input :CATE,
+      <%= f.input :CA1E,
                   label: "CA1E",
                   autofocus: true%>
       <%= f.input :CE_INC,
-                      label: "CE_INC",
-                      input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } },
-                      autofocus: true%>
+                  label: "CE_INC",
+                  input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } },
+                  autofocus: true%>
       <%= f.input :EQ_INC,
                   label: "EQ_INC",
                   input_html: { id: "eq_inc", data: { checkbox_target: "eqInc", action: "change->checkbox#preventIndependentCheck" }},
@@ -33,6 +33,9 @@
       <%= f.input :EQ_SAP,
                   label: "EQ_SAP",
                   input_html: { id: "eq_sap", data: { checkbox_target: "eqSap", action: "change->checkbox#preventIndependentCheck" } },
+                  autofocus: true%>
+      <%= f.input :STG,
+                  label: "STG",
                   autofocus: true%>
       <%= f.input :validator,
                   label: "Validateur ?",

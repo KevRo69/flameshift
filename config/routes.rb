@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :availabilties, only: [:index, :edit, :create]
   end
 
+  resources :users, only: [:index, :update]
+
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
 
   get 'monthly_cares', to: 'cares#monthly_cares'

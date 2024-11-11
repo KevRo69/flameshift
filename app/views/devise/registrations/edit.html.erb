@@ -11,31 +11,6 @@
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
           <% end %>
 
-          <%= f.input :COD_1,
-                      label: "COD1",
-                      autofocus: true%>
-          <%= f.input :CATE,
-                      label: "CATE",
-                      autofocus: true%>
-          <%= f.input :CATE,
-                      label: "CA1E",
-                      autofocus: true%>
-          <%= f.input :CE_INC,
-                      label: "CE_INC",
-                      input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } },
-                      autofocus: true%>
-          <%= f.input :EQ_INC,
-                      label: "EQ_INC",
-                      input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }},
-                      autofocus: true%>
-          <%= f.input :EQ_SAP,
-                      label: "EQ_SAP",
-                      input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" } },
-                      autofocus: true%>
-          <%= f.input :validator,
-                      label: "Validateur",
-                      autofocus: true%>
-
           <%= f.input :password,
                       hint: "Laissez vide si vous ne voulez pas le changer",
                       required: false,
