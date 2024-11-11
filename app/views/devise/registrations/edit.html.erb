@@ -4,7 +4,7 @@
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs">
+        <div class="form-inputs" data-controller="checkbox">
           <%= f.input :email, label: "Identifiant", required: true, autofocus: true %>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -22,12 +22,15 @@
                       autofocus: true%>
           <%= f.input :CE_INC,
                       label: "CE_INC",
+                      input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } },
                       autofocus: true%>
           <%= f.input :EQ_INC,
                       label: "EQ_INC",
+                      input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }},
                       autofocus: true%>
           <%= f.input :EQ_SAP,
                       label: "EQ_SAP",
+                      input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" } },
                       autofocus: true%>
           <%= f.input :validator,
                       label: "Validateur",
