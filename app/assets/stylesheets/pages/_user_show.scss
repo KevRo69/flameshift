@@ -4,3 +4,19 @@
   align-items: start;
   flex-direction: row;
 }
+
+.user-container-rules {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 16px;
+}
+
+
+@media (max-width: 400px) {
+  .user-container {
+    flex-direction: column;
+  }
+
+}

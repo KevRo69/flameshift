@@ -1,49 +1,61 @@
-<div class="user-container">
-  <div class="cares">
-      <div id="flatpickr-show">
-        <%= simple_form_for @care do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Mes gardes du mois en cours",
-                      input_html: { data: { controller: "datepicker-show-care-actual", datepicker_show_care_actual_cares_value: @cares_month } } %>
-          <% end %>
+<div class="user-container-rules">
+  <div id="rules">
+    <h2>Règles</h2>
+    <p>Il est obligatoire de noter le maximum de disponibilité sur le mois, le service planification s'occupe de répartir aux mieux les gardes de chacun et chacune.</p>
+    <p>Obligation d'assurer <strong>AU MINIMUM</strong> un week-end complet ou un samedi et un dimanche (tranche de 24h de 07h à 07h00). </p>
+    <p>Lorsque vous êtes noté <strong>DISPONIBLE</strong>, vous avez l'obligation d'assurer le créneau de votre garde complet : Nuit : 19h00-07h00 / Samedi et Dimanche 07h00 à 07h00. </p>
+    <p>En cas d'absence sur un créneau horaire il est <strong>IMPERATIF</strong> de se faire remplacer par la compétence manquante et de prévenir son SOG (Sous-officier de garde). </p>
+    <p>Les jours fériés sont imposés et répartis sur l'année avec obligation d'assurer une POJ INC (CATE / COD 1 / CE / EQ), la gestion de la garde sera assurée par le SOG de l'équipe. </p>
+    <p>Vous devez inscrire vos indisponibilités au maximum avant le 15 mois. </p>
+  </div>
+  <div class="user-container">
+    <div class="cares">
+        <div id="flatpickr-show">
+          <%= simple_form_for @care do |f| %>
+              <%= f.input :day,
+                        as: :string,
+                        label: "Mes gardes du mois en cours",
+                        input_html: { data: { controller: "datepicker-show-care-actual", datepicker_show_care_actual_cares_value: @cares_month } } %>
+            <% end %>
+        </div>
+        <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
       </div>
-      <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
-    </div>
 
-  <div class="cares">
-      <div id="flatpickr-show">
-        <%= simple_form_for @care do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Mes gardes du mois suivant",
-                      input_html: { data: { controller: "datepicker-show-care", datepicker_show_care_cares_value: @cares_next } } %>
-          <% end %>
+    <div class="cares">
+        <div id="flatpickr-show">
+          <%= simple_form_for @care do |f| %>
+              <%= f.input :day,
+                        as: :string,
+                        label: "Mes gardes du mois suivant",
+                        input_html: { data: { controller: "datepicker-show-care", datepicker_show_care_cares_value: @cares_next } } %>
+            <% end %>
+        </div>
+        <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today + 1.months, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
       </div>
-      <%= link_to "Voir le détail", monthly_cares_path(month: I18n.l(Date.today + 1.months, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "btn" %>
-    </div>
 
-  <% if @availabilities_next.empty? %>
-    <div class="availabilities">
-      <%= simple_form_for [@user, @availability] do |f| %>
-        <%= f.input :day,
-                  as: :string,
-                  label: "Disponibilités à remplir avant le 15",
-                  input_html: { data: { controller: "datepicker" } } %>
-        <%= f.submit "Valider", class: "btn" %>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="availabilities">
-      <div id="flatpickr-show">
+    <% if @availabilities_next.empty? %>
+      <div class="availabilities">
         <%= simple_form_for [@user, @availability] do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Disponibilités pour le mois suivant",
-                      input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
-          <% end %>
+          <%= f.input :day,
+                    as: :string,
+                    label: "Disponibilités à remplir avant le 15",
+                    input_html: { data: { controller: "datepicker" } } %>
+          <%= f.submit "Valider", class: "btn" %>
+        <% end %>
       </div>
-      <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
-    </div>
-  <% end %>
+    <% else %>
+      <div class="availabilities">
+        <div id="flatpickr-show">
+          <%= simple_form_for [@user, @availability] do |f| %>
+              <%= f.input :day,
+                        as: :string,
+                        label: "Disponibilités pour le mois suivant",
+                        input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
+            <% end %>
+        </div>
+        <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
+      </div>
+    <% end %>
+  </div>
+
 </div>
