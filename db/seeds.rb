@@ -39,7 +39,7 @@ puts "Users created!"
 puts "Creating cares for October..."
 
 31.times do |i|
-  care = Care.new(day: "2024-10-#{i + 1}")
+  care = Care.new(day: "2024-11-#{i + 1}")
   user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
   user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
   user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
@@ -53,13 +53,13 @@ puts "Creating cares for October..."
   care.save
 end
 
-puts "Cares for October created!"
+puts "Cares for November created!"
 
 puts "Creating availabilities..."
 
 User.all.each do |user|
   rand(300).times do
-    random_date = Faker::Date.between(from: '2024-11-01', to: '2024-11-30')
+    random_date = Faker::Date.between(from: '2024-12-01', to: '2024-12-31')
     user.availabilties.create!(day: random_date)
   end
   # Find days that have duplicates

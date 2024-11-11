@@ -1,5 +1,6 @@
 class CaresController < ApplicationController
   before_action :find_care, only: [:show, :edit, :update]
+  before_action :authorize_user, only: [:new, :create, :edit, :update, :destroy_month, :monthly_cares, :modify_cares]
 
   def index
     @cares = Care.all
@@ -248,6 +249,12 @@ class CaresController < ApplicationController
       # Prority to users with less cares
       index_min = users_cares[:cares].each_with_index.min[1]
       return users_cares[:users][index_min]
+    end
+  end
+
+  def authorize_user
+    unless current_user&.validator?
+      redirect_to root_path, alert: "Vous n'êtes pas autorisé à accéder à cette page."
     end
   end
 end
