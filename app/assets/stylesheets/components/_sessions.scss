@@ -1,0 +1,29 @@
+.connect-card {
+  background-color: $red-fire;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  margin: 16px;
+}
+
+.links-connect {
+  background-color: $red-fire;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 320px;
+  margin: 16px;
+}
+
+.links-connect a {
+  color: white;
+}
+
+.links-connect a:hover {
+  color: rgb(0, 0, 0);
+}
