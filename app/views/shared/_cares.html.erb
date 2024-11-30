@@ -1,5 +1,5 @@
 <% unless @cares_week1.empty? %>
-  <div class="table-container">
+  <div class="table-container cares-table">
     <table>
       <!-- Table Header -->
       <thead>
@@ -23,9 +23,9 @@
               <% else %>
                 <td>
               <% end %>
-                <% if user %>
-                  <%= user.first_name %> <%= user.last_name %>
-                <% end %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
+              <% end %>
               </td>
             <% end %>
           </tr>
@@ -56,8 +56,8 @@
               <% else %>
                 <td>
               <% end %>
-              <% if user %>
-                <%= user.first_name %> <%= user.last_name %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
               <% end %>
               </td>
             <% end %>
@@ -89,8 +89,8 @@
               <% else %>
                 <td>
               <% end %>
-              <% if user %>
-                <%= user.first_name %> <%= user.last_name %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
               <% end %>
               </td>
             <% end %>
@@ -122,8 +122,8 @@
               <% else %>
                 <td>
               <% end %>
-              <% if user %>
-                <%= user.first_name %> <%= user.last_name %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
               <% end %>
               </td>
             <% end %>
@@ -141,7 +141,7 @@
           <% @cares_week5.each do |care| %>
             <th><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
-          <% (7 - @cares_week5.size).times do %>
+          <% (3 - @cares_week5.size).times do %>
             <th></th>
           <% end %>
         </tr>
@@ -159,12 +159,12 @@
               <% else %>
                 <td>
               <% end %>
-              <% if user %>
-                <%= user.first_name %> <%= user.last_name %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
               <% end %>
               </td>
             <% end %>
-            <% (7 - @cares_week5.size).times do %>
+            <% (3 - @cares_week5.size).times do %>
               <td></td>
             <% end %>
           </tr>

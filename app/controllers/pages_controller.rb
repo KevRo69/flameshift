@@ -10,10 +10,15 @@ class PagesController < ApplicationController
     @cares = Care.where(day: days)
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
     @cares_week1 = Care.where(day: (start_of_month)..(start_of_month + 6.days))
+                        .select { |care| [5, 6, 0].include?(care.day.wday) }
     @cares_week2 = Care.where(day: (start_of_month + 7.days)..(start_of_month + 13.days))
+                        .select { |care| [5, 6, 0].include?(care.day.wday) }
     @cares_week3 = Care.where(day: (start_of_month + 14.days)..(start_of_month + 20.days))
+                        .select { |care| [5, 6, 0].include?(care.day.wday) }
     @cares_week4 = Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days))
-    @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (start_of_month + 28.days)..(end_of_month)) : []
+                        .select { |care| [5, 6, 0].include?(care.day.wday) }
+    @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (start_of_month + 28.days)..(end_of_month))
+                                                                  .select { |care| [5, 6, 0].include?(care.day.wday) } : []
     @users = User.all
     @year = Date.today.year
     @cares_data = @users.each_with_object({}) do |user, hash|

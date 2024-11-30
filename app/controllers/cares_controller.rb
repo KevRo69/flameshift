@@ -23,10 +23,15 @@ class CaresController < ApplicationController
       date = Date.new(year, month, 1)
       @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
       @cares_week1 = @cares.where(day: (date)..(date + 6.days))
+                            .select { |care| [5, 6, 0].include?(care.day.wday) }
       @cares_week2 = @cares.where(day: (date + 7.days)..(date + 13.days))
+                            .select { |care| [5, 6, 0].include?(care.day.wday) }
       @cares_week3 = @cares.where(day: (date + 14.days)..(date + 20.days))
+                            .select { |care| [5, 6, 0].include?(care.day.wday) }
       @cares_week4 = @cares.where(day: (date + 21.days)..(date + 27.days))
-      @cares_week5 = date + 28.days < date.end_of_month ? @cares.where(day: (date + 28.days)..(date.end_of_month)) : []
+                            .select { |care| [5, 6, 0].include?(care.day.wday) }
+      @cares_week5 = date + 28.days < date.end_of_month ? @cares.where(day: (date + 28.days)..(date.end_of_month))
+                                                                  .select { |care| [5, 6, 0].include?(care.day.wday) } : []
     end
   end
 
@@ -58,7 +63,7 @@ class CaresController < ApplicationController
     start_of_month = Date.today.beginning_of_month + 1.months
     end_of_month = Date.today.end_of_month + 1.months
     usernil = User.find_by(first_name: "/")
-    days = (start_of_month..end_of_month).to_a
+    days = (start_of_month..end_of_month).to_a.select { |day| [5, 6, 0].include?(day.wday) }
     days.each do |day|
       @care = Care.new(day: day)
       user_cod = weight_care(day, get_users_cod(day))
