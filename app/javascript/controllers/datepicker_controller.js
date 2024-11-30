@@ -46,6 +46,12 @@ export default class extends Controller {
         dateFormat: "d-m-Y",
         minDate: minDate,
         maxDate: maxDate,
+        "disable": [
+        function(date) {
+            // return true to disable
+            return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);
+            }
+        ],
         "locale": {
         "firstDayOfWeek": 1 // start week on Monday
         }
@@ -59,5 +65,9 @@ export default class extends Controller {
 
     // Check if the month of the date is still February (month 1)
     return date.getMonth() === 1;
+  }
+
+  disconnect() {
+    this.element._flatpickr.destroy();
   }
 }

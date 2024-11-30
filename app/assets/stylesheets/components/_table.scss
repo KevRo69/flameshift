@@ -2,6 +2,7 @@ table {
   width: 100%; /* Table takes full width of the container */
   border-collapse: collapse; /* Collapse borders for cleaner look */
   margin: 20px 0; /* Add some space above and below the table */
+  table-layout: fixed;
 }
 
 
@@ -9,8 +10,12 @@ thead {
   background-color: #f4f4f4; /* Light grey background for the header */
 }
 
-thead th {
-  width: 115px;
+
+.cares-table th, td {
+  border: 1px solid #ddd; /* Thin border around cells */
+  padding: 12px 15px; /* Padding inside cells */
+  text-align: center; /* Left-align text in all cells */
+  overflow: hidden; /* Hide the overflow */
 }
 
 th, td {
@@ -49,5 +54,20 @@ td.active {
 }
 
 #cares-year-table {
-  width: 40%;
+  width: 650px;
+}
+
+@media (max-width: 768px) {
+  #cares-year-table {
+    width: 100%;
+    th, td {
+      overflow: hidden; /* Hide the overflow */
+      text-overflow: ellipsis;
+    }
+  }
+
+  th, td {
+    padding: 10px 4px; /* Smaller padding for smaller screens */
+  }
+
 }

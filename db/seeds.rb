@@ -19,7 +19,6 @@ User.create!(email: "denisd", password: "123456", first_name: "Denis", last_name
 User.create!(email: "davidq", password: "123456", first_name: "David", last_name: "Quibel", CATE: "1", COD_1: "1", validator: "1", team_id: Team.where(number: 2)[0].id)
 User.create!(email: "franckc", password: "123456", first_name: "Franck", last_name: "Combe", CATE: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
 User.create!(email: "stephanej", password: "123456", first_name: "Stéphane", last_name: "Janaudy", CA1E: "1", team_id: Team.where(number: 3)[0].id)
-User.create!(email: "raphaelp", password: "123456", first_name: "Raphael", last_name: "Poulin", COD_1: "1", CA1E: "1", team_id: Team.where(number: 2)[0].id)
 User.create!(email: "nicolasd", password: "123456", first_name: "Nicolas", last_name: "Debost", CE_INC: "1", EQ_INC: "1", EQ_SAP: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
 User.create!(email: "alexandreb", password: "123456", first_name: "Alexandre", last_name: "Barbier", CE_INC: "1", EQ_INC: "1", EQ_SAP: "1", COD_1: "1", team_id: Team.where(number: 3)[0].id)
 User.create!(email: "megganed", password: "123456", first_name: "Meggane", last_name: "Devillard", EQ_INC: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
@@ -36,7 +35,7 @@ User.create!(email: "aaronh", password: "123456", first_name: "Aaron", last_name
 
 puts "Users created!"
 
-puts "Creating cares for October..."
+puts "Creating cares for November..."
 
 31.times do |i|
   care = Care.new(day: "2024-11-#{i + 1}")
@@ -58,8 +57,26 @@ puts "Cares for November created!"
 puts "Creating availabilities..."
 
 User.all.each do |user|
-  rand(300).times do
-    random_date = Faker::Date.between(from: '2024-12-01', to: '2024-12-31')
+  rand(100).times do
+    random_date = Faker::Date.on_day_of_week_between(day: [:friday, :saturday, :sunday], from: '2024-12-01', to: '2024-12-31')
+    user.availabilties.create!(day: random_date)
+  end
+  # Find days that have duplicates
+  user.availabilties.group(:day).having('COUNT(*) > 1').pluck(:day).each do |day|
+    # Get all availabilities for that day, sorted by ID
+    duplicates = user.availabilties.where(day: day).order(:id)
+    # Keep the first one, delete the rest
+    duplicates.offset(1).delete_all
+  end
+end
+
+puts "Availabilities created!"
+
+puts "Creating availabilities..."
+
+User.all.each do |user|
+  rand(100).times do
+    random_date = Faker::Date.on_day_of_week_between(day: [:friday, :saturday, :sunday], from: '2025-01-01', to: '2025-01-31')
     user.availabilties.create!(day: random_date)
   end
   # Find days that have duplicates
