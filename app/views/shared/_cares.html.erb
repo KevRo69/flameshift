@@ -5,6 +5,9 @@
       <thead>
         <tr>
           <th></th>
+          <% (3-@cares_week1.size).times do %>
+            <th></th>
+          <% end %>
           <% @cares_week1.each do |care| %>
             <th><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
@@ -16,6 +19,9 @@
         <% @roles.each_with_index do |role, role_index| %>
           <tr>
             <th><%= role %></th>
+            <% (3-@cares_week1.size).times do %>
+              <td></td>
+            <% end %>
             <% @cares_week1.each do |care| %>
               <% user = care.users[role_index] %>
               <% if user == current_user %>
