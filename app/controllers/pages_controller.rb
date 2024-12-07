@@ -2,8 +2,6 @@ class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: :home
 
   def home
-    # start_of_month = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months : Date.today.beginning_of_month + 2.months
-    # end_of_month = Date.today.day < 16 ? Date.today.end_of_month + 1.months : Date.today.end_of_month + 2.months
     start_of_month = Date.today.beginning_of_month
     end_of_month = Date.today.end_of_month
     days = (start_of_month..end_of_month).to_a
@@ -11,16 +9,25 @@ class PagesController < ApplicationController
     params[:week] = @current_week.to_s if params[:week].nil?
     @cares = Care.where(day: days)
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
-    @cares_week1 = Care.where(day: (start_of_month)..(start_of_month + 6.days))
-                        .select { |care| [5, 6, 0].include?(care.day.wday) }
-    @cares_week2 = Care.where(day: (start_of_month + 7.days)..(start_of_month + 13.days))
-                        .select { |care| [5, 6, 0].include?(care.day.wday) }
-    @cares_week3 = Care.where(day: (start_of_month + 14.days)..(start_of_month + 20.days))
-                        .select { |care| [5, 6, 0].include?(care.day.wday) }
-    @cares_week4 = Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days))
-                        .select { |care| [5, 6, 0].include?(care.day.wday) }
-    @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (start_of_month + 28.days)..(end_of_month))
-                                                                  .select { |care| [5, 6, 0].include?(care.day.wday) } : []
+    if start_of_month.wday != 0
+      first_sunday = start_of_month.next_occurring(:sunday)
+    elsif start_of_month.wday == 0
+      first_sunday = start_of_month
+    end
+    if start_of_month.wday != 5
+      first_friday = start_of_month.next_occurring(:friday)
+    elsif start_of_month.wday == 5
+      first_friday = start_of_month
+    end
+
+    first_friday = first_sunday if first_friday > first_sunday
+    next_friday = first_sunday.next_occurring(:friday)
+
+    @cares_week1 = Care.where(day: (first_friday)..(first_sunday))
+    @cares_week2 = Care.where(day: (next_friday)..(first_sunday + 7.days))
+    @cares_week3 = Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days))
+    @cares_week4 = Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days))
+    @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (next_friday + 21.days)..(first_sunday + 28.days)) : []
     @users = User.all
     @year = Date.today.year
     @weeks = ["Semaine 1", "Semaine 2", "Semaine 3", "Semaine 4"]

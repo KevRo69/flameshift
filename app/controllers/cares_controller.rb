@@ -16,22 +16,34 @@ class CaresController < ApplicationController
         sunday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 0).count
       }
     end
+
+
     # Filter by selected month and year
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
       year = params[:year].to_i
       date = Date.new(year, month, 1)
       @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
-      @cares_week1 = @cares.where(day: (date)..(date + 6.days))
-                            .select { |care| [5, 6, 0].include?(care.day.wday) }
-      @cares_week2 = @cares.where(day: (date + 7.days)..(date + 13.days))
-                            .select { |care| [5, 6, 0].include?(care.day.wday) }
-      @cares_week3 = @cares.where(day: (date + 14.days)..(date + 20.days))
-                            .select { |care| [5, 6, 0].include?(care.day.wday) }
-      @cares_week4 = @cares.where(day: (date + 21.days)..(date + 27.days))
-                            .select { |care| [5, 6, 0].include?(care.day.wday) }
-      @cares_week5 = date + 28.days < date.end_of_month ? @cares.where(day: (date + 28.days)..(date.end_of_month))
-                                                                  .select { |care| [5, 6, 0].include?(care.day.wday) } : []
+
+      start_of_month = date.beginning_of_month
+      end_of_month = date.end_of_month
+      if start_of_month.wday != 0
+        first_sunday = start_of_month.next_occurring(:sunday)
+      elsif start_of_month.wday == 0
+        first_sunday = start_of_month
+      end
+      if start_of_month.wday != 5
+        first_friday = start_of_month.next_occurring(:friday)
+      elsif start_of_month.wday == 5
+        first_friday = start_of_month
+      end
+      first_friday = first_sunday if first_friday > first_sunday
+      next_friday = first_sunday.next_occurring(:friday)
+      @cares_week1 = Care.where(day: (first_friday)..(first_sunday))
+      @cares_week2 = Care.where(day: (next_friday)..(first_sunday + 7.days))
+      @cares_week3 = Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days))
+      @cares_week4 = Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days))
+      @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(year, month))) : []
     end
   end
 
@@ -178,6 +190,15 @@ class CaresController < ApplicationController
   end
 
   private
+
+
+def last_weekend_day_of_month(year, month)
+  last_day = Date.new(year, month, -1)
+  while ![5, 6, 7].include?(last_day.cwday)
+    last_day -= 1
+  end
+  last_day
+end
 
   def care_params
     params.require(:care).permit(
