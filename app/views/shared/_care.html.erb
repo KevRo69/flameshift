@@ -1,0 +1,42 @@
+<% unless @cares.empty? %>
+  <div class="table-container cares-table">
+    <table>
+      <!-- Table Header -->
+      <thead>
+        <tr>
+          <th></th>
+          <% @cares.each do |care| %>
+            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+          <% end %>
+          <% (3-@cares.size).times do %>
+            <th></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody>
+        <% @roles.each_with_index do |role, role_index| %>
+          <tr>
+            <th><%= role %></th>
+            <% @cares.each do |care| %>
+              <% user = care.users[role_index] %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first %>. <%= user.last_name %>
+              <% end %>
+              </td>
+              <% (3-@cares.size).times do %>
+                <td></td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
