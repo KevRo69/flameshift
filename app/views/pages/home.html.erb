@@ -1,4 +1,18 @@
-<%= render "shared/cares" %>
+<div data-controller="filter-weeks" class="filters">
+  <div class="filter">
+    <select id="month" name="month" data-action="change->filter-weeks#filterWeek" data-filter-weeks-target="week">
+      <% @weeks.each_with_index do |week, index| %>
+        <% number = week.chars.last %>
+        <option value="<%= number %>"
+            <%= 'selected' if number == params[:week] || (params[:week].nil? && number == @current_week) %>>
+          <%= week %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<%= render "shared/care" %>
 
 <div class="table-container">
   <h2>Total des gardes (<%= @year %>)</h2>
