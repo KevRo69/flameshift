@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :availabilties, only: [:index, :edit, :create]
+    get 'availabilties/edit2', to: 'availabilties#edit2'
+    get 'availabilties/edit3', to: 'availabilties#edit3'
   end
+
 
   resources :users, only: [:index, :update]
 

@@ -1,0 +1,9 @@
+<div class="availabilities d-flex align-items-center">
+  <%= simple_form_for [@user, @availability] do |f| %>
+      <%= f.input :day,
+                as: :string,
+                label: "Disponibilités pour #{@month_next2}",
+                input_html: { data: { controller: "datepicker-show2", datepicker_show2_availabilities_value: @availabilities_next_days2 } } %>
+    <%= f.submit "Valider", class: "btn" %>
+  <% end %>
+</div>

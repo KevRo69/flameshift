@@ -54,7 +54,7 @@
                           input_html: { data: { controller: "datepicker-show2", datepicker_show2_availabilities_value: @availabilities_next_days2 } } %>
               <% end %>
           </div>
-          <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
+          <%= link_to "Modifier", user_availabilties_edit2_path(current_user), class: "btn" %>
         </div>
       <% end %>
 
@@ -78,7 +78,7 @@
                           input_html: { data: { controller: "datepicker-show3", datepicker_show3_availabilities_value: @availabilities_next_days3 } } %>
               <% end %>
           </div>
-          <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
+          <%= link_to "Modifier", user_availabilties_edit3_path(current_user), class: "btn" %>
         </div>
       <% end %>
     </div>
