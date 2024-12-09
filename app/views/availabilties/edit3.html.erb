@@ -1,5 +1,5 @@
 <div class="availabilities d-flex align-items-center">
-  <%= simple_form_for [@user, @availability] do |f| %>
+  <%= simple_form_for [@user, @availability], url: user_availabilties_create3_path(@user) do |f| %>
       <%= f.input :day,
                 as: :string,
                 label: "Disponibilités pour #{@month_next3}",
