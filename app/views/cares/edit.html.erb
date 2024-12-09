@@ -23,27 +23,48 @@
           <% case index %>
             <% when 0 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
-                <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
-                <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
-                  <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                        options_from_collection_for_select(@users_cod, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
-                        label: "Sélectionner une autre personne", class: "users-dropdown" %>
-              <% end %>
+              <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
+              <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
+
+              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+                <% @users_cod.each do |user| %>
+                  <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                <% end %>
+                <option value="" disabled>------ EQ INC ------</option>
+                <% @users_eq_inc.reject { |user| @users_cod.include?(user) }.each do |user| %>
+                  <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                <% end %>
+              </select>
+            <% end %>
             <% when 1%>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
-                <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
-                <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
-                  <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                        options_from_collection_for_select(@users_cate, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
-                        label: "Sélectionner une autre personne", class: "users-dropdown" %>
-              <% end %>
+              <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
+              <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
+
+              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+                <% @users_cate.each do |user| %>
+                  <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                <% end %>
+                <option value="" disabled>------ CA1E ------</option>
+                <% @users_ca1e.reject { |user| @users_cate.include?(user) }.each do |user| %>
+                  <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                <% end %>
+              </select>
+            <% end %>
             <% when 2 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
                 <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
                 <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
-                  <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
-                        options_from_collection_for_select(@users_ce_inc, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
-                        label: "Sélectionner une autre personne", class: "users-dropdown" %>
+
+                <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+                  <% @users_ce_inc.each do |user| %>
+                    <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                  <% end %>
+                  <option value="" disabled>------ EQ INC ------</option>
+                  <% @users_eq_inc.reject { |user| @users_ce_inc.include?(user) }.each do |user| %>
+                    <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                  <% end %>
+                </select>
               <% end %>
             <% when 3 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>

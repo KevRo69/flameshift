@@ -122,6 +122,7 @@ class CaresController < ApplicationController
   def edit
     @users_cod = User.where(COD_1:"1")
     @users_cate = User.where(CATE:"1")
+    @users_ca1e = User.where(CA1E:"1")
     @users_ce_inc = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1")
     @users_eq_inc = User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1")
     @users_eq_sap = User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1")
