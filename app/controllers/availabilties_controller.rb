@@ -33,6 +33,56 @@ class AvailabiltiesController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def create2
+    start_of_next = Date.today.day < 16 ? Date.today.beginning_of_month + 2.months : Date.today.beginning_of_month + 3.months
+    end_of_next = Date.today.day < 16 ? Date.today.end_of_month + 2.months : Date.today.end_of_month + 3.months
+    availabilities_next = current_user.availabilties.where(day: (start_of_next)..(end_of_next))
+    avaibilities_next_days = availabilities_next.map { |date| date.day.strftime('%Y-%m-%d') }
+    availabilities = availability_params[:day].split(", ")
+    saturdays = availabilities.select { |day| Date.parse(day).saturday? }
+    sundays = availabilities.select { |day| Date.parse(day).sunday? }
+    @no_weekend = !((saturdays.size > 0 && sundays.size > 0) || (saturdays.size == 0 && sundays.size > 1))
+    days_to_destroy = avaibilities_next_days - availabilities
+    days_to_destroy.each do |day|
+      Availabilty.find_by(day: day, user:current_user).destroy
+    end
+    availabilities.each do |day|
+      if availabilities_next.select { |t| t.day.strftime('%Y-%m-%d') == day }.empty?
+        availability = Availabilty.new(day: day, user: current_user)
+        availability.save
+      end
+    end
+    if @no_weekend
+      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois."
+    end
+    redirect_to user_path(current_user)
+  end
+
+  def create3
+    start_of_next = Date.today.day < 16 ? Date.today.beginning_of_month + 3.months : Date.today.beginning_of_month + 4.months
+    end_of_next = Date.today.day < 16 ? Date.today.end_of_month + 3.months : Date.today.end_of_month + 4.months
+    availabilities_next = current_user.availabilties.where(day: (start_of_next)..(end_of_next))
+    avaibilities_next_days = availabilities_next.map { |date| date.day.strftime('%Y-%m-%d') }
+    availabilities = availability_params[:day].split(", ")
+    saturdays = availabilities.select { |day| Date.parse(day).saturday? }
+    sundays = availabilities.select { |day| Date.parse(day).sunday? }
+    @no_weekend = !((saturdays.size > 0 && sundays.size > 0) || (saturdays.size == 0 && sundays.size > 1))
+    days_to_destroy = avaibilities_next_days - availabilities
+    days_to_destroy.each do |day|
+      Availabilty.find_by(day: day, user:current_user).destroy
+    end
+    availabilities.each do |day|
+      if availabilities_next.select { |t| t.day.strftime('%Y-%m-%d') == day }.empty?
+        availability = Availabilty.new(day: day, user: current_user)
+        availability.save
+      end
+    end
+    if @no_weekend
+      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois."
+    end
+    redirect_to user_path(current_user)
+  end
+
   def edit
     @user = current_user
     @availability = Availabilty.new

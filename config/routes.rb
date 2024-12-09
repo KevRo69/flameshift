@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :availabilties, only: [:index, :edit, :create]
     get 'availabilties/edit2', to: 'availabilties#edit2'
     get 'availabilties/edit3', to: 'availabilties#edit3'
+    post 'availabilties/create2', to: 'availabilties#create2'
+    post 'availabilties/create3', to: 'availabilties#create3'
   end
 
 

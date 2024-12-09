@@ -36,7 +36,7 @@
 
       <% if @availabilities_next2.empty? %>
         <div class="availabilities">
-          <%= simple_form_for [@user, @availability] do |f| %>
+          <%= simple_form_for [@user, @availability], url: user_availabilties_create2_path(@user) do |f| %>
             <%= f.input :day,
                       as: :string,
                       label: "Disponibilités pour #{@month_next2}",
@@ -60,7 +60,7 @@
 
       <% if @availabilities_next3.empty? %>
         <div class="availabilities">
-          <%= simple_form_for [@user, @availability] do |f| %>
+          <%= simple_form_for [@user, @availability], url: user_availabilties_create3_path(@user) do |f| %>
             <%= f.input :day,
                       as: :string,
                       label: "Disponibilités pour #{@month_next3}",
