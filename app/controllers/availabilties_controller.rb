@@ -44,6 +44,30 @@ class AvailabiltiesController < ApplicationController
     @availabilities_next_days = @availabilities_next.map { |date| date.day }
   end
 
+  def edit2
+    @user = current_user
+    @availability = Availabilty.new
+
+    start_of_next2 = Date.today.day < 16 ? Date.today.beginning_of_month + 2.months : Date.today.beginning_of_month + 3.months
+    end_of_next2 = Date.today.day < 16 ? Date.today.end_of_month + 2.months : Date.today.end_of_month + 3.months
+    @month_next2 = I18n.t('date.month_names')[start_of_next2.month]
+
+    @availabilities_next2 = @user.availabilties.where(day: (start_of_next2)..(end_of_next2)).uniq { |t| t.day }.sort_by(&:day)
+    @availabilities_next_days2 = @availabilities_next2.map { |date| date.day }
+  end
+
+  def edit3
+  @user = current_user
+  @availability = Availabilty.new
+
+  start_of_next3 = Date.today.day < 16 ? Date.today.beginning_of_month + 3.months : Date.today.beginning_of_month + 4.months
+  end_of_next3 = Date.today.day < 16 ? Date.today.end_of_month + 3.months : Date.today.end_of_month + 4.months
+  @month_next3 = I18n.t('date.month_names')[start_of_next3.month]
+
+  @availabilities_next3 = @user.availabilties.where(day: (start_of_next3)..(end_of_next3)).uniq { |t| t.day }.sort_by(&:day)
+  @availabilities_next_days3 = @availabilities_next3.map { |date| date.day }
+end
+
   private
 
   def availability_params

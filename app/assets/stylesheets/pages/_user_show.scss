@@ -1,8 +1,8 @@
 .user-container {
   display: flex;
   justify-content: center;
-  align-items: start;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
 }
 
 .user-container-rules {
@@ -13,10 +13,25 @@
   margin: 16px;
 }
 
+.cares-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
 
-@media (max-width: 400px) {
-  .user-container {
+.availabilities-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: row;
+}
+
+@media (max-width: 1050px) {
+  .cares-container {
     flex-direction: column;
   }
-
+  .availabilities-container {
+    flex-direction: column;
+  }
 }
