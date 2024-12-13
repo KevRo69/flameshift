@@ -54,6 +54,25 @@ end
 
 puts "Cares for November created!"
 
+puts "Creating cares for December..."
+
+31.times do |i|
+  care = Care.new(day: "2024-12-#{i + 1}")
+  user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+  user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+  user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+  care.users << User.where(COD_1: "1").sample
+  care.users << User.where(CATE: "1").sample
+  care.users << user_ce
+  care.users << user_eq
+  care.users << user_sap
+  care.users << User.where(STG: "1").sample
+  care.save
+end
+
+puts "Cares for December created!"
+
 puts "Creating availabilities..."
 
 User.all.each do |user|
@@ -72,7 +91,7 @@ end
 
 puts "Availabilities created!"
 
-puts "Creating availabilities..."
+puts "Creating availabilities for January..."
 
 User.all.each do |user|
   rand(100).times do
