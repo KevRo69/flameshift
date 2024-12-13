@@ -53,6 +53,14 @@ class UsersController < ApplicationController
 
     @cares_month = @user.cares.where(day: (start_of_month)..(end_of_month)).uniq { |t| t.day }.sort_by(&:day).map { |date| date.day }
     @cares_next = @user.cares.where(day: (start_of_next_care)..(end_of_next_care)).uniq { |t| t.day }.sort_by(&:day).map { |date| date.day }
+
+    @users_cod = get_number_user_available_per_day("COD_1")
+    @users_cate = get_number_user_available_per_day("CATE")
+    @users_ca1e = get_number_user_available_per_day("CA1E")
+    @users_ce_inc = get_number_user_available_per_day("CE_INC")
+    @users_eq_inc = get_number_user_available_per_day("EQ_INC")
+    @users_eq_sap = get_number_user_available_per_day("EQ_SAP")
+    @users_stg = get_number_user_available_per_day("STG")
   end
 
   private
@@ -67,5 +75,19 @@ class UsersController < ApplicationController
     unless current_user&.validator?
       redirect_to root_path, alert: "Vous n'êtes pas autorisé à accéder à cette page."
     end
+  end
+
+  def get_number_user_available_per_day(type)
+    # create a hash with the number of user available per day for each day
+    users_cod = {}
+    User.where("#{type}": "1").each do |user|
+      user.availabilties.each do |availability|
+        if availability.day >= Date.today
+          users_cod["d#{availability.day.strftime('%Y_%m_%d')}"] = 0 unless users_cod["d#{availability.day.strftime('%Y_%m_%d')}"]
+          users_cod["d#{availability.day.strftime('%Y_%m_%d')}"] += 1
+        end
+      end
+    end
+    users_cod.sort.to_h
   end
 end

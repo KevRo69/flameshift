@@ -92,6 +92,14 @@ class AvailabiltiesController < ApplicationController
 
     @availabilities_next = @user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)
     @availabilities_next_days = @availabilities_next.map { |date| date.day }
+
+    @users_cod = get_number_user_available_per_day("COD_1")
+    @users_cate = get_number_user_available_per_day("CATE")
+    @users_ca1e = get_number_user_available_per_day("CA1E")
+    @users_ce_inc = get_number_user_available_per_day("CE_INC")
+    @users_eq_inc = get_number_user_available_per_day("EQ_INC")
+    @users_eq_sap = get_number_user_available_per_day("EQ_SAP")
+    @users_stg = get_number_user_available_per_day("STG")
   end
 
   def edit2
@@ -104,6 +112,14 @@ class AvailabiltiesController < ApplicationController
 
     @availabilities_next2 = @user.availabilties.where(day: (start_of_next2)..(end_of_next2)).uniq { |t| t.day }.sort_by(&:day)
     @availabilities_next_days2 = @availabilities_next2.map { |date| date.day }
+
+    @users_cod = get_number_user_available_per_day("COD_1")
+    @users_cate = get_number_user_available_per_day("CATE")
+    @users_ca1e = get_number_user_available_per_day("CA1E")
+    @users_ce_inc = get_number_user_available_per_day("CE_INC")
+    @users_eq_inc = get_number_user_available_per_day("EQ_INC")
+    @users_eq_sap = get_number_user_available_per_day("EQ_SAP")
+    @users_stg = get_number_user_available_per_day("STG")
   end
 
   def edit3
@@ -116,11 +132,33 @@ class AvailabiltiesController < ApplicationController
 
   @availabilities_next3 = @user.availabilties.where(day: (start_of_next3)..(end_of_next3)).uniq { |t| t.day }.sort_by(&:day)
   @availabilities_next_days3 = @availabilities_next3.map { |date| date.day }
+
+  @users_cod = get_number_user_available_per_day("COD_1")
+  @users_cate = get_number_user_available_per_day("CATE")
+  @users_ca1e = get_number_user_available_per_day("CA1E")
+  @users_ce_inc = get_number_user_available_per_day("CE_INC")
+  @users_eq_inc = get_number_user_available_per_day("EQ_INC")
+  @users_eq_sap = get_number_user_available_per_day("EQ_SAP")
+  @users_stg = get_number_user_available_per_day("STG")
 end
 
   private
 
   def availability_params
     params.require(:availabilty).permit(:day, :user_id)
+  end
+
+  def get_number_user_available_per_day(type)
+    # create a hash with the number of user available per day for each day
+    users_cod = {}
+    User.where("#{type}": "1").each do |user|
+      user.availabilties.each do |availability|
+        if availability.day >= Date.today
+          users_cod["d#{availability.day.strftime('%Y_%m_%d')}"] = 0 unless users_cod["d#{availability.day.strftime('%Y_%m_%d')}"]
+          users_cod["d#{availability.day.strftime('%Y_%m_%d')}"] += 1
+        end
+      end
+    end
+    users_cod.sort.to_h
   end
 end
