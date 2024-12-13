@@ -3,7 +3,9 @@
       <%= f.input :day,
                 as: :string,
                 label: "Disponibilités pour #{@month_next2}",
-                input_html: { data: { controller: "datepicker-show2", datepicker_show2_availabilities_value: @availabilities_next_days2 } } %>
+                input_html: { data: { controller: "datepicker-show2", datepicker_show2_availabilities_value: @availabilities_next_days2, datepicker_show2_cod_value: @users_cod, datepicker_show2_cate_value: @users_cate,
+                      datepicker_show2_ca1e_value: @users_ca1e, datepicker_show2_ceinc_value: @users_ce_inc, datepicker_show2_eqinc_value: @users_eq_inc, datepicker_show2_eqsap_value: @users_eq_sap,
+                      datepicker_show2_stg_value: @users_stg  } } %>
     <%= f.submit "Valider", class: "btn" %>
   <% end %>
 </div>
