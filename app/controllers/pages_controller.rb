@@ -5,8 +5,6 @@ class PagesController < ApplicationController
     start_of_month = Date.today.beginning_of_month
     end_of_month = Date.today.end_of_month
     days = (start_of_month..end_of_month).to_a
-    @current_week = (Date.today.beginning_of_month.cweek == Date.today.cweek) ? 1 : ((Date.today.beginning_of_week(:monday).day - 1) / 7) + 1
-    params[:week] = @current_week.to_s if params[:week].nil?
     @cares = Care.where(day: days)
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
     if start_of_month.wday != 0
@@ -28,6 +26,8 @@ class PagesController < ApplicationController
     @cares_week3 = Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days))
     @cares_week4 = Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days))
     @cares_week5 = start_of_month + 28.days < end_of_month ? Care.where(day: (next_friday + 21.days)..(first_sunday + 28.days)) : []
+    @current_week = week_of_month(Date.today, @cares_week5)
+    params[:week] = @current_week.to_s if params[:week].nil?
     @users = User.all
     @year = Date.today.year
     @weeks = ["Semaine 1", "Semaine 2", "Semaine 3", "Semaine 4"]
@@ -54,6 +54,23 @@ class PagesController < ApplicationController
       when "5"
         @cares = @cares_week5
       end
+    end
+  end
+
+  private
+
+  def week_of_month(date, cares_week5, week_start_day: :monday)
+    # Determine the first week start aligned with the chosen day
+    first_week_start = date.beginning_of_month.beginning_of_week(week_start_day)
+
+    # Calculate the week number
+    week_number = ((date - first_week_start).to_i / 7) + 1
+
+    # Cap the result at 5
+    if cares_week5.empty?
+      week_number > 4 ? 4 : week_number
+    else
+      week_number > 5 ? 5 : week_number
     end
   end
 end
