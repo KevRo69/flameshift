@@ -2,6 +2,14 @@ fr:
   date:
     formats:
       default: "%d-%m-%Y"
+    day_names:
+      - Dimanche
+      - Lundi
+      - Mardi
+      - Mercredi
+      - Jeudi
+      - Vendredi
+      - Samedi
     month_names:
       - ~
       - Janvier
