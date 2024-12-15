@@ -9,7 +9,7 @@
             <th></th>
           <% end %>
           <% @cares_week1.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
         </tr>
       </thead>
@@ -45,7 +45,7 @@
         <tr>
           <th></th>
           <% @cares_week2.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
         </tr>
       </thead>
@@ -78,7 +78,7 @@
         <tr>
           <th></th>
           <% @cares_week3.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
         </tr>
       </thead>
@@ -111,7 +111,7 @@
         <tr>
           <th></th>
           <% @cares_week4.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
         </tr>
       </thead>
@@ -145,7 +145,7 @@
         <tr>
           <th></th>
           <% @cares_week5.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
           <% (3 - @cares_week5.size).times do %>
             <th></th>

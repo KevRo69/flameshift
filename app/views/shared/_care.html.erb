@@ -11,7 +11,7 @@
             <% end %>
           <% end %>
           <% @cares.each do |care| %>
-            <th><%= care.day.strftime('%d-%m-%Y') %></th>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
           <% if week == "5"%>
             <% (3-@cares.size).times do %>
