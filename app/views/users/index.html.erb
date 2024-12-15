@@ -8,14 +8,16 @@
           <%= simple_form_for user, url: user_path(user), html: { method: :put } do |f| %>
             <div class="form-inputs" data-controller="checkbox">
               <%= f.input :COD_1, label: "COD1" %>
-              <%= f.input :CATE, label: "CATE" %>
-              <%= f.input :CA1E, label: "CA1E" %>
+              <%= f.input :CATE, label: "CATE",
+                                  input_html: { id: "cate", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } } %>
+              <%= f.input :CA1E, label: "CA1E",
+                                  input_html: { id: "cae", data: { checkbox_target: "cae" } } %>
               <%= f.input :CE_INC, label: "CE_INC",
                           input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
               <%= f.input :EQ_INC, label: "EQ_INC",
-                          input_html: { id: "eq_inc", data: { checkbox_target: "eqInc", action: "change->checkbox#preventIndependentCheck" }} %>
+                          input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }} %>
               <%= f.input :EQ_SAP, label: "EQ_SAP",
-                          input_html: { id: "eq_sap", data: { checkbox_target: "eqSap", action: "change->checkbox#preventIndependentCheck" }} %>
+                          input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" }} %>
               <%= f.input :STG,
                           label: "STG",
                           autofocus: true%>
