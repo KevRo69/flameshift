@@ -39,7 +39,7 @@
                 <td>
               <% end %>
               <% if user.first_name != "/" %>
-                <%= user.first_name.chars.first %>. <%= user.last_name %>
+                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
               <% end %>
               </td>
               <% if week == "5"%>
