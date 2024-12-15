@@ -19,9 +19,11 @@
                     autofocus: true%>
         <%= f.input :CATE,
                     label: "CATE",
+                    input_html: { id: "cate", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } },
                     autofocus: true%>
         <%= f.input :CA1E,
                     label: "CA1E",
+                    input_html: { id: "cae", data: { checkbox_target: "cae" }},
                     autofocus: true%>
         <%= f.input :CE_INC,
                     label: "CE_INC",
@@ -29,11 +31,11 @@
                     autofocus: true%>
         <%= f.input :EQ_INC,
                     label: "EQ_INC",
-                    input_html: { id: "eq_inc", data: { checkbox_target: "eqInc", action: "change->checkbox#preventIndependentCheck" }},
+                    input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }},
                     autofocus: true%>
         <%= f.input :EQ_SAP,
                     label: "EQ_SAP",
-                    input_html: { id: "eq_sap", data: { checkbox_target: "eqSap", action: "change->checkbox#preventIndependentCheck" } },
+                    input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" } },
                     autofocus: true%>
         <%= f.input :STG,
                     label: "STG",

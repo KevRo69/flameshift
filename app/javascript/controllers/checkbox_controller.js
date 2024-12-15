@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["ceInc", "eqInc", "eqSap"];
+  static targets = ["ceInc", "eqInc", "eqSap" , "cae", "cate"];
 
   connect() {
 
@@ -18,12 +18,13 @@ export default class extends Controller {
     }
   }
 
-  preventIndependentCheck() {
-    // Prevent EQ_INC from being checked independently
-    if (this.ceIncTarget.checked) {
-      this.eqIncTarget.checked = true;
-      this.eqSapTarget.checked = true;
+  toggleCA1E() {
+    console.log(this.caeTarget.checked);
+
+    if (this.cateTarget.checked) {
+      this.caeTarget.checked = true;
+    } else {
+      this.caeTarget.checked = false;
     }
   }
-
 }
