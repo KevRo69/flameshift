@@ -123,9 +123,9 @@ class CaresController < ApplicationController
     @users_cod = User.where(COD_1:"1")
     @users_cate = User.where(CATE:"1")
     @users_ca1e = User.where(CA1E:"1")
-    @users_ce_inc = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1")
-    @users_eq_inc = User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1")
-    @users_eq_sap = User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1")
+    @users_ce_inc = User.where(CE_INC:"1")
+    @users_eq_inc = User.where(EQ_INC:"1")
+    @users_eq_sap = User.where(EQ_SAP:"1")
     @users_stg = User.where(STG:"1")
   end
 
@@ -225,19 +225,19 @@ end
   end
 
   def get_users_ce_inc(day)
-    User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").select do |user|
+    User.where(CE_INC:"1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
 
   def get_users_eq_inc(day)
-    User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1").select do |user|
+    User.where(EQ_INC:"1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
 
   def get_users_eq_sap(day)
-    User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1").select do |user|
+    User.where(EQ_SAP:"1").select do |user|
       user.availabilties.map { |a| a.day.strftime('%d-%m-%Y') }.include?(day.strftime('%d-%m-%Y'))
     end
   end
