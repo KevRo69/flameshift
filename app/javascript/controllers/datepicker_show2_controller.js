@@ -29,7 +29,7 @@ export default class extends Controller {
       }
     }
     else {
-      month = (today.getMonth() + 2)%12;
+      month = (today.getMonth() + 3)%12;
       if (today.getMonth() + 3 > 11){
         year = today.getFullYear() + 1;
       } else{
