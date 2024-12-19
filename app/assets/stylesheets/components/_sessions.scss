@@ -7,8 +7,13 @@
   text-align: center;
   width: 300px;
   margin: 16px;
+  .name {
+    text-transform: capitalize;
+  }
 }
-
+.connect-card input .name {
+  text-transform: capitalize;
+}
 .links-connect {
   background-color: $red-fire;
   color: white;

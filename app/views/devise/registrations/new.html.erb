@@ -1,18 +1,24 @@
 <div class="form-container">
   <div class="connect-card">
-    <h2 class="m-3">Inscription</h2>
+    <h2 class="m-3">Nouveau compte</h2>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
 
-      <div class="form-inputs" data-controller="checkbox">
+      <div class="form-inputs" data-controller="checkbox autocomplete-username">
         <%= f.input :first_name,
                     required: true,
                     label: "Prénom",
+                    input_html: {class: "name", data: {"autocomplete-username-target": "firstName",
+                                  action: "input->autocomplete-username#updateUsername"}
+                                  },
                     autofocus: true%>
         <%= f.input :last_name,
                     required: true,
                     label: "Nom",
+                    input_html: {class: "name", data: {"autocomplete-username-target": "lastName",
+                                  action: "input->autocomplete-username#updateUsername"}
+                                  },
                     autofocus: true%>
         <%= f.input :COD_1,
                     label: "COD1",
@@ -54,7 +60,7 @@
                     required: true,
                     label: "Identifiant",
                     autofocus: true,
-                    input_html: { autocomplete: "email" }%>
+                    input_html: { autocomplete: "email", data: {"autocomplete-username-target": "username"} }%>
         <%= f.input :password,
                     required: true,
                     hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
