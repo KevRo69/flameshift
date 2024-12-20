@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  acts_as_paranoid
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   before_validation :capitalize_first_name
@@ -11,6 +12,14 @@ class User < ApplicationRecord
   has_many :cares, through: :user_cares
   has_many :availabilties, dependent: :destroy
   validates :first_name, :last_name, presence: true
+
+  def active_for_authentication?
+    super && !deactivated?
+  end
+
+  def inactive_message
+    deactivated? ? :deactivated : super
+  end
 
   def full_name
     "#{first_name} #{last_name}"

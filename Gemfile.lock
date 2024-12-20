@@ -83,6 +83,9 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    acts_as_paranoid (0.10.3)
+      activerecord (>= 6.1, < 8.1)
+      activesupport (>= 6.1, < 8.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     autoprefixer-rails (10.4.19.0)
@@ -181,6 +184,8 @@ GEM
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    paranoia (2.6.4)
+      activerecord (>= 5.1, < 7.2)
     pg (1.5.8)
     popper_js (2.11.8)
     psych (5.1.2)
@@ -293,6 +298,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  acts_as_paranoid
   autoprefixer-rails
   bootsnap
   bootstrap (~> 5.2)
@@ -305,6 +311,7 @@ DEPENDENCIES
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
+  paranoia (~> 2.4)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.4)

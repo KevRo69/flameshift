@@ -8,6 +8,9 @@ gem "simple_calendar"
 
 gem "faker"
 
+gem 'paranoia', '~> 2.4'
+gem 'acts_as_paranoid'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4"
 

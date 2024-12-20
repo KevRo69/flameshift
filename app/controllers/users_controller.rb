@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: [:index, :update]
 
   def index
-    @users = User.all.sort_by(&:first_name)
+    @users_active = User.where(deactivated: false).sort_by(&:first_name)
     @resource_name = :user
   end
 
@@ -11,9 +11,21 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to users_path, notice: 'Informations mises à jours.'
     else
-      flash[:alert] = 'Failed to update user information.'
+      flash[:alert] = 'Échec de mise à jour des informations.'
       render :index
     end
+  end
+
+  def deactivate
+    @user = User.find(params[:id])
+    @user.update(deactivated: true)
+    redirect_to users_path, notice: "L'utilisateur a été désactivé."
+  end
+
+  def reactivate
+    @user = User.find(params[:id])
+    @user.update(deactivated: false)
+    redirect_to users_path, notice: "L'utilisateur a été réactivé."
   end
 
   def show
@@ -63,6 +75,16 @@ class UsersController < ApplicationController
     @users_eq_sap = get_number_user_available_per_day("EQ_SAP")
     @users_stg = get_number_user_available_per_day("STG")
   end
+
+  # def destroy
+  #   @user = User.find(params[:id])
+  #   if @user.destroy
+  #     flash[:notice] = "Utilisateur supprimé avec succès."
+  #   else
+  #     flash[:alert] = "Échec de suppression de l'utilisateur."
+  #   end
+  #   redirect_to users_path
+  # end
 
   private
 

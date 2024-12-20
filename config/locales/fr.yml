@@ -61,6 +61,7 @@ fr:
       send_paranoid_instructions: Si votre email existe sur notre base de données, vous recevrez sous quelques minutes un message avec des instructions pour confirmer votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
+      deactivated: "Votre compte a été désactivé. Contactez le support."
       inactive: Votre compte n’est pas encore activé.
       invalid: "%{authentication_keys} ou mot de passe incorrect."
       last_attempt: Il vous reste une chance avant que votre compte soit bloqué.
