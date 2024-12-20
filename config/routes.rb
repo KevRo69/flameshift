@@ -17,8 +17,14 @@ Rails.application.routes.draw do
     post 'availabilties/create3', to: 'availabilties#create3'
   end
 
-
   resources :users, only: [:index, :update]
+
+  resources :users do
+    member do
+      patch :deactivate
+      patch :reactivate
+    end
+  end
 
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
 

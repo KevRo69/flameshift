@@ -1,5 +1,6 @@
 puts "Destroying all users..."
 User.destroy_all
+User.only_deleted.each(&:really_destroy!)
 
 puts "Destroying all teams..."
 Team.destroy_all

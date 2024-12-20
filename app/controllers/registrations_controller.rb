@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
 
     if @user.save
-      flash[:notice] = "User successfully created."
+      flash[:notice] = "Utilisateur créé avec succès."
       redirect_to root_path # Adjust as needed
     else
       render :new
