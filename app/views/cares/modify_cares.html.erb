@@ -27,7 +27,7 @@
       <% @cares.each do |care| %>
         <%= link_to care_path(care) do %>
           <div class="care-card">
-            <h3><%= care.day.strftime('%d-%m-%Y') %></h3>
+            <h3><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></h3>
               <% 6.times do |index| %>
                 <% case index %>
                   <% when 0 %>
