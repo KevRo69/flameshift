@@ -25,6 +25,11 @@
   background-color: $red-light;
 }
 
+#firestation-name {
+  color: white;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .dropdown-menu {
     position: absolute !important;
