@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
 
+  patch '/users/reset_password/:id', to: 'users#reset_password', as: 'users_reset_password'
+
   get 'monthly_cares', to: 'cares#monthly_cares'
 
   get 'modify_cares', to: 'cares#modify_cares'

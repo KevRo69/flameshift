@@ -33,7 +33,10 @@
           <div class="form-actions">
             <%= f.button :submit, "Mettre à jour", class: "btn mb-3" %>
           </div>
-      <% end %>
+        <% end %>
+        <div class="form-actions">
+          <%= button_to "Réinitialiser le mot de passe", users_reset_password_path(user), method: :patch, class: "btn mb-3", data: { confirm: "Êtes-vous sûr de vouloir désactiver le compte ?" }  %>
+        </div>
         <div>
           <%= button_to "Désactiver le compte", deactivate_user_path(user), method: :patch, class: "btn", data: { confirm: "Êtes-vous sûr de vouloir désactiver le compte ?" } %>
         </div>

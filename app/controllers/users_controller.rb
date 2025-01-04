@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to users_path, notice: 'Informations mises à jours.'
+      redirect_to users_path, notice: 'Informations mises à jour.'
     else
       flash[:alert] = 'Échec de mise à jour des informations.'
       render :index
@@ -20,13 +20,20 @@ class UsersController < ApplicationController
   def deactivate
     @user = User.find(params[:id])
     @user.update(deactivated: true)
-    redirect_to users_path, notice: "L'utilisateur a été désactivé."
+    redirect_to users_path, notice: "L'utilisateur #{@user.first_name} #{@user.last_name} a été désactivé."
   end
 
   def reactivate
     @user = User.find(params[:id])
     @user.update(deactivated: false)
-    redirect_to users_path, notice: "L'utilisateur a été réactivé."
+    redirect_to users_path, notice: "L'utilisateur #{@user.first_name} #{@user.last_name} a été réactivé."
+  end
+
+  def reset_password
+    @user = User.find(params[:id])
+    password = SecureRandom.hex(6)
+    @user.update(password: password, password_confirmation: password)
+    redirect_to users_path, notice: "Le mot de passe de #{@user.first_name} #{@user.last_name} a été réinitialisé (nouveau mot de passe: #{password})"
   end
 
   def show
