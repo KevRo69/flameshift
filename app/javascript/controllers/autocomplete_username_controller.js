@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="autocomplete-username"
 export default class extends Controller {
-  static targets = ["firstName", "lastName"]
+  static targets = ["firstName", "lastName", "username"];
   connect() {
   }
 
