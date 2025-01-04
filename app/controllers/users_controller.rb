@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users_active = User.where(deactivated: false).sort_by(&:first_name)
+    @users_inactive = User.where(deactivated: true).sort_by(&:first_name)
     @resource_name = :user
   end
 
