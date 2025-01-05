@@ -5,7 +5,7 @@
       <thead>
         <tr>
           <th></th>
-          <% (3-@cares_week1.size).times do %>
+          <% (@week_size - @cares_week1.size).times do %>
             <th></th>
           <% end %>
           <% @cares_week1.each do |care| %>
@@ -19,7 +19,7 @@
         <% @roles.each_with_index do |role, role_index| %>
           <tr>
             <th><%= role %></th>
-            <% (3-@cares_week1.size).times do %>
+            <% (@week_size - @cares_week1.size).times do %>
               <td></td>
             <% end %>
             <% @cares_week1.each do |care| %>
@@ -147,7 +147,7 @@
           <% @cares_week5.each do |care| %>
             <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
-          <% (3 - @cares_week5.size).times do %>
+          <% (@week_size - @cares_week5.size).times do %>
             <th></th>
           <% end %>
         </tr>
@@ -170,7 +170,7 @@
               <% end %>
               </td>
             <% end %>
-            <% (3 - @cares_week5.size).times do %>
+            <% (@week_size - @cares_week5.size).times do %>
               <td></td>
             <% end %>
           </tr>

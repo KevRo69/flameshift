@@ -62,8 +62,9 @@ export default class extends Controller {
         defaultDate: this.availabilitiesValue,
         "disable": [
         function(date) {
-            // return true to disable
-            return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);
+              if (!(month === 6 || month === 7)) {
+                return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);
+              }
             }
         ],
         "locale": {
