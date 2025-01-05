@@ -19,8 +19,6 @@ export default class extends Controller {
   }
 
   toggleCA1E() {
-    console.log(this.caeTarget.checked);
-
     if (this.cateTarget.checked) {
       this.caeTarget.checked = true;
     } else {
