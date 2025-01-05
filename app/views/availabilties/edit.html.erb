@@ -5,7 +5,8 @@
                 label: "Disponibilités pour le mois suivant",
                 input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days, datepicker_show_cod_value: @users_cod, datepicker_show_cate_value: @users_cate,
                       datepicker_show_ca1e_value: @users_ca1e, datepicker_show_ceinc_value: @users_ce_inc, datepicker_show_eqinc_value: @users_eq_inc, datepicker_show_eqsap_value: @users_eq_sap,
-                      datepicker_show_stg_value: @users_stg  } } %>
+                      datepicker_show_stg_value: @users_stg, datepicker_show_month_value: @month  } } %>
+      <%= f.hidden_field :month, value: @month %>
     <%= f.submit "Valider", class: "btn" %>
   <% end %>
 </div>

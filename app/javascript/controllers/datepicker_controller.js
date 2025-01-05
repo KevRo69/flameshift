@@ -8,7 +8,8 @@ export default class extends Controller {
                     ceinc: Object,
                     eqinc: Object,
                     eqsap: Object,
-                    stg: Object };
+                    stg: Object,
+                    month: Number, };
 
   connect() {
     const today = new Date();
@@ -17,15 +18,15 @@ export default class extends Controller {
     let minDate = new Date();
     let maxDate = new Date();
     if (today.getDate() < 16) {
-      month = (today.getMonth() + 1) % 12;
-      if (today.getMonth() + 1 > 11) {
+      month = (today.getMonth() + 1 + this.monthValue) % 12;
+      if (today.getMonth() + 1 + this.monthValue > 11) {
         year = today.getFullYear() + 1;
       } else {
         year = today.getFullYear();
       }
     } else {
-      month = (today.getMonth() + 2) % 12;
-      if (today.getMonth() + 2 > 11) {
+      month = (today.getMonth() + 2 + this.monthValue) % 12;
+      if (today.getMonth() + 2 + this.monthValue > 11) {
         year = today.getFullYear() + 1;
       } else {
         year = today.getFullYear();
@@ -54,12 +55,9 @@ export default class extends Controller {
       maxDate: maxDate,
       disable: [
         function (date) {
-          return (
-            date.getDay() === 1 ||
-            date.getDay() === 2 ||
-            date.getDay() === 3 ||
-            date.getDay() === 4
-          );
+          if (!(month === 6 || month === 7)) {
+            return (date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 3 || date.getDay() === 4);
+          };
         },
       ],
       locale: {

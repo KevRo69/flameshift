@@ -7,8 +7,6 @@ export default class extends Controller {
   }
 
   updateUsername() {
-    console.log(this.lastNameTarget);
-
     const firstName = this.firstNameTarget.value.trim();
     const lastName = this.lastNameTarget.value.trim();
 

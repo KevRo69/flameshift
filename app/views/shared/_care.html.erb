@@ -6,7 +6,7 @@
         <tr>
           <th></th>
           <% if week == "1"%>
-            <% (3-@cares.size).times do %>
+            <% (@week_size - @cares.size).times do %>
               <th></th>
             <% end %>
           <% end %>
@@ -14,7 +14,7 @@
             <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
           <% if week == "5"%>
-            <% (3-@cares.size).times do %>
+            <% (@week_size - @cares.size).times do %>
               <th></th>
             <% end %>
           <% end %>
@@ -27,7 +27,7 @@
           <tr>
             <th><%= role %></th>
             <% if week == "1"%>
-              <% (3-@cares.size).times do %>
+              <% (@week_size - @cares.size).times do %>
                 <td></td>
               <% end %>
             <% end %>
@@ -43,7 +43,7 @@
               <% end %>
               </td>
               <% if week == "5"%>
-                <% (3-@cares.size).times do %>
+                <% (@week_size - @cares.size).times do %>
                   <td></td>
                 <% end %>
               <% end %>

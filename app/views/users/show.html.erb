@@ -8,84 +8,37 @@
     <p>Les jours fériés sont imposés et répartis sur l'année avec obligation d'assurer une POJ INC (CATE / COD 1 / CE / EQ), la gestion de la garde sera assurée par le SOG de l'équipe. </p>
     <p>Vous devez inscrire vos disponibilités au maximum avant le 15 mois. </p>
   </div>
+
   <div class="user-container">
     <div class="availabilities-container">
-      <% if @availabilities_next.empty? %>
-        <div class="availabilities">
-          <%= simple_form_for [@user, @availability] do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Disponibilités à remplir avant le 15",
-                      input_html: { data: { controller: "datepicker", datepicker_cod_value: @users_cod, datepicker_cate_value: @users_cate,
-                      datepicker_ca1e_value: @users_ca1e, datepicker_ceinc_value: @users_ce_inc, datepicker_eqinc_value: @users_eq_inc, datepicker_eqsap_value: @users_eq_sap,
-                      datepicker_stg_value: @users_stg } } %>
-            <%= f.submit "Valider", class: "btn" %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="availabilities">
-          <div id="flatpickr-show">
+      <% 12.times do |month| %>
+        <% if @availabilities_next_array[month].empty? %>
+          <div class="availabilities">
             <%= simple_form_for [@user, @availability] do |f| %>
-                <%= f.input :day,
-                          as: :string,
-                          label: "Disponibilités pour #{@month_next}",
-                          input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days } } %>
-              <% end %>
+              <%= f.input :day,
+                        as: :string,
+                        label: month == 0 ? "Disponibilités à remplir avant le 15" : "Disponibilités pour #{@month_next_array[month]}",
+                        input_html: { data: { controller: "datepicker", datepicker_cod_value: @users_cod, datepicker_cate_value: @users_cate,
+                        datepicker_ca1e_value: @users_ca1e, datepicker_ceinc_value: @users_ce_inc, datepicker_eqinc_value: @users_eq_inc, datepicker_eqsap_value: @users_eq_sap,
+                        datepicker_stg_value: @users_stg, datepicker_month_value: month } } %>
+              <%= f.hidden_field :month, value: month %>
+              <%= f.submit "Valider", class: "btn" %>
+            <% end %>
           </div>
-          <%= link_to "Modifier", edit_user_availabilty_path(current_user), class: "btn" %>
-        </div>
-      <% end %>
-
-      <% if @availabilities_next2.empty? %>
-        <div class="availabilities">
-          <%= simple_form_for [@user, @availability], url: user_availabilties_create2_path(@user) do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Disponibilités pour #{@month_next2}",
-                      input_html: { data: { controller: "datepicker2", datepicker2_cod_value: @users_cod, datepicker2_cate_value: @users_cate,
-                      datepicker2_ca1e_value: @users_ca1e, datepicker2_ceinc_value: @users_ce_inc, datepicker2_eqinc_value: @users_eq_inc, datepicker2_eqsap_value: @users_eq_sap,
-                      datepicker2_stg_value: @users_stg } } %>
-            <%= f.submit "Valider", class: "btn" %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="availabilities">
-          <div id="flatpickr-show">
-            <%= simple_form_for [@user, @availability] do |f| %>
-                <%= f.input :day,
-                          as: :string,
-                          label: "Disponibilités pour #{@month_next2}",
-                          input_html: { data: { controller: "datepicker-show2", datepicker_show2_availabilities_value: @availabilities_next_days2 } } %>
+        <% else %>
+          <div class="availabilities">
+            <div id="flatpickr-show">
+              <%= simple_form_for [@user, @availability] do |f| %>
+                  <%= f.input :day,
+                            as: :string,
+                            label: "Disponibilités pour #{@month_next_array[month]}",
+                            input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_days_array[month],
+                            datepicker_show_month_value: month } } %>
               <% end %>
+            </div>
+            <%= link_to "Modifier", edit_user_availabilty_path(current_user, month: month), class: "btn" %>
           </div>
-          <%= link_to "Modifier", user_availabilties_edit2_path(current_user), class: "btn" %>
-        </div>
-      <% end %>
-
-      <% if @availabilities_next3.empty? %>
-        <div class="availabilities">
-          <%= simple_form_for [@user, @availability], url: user_availabilties_create3_path(@user) do |f| %>
-            <%= f.input :day,
-                      as: :string,
-                      label: "Disponibilités pour #{@month_next3}",
-                      input_html: { data: { controller: "datepicker3", datepicker2_cod_value: @users_cod, datepicker2_cate_value: @users_cate,
-                      datepicker2_ca1e_value: @users_ca1e, datepicker2_ceinc_value: @users_ce_inc, datepicker2_eqinc_value: @users_eq_inc, datepicker2_eqsap_value: @users_eq_sap,
-                      datepicker2_stg_value: @users_stg } } %>
-            <%= f.submit "Valider", class: "btn" %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="availabilities">
-          <div id="flatpickr-show">
-            <%= simple_form_for [@user, @availability] do |f| %>
-                <%= f.input :day,
-                          as: :string,
-                          label: "Disponibilités pour #{@month_next3}",
-                          input_html: { data: { controller: "datepicker-show3", datepicker_show3_availabilities_value: @availabilities_next_days3 } } %>
-              <% end %>
-          </div>
-          <%= link_to "Modifier", user_availabilties_edit3_path(current_user), class: "btn" %>
-        </div>
+        <% end %>
       <% end %>
     </div>
 

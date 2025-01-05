@@ -15,23 +15,23 @@
 
 .cares-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
 }
 
 .availabilities-container {
   display: flex;
-  justify-content: center;
-  align-items: start;
   flex-direction: row;
+  max-width: 1044px;
+  overflow-x: auto;
 }
 
 @media (max-width: 1050px) {
   .cares-container {
-    flex-direction: column;
+    max-width: 310px;
+    overflow-x: auto;
   }
   .availabilities-container {
-    flex-direction: column;
+    max-width: 310px;
+    overflow-x: auto;
   }
 }

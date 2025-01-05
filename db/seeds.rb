@@ -65,10 +65,29 @@ else
 
   puts "Users created!"
 
-  puts "Creating cares for November..."
+  # puts "Creating cares for November..."
+
+  # 31.times do |i|
+  #   care = Care.new(day: "2024-11-#{i + 1}")
+  #   user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+  #   user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+  #   user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+  #   care.users << User.where(COD_1: "1").sample
+  #   care.users << User.where(CATE: "1").sample
+  #   care.users << user_ce
+  #   care.users << user_eq
+  #   care.users << user_sap
+  #   care.users << User.where(STG: "1").sample
+  #   care.save
+  # end
+
+  # puts "Cares for November created!"
+
+  puts "Creating cares for year..."
 
   31.times do |i|
-    care = Care.new(day: "2024-11-#{i + 1}")
+    care = Care.new(day: "2025-01-#{i + 1}")
     user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
     user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
     user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
@@ -81,13 +100,148 @@ else
     care.users << User.where(STG: "1").sample
     care.save
   end
+  28.times do |i|
+    care = Care.new(day: "2025-02-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
 
-  puts "Cares for November created!"
-
-  puts "Creating cares for December..."
-
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
   31.times do |i|
-    care = Care.new(day: "2024-12-#{i + 1}")
+    care = Care.new(day: "2025-03-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  30.times do |i|
+    care = Care.new(day: "2025-04-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  31.times do |i|
+    care = Care.new(day: "2025-05-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  30.times do |i|
+    care = Care.new(day: "2025-06-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  31.times do |i|
+    care = Care.new(day: "2025-07-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  31.times do |i|
+    care = Care.new(day: "2025-08-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  30.times do |i|
+    care = Care.new(day: "2025-09-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  31.times do |i|
+    care = Care.new(day: "2025-10-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  30.times do |i|
+    care = Care.new(day: "2025-11-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.save
+  end
+  31.times do |i|
+    care = Care.new(day: "2025-12-#{i + 1}")
     user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
     user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
     user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
@@ -107,7 +261,7 @@ else
 
   User.all.each do |user|
     rand(100).times do
-      random_date = Faker::Date.on_day_of_week_between(day: [:friday, :saturday, :sunday], from: '2024-12-01', to: '2024-12-31')
+      random_date = Faker::Date.between(from: '2025-02-01', to: '2025-02-28')
       user.availabilties.create!(day: random_date)
     end
     # Find days that have duplicates
@@ -121,21 +275,21 @@ else
 
   puts "Availabilities created!"
 
-  puts "Creating availabilities for January..."
+  # puts "Creating availabilities for February..."
 
-  User.all.each do |user|
-    rand(100).times do
-      random_date = Faker::Date.on_day_of_week_between(day: [:friday, :saturday, :sunday], from: '2025-01-01', to: '2025-01-31')
-      user.availabilties.create!(day: random_date)
-    end
-    # Find days that have duplicates
-    user.availabilties.group(:day).having('COUNT(*) > 1').pluck(:day).each do |day|
-      # Get all availabilities for that day, sorted by ID
-      duplicates = user.availabilties.where(day: day).order(:id)
-      # Keep the first one, delete the rest
-      duplicates.offset(1).delete_all
-    end
-  end
+  # User.all.each do |user|
+  #   rand(100).times do
+  #     random_date = Faker::Date.between(from: '2025-02-01', to: '2025-02-28')
+  #     user.availabilties.create!(day: random_date)
+  #   end
+  #   # Find days that have duplicates
+  #   user.availabilties.group(:day).having('COUNT(*) > 1').pluck(:day).each do |day|
+  #     # Get all availabilities for that day, sorted by ID
+  #     duplicates = user.availabilties.where(day: day).order(:id)
+  #     # Keep the first one, delete the rest
+  #     duplicates.offset(1).delete_all
+  #   end
+  # end
 
-  puts "Availabilities created!"
+  # puts "Availabilities created!"
 end
