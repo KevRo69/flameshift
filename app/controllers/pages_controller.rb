@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: :home
 
   def home
+    @warning = Setting.first.warning
     start_of_month = Date.today.beginning_of_month
     end_of_month = Date.today.end_of_month
     days = (start_of_month..end_of_month).to_a

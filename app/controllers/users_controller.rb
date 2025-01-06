@@ -37,6 +37,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @last_day_setting = Setting.first.last_day
+    @rules = Setting.first.rules
     @user = current_user
     @care = Care.new
 
@@ -49,8 +51,8 @@ class UsersController < ApplicationController
     @availabilities_next_days_array = []
 
     12.times do |i|
-      start_of_next = Date.today.day < 16 ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
-      end_of_next = Date.today.day < 16 ? Date.today.end_of_month + 1.months + i.month : Date.today.end_of_month + 2.months + i.month
+      start_of_next = Date.today.day <= Setting.first.last_day ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
+      end_of_next = Date.today.day <= Setting.first.last_day ? Date.today.end_of_month + 1.months + i.month : Date.today.end_of_month + 2.months + i.month
       month_next = I18n.t('date.month_names')[start_of_next.month]
       @month_next_array << month_next
       availabilities_next = @user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)

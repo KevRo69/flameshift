@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :settings, only: [:index, :edit, :update]
+
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
 
   patch '/users/reset_password/:id', to: 'users#reset_password', as: 'users_reset_password'
