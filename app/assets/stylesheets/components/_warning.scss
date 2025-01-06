@@ -1,0 +1,28 @@
+#warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border: 2px solid $red-fire;
+  animation: blink-border 2s step-start infinite;
+}
+
+#warning p {
+  padding: 20px;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 18px;
+}
+
+@keyframes blink-border {
+  0% {
+    border-color: $red-fire;
+  }
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: $red-fire;
+  }
+}

@@ -24,6 +24,7 @@
               <%= link_to "Modifier mon compte", edit_user_registration_path, class: "dropdown-item" %>
               <% if current_user.validator %>
                 <%= link_to "Modifier les profils", users_path, data: { turbo: false }, class: "dropdown-item" %>
+                <%= link_to "Paramètres", settings_path, data: { turbo: false }, class: "dropdown-item" %>
               <% end %>
               <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>

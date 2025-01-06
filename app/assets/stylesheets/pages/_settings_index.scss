@@ -1,0 +1,36 @@
+.setting-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.setting-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  width: 70%;
+  background-color: $red-fire;
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+}
+
+.simple_form.edit_setting {
+  width: 100%;
+}
+
+.setting-form-container textarea {
+  display: block; /* Ensures the textarea takes the full width */
+  min-height: 200px; /* Set an initial height */
+  overflow-y: auto; /* Allow scrolling if content exceeds max height */
+  resize: vertical; /* Allow vertical resizing only (optional) */
+}
+
+@media (max-width: 768px) {
+  .setting-form {
+    width: 90%;
+  }
+}

@@ -9,7 +9,8 @@ export default class extends Controller {
                     eqinc: Object,
                     eqsap: Object,
                     stg: Object,
-                    month: Number, };
+                    month: Number,
+                  lastday: Number, };
 
   connect() {
     const today = new Date();
@@ -17,7 +18,9 @@ export default class extends Controller {
     let year = today.getFullYear();
     let minDate = new Date();
     let maxDate = new Date();
-    if (today.getDate() < 16) {
+    console.log(this.lastdayValue);
+
+    if (today.getDate() <= this.lastdayValue) {
       month = (today.getMonth() + 1 + this.monthValue) % 12;
       if (today.getMonth() + 1 + this.monthValue > 11) {
         year = today.getFullYear() + 1;

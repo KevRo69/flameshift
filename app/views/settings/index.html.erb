@@ -1,0 +1,17 @@
+<h1 class="d-flex justify-content-center align-item-center mt-3">Paramètres</h1>
+<div class="setting-form-container">
+  <div class="setting-form">
+    <%= simple_form_for @setting, url: setting_path(@setting), html: { method: :patch } do |f| %>
+      <div class="form-inputs" data-controller="checkbox">
+      <div class="d-flex justify-content-center align-item-center">
+        <%= f.input :last_day, label: "Jour de validation", input_html: {type: "number", min: 1, max: 28 } %>
+      </div>
+        <%= f.input :rules, label: "Règles"%>
+        <%= f.input :warning, label: "Avertissement"%>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Mettre à jour", data: { turbo: false }, class: "btn mb-3" %>
+    </div>
+  <% end %>
+</div>
