@@ -84,7 +84,7 @@ class CaresController < ApplicationController
     end_of_month = Date.today.end_of_month + 1.months
     usernil = User.find_by(first_name: "/")
     days = (start_of_month..end_of_month).to_a.select { |day| [5, 6, 0].include?(day.wday) }
-    days = (start_of_month..end_of_month).to_a if start_of_month.mon == 2 || start_of_month.mon == 8
+    days = (start_of_month..end_of_month).to_a if start_of_month.mon == 7 || start_of_month.mon == 8
     days.each do |day|
       @care = Care.new(day: day)
       user_cod = weight_care(day, get_users_cod(day))
