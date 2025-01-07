@@ -1,4 +1,4 @@
-<% unless @warning == "" %>
+<% unless @warning == "" || @warning.nil? %>
 <div class="d-flex justify-content-center align-items-center mt-3">
   <div id="warning">
     <p><%= @warning %></p>

@@ -45,43 +45,45 @@
   <% end %>
 </div>
 
-<div class="d-flex justify-content-center mt-3">
-  <h2>Comptes désactivés</h2>
-</div>
-<div class="modify-all-users">
-  <% @users_inactive.each do |user| %>
-    <% unless user.email == "nil" %>
-      <div class="edit-form-container">
-        <div class="edit-form">
-          <h2><%= user.first_name %></h2>
-          <h2 class="mb-3"><%= user.last_name %></h2>
-          <%= simple_form_for user, url: user_path(user), html: { method: :put } do |f| %>
-            <div class="form-inputs" data-controller="checkbox">
-              <%= f.input :COD_1, label: "COD1" %>
-              <%= f.input :CATE, label: "CATE",
-                                  input_html: { id: "cate", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } } %>
-              <%= f.input :CA1E, label: "CA1E",
-                                  input_html: { id: "cae", data: { checkbox_target: "cae" } } %>
-              <%= f.input :CE_INC, label: "CE_INC",
-                          input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
-              <%= f.input :EQ_INC, label: "EQ_INC",
-                          input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }} %>
-              <%= f.input :EQ_SAP, label: "EQ_SAP",
-                          input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" }} %>
-              <%= f.input :STG,
-                          label: "STG",
-                          autofocus: true%>
-              <%= f.input :validator, label: "Validateur" %>
+<% unless @users_inactive.empty? %>
+  <div class="d-flex justify-content-center mt-3">
+    <h2>Comptes désactivés</h2>
+  </div>
+  <div class="modify-all-users">
+    <% @users_inactive.each do |user| %>
+      <% unless user.email == "nil" %>
+        <div class="edit-form-container">
+          <div class="edit-form">
+            <h2><%= user.first_name %></h2>
+            <h2 class="mb-3"><%= user.last_name %></h2>
+            <%= simple_form_for user, url: user_path(user), html: { method: :put } do |f| %>
+              <div class="form-inputs" data-controller="checkbox">
+                <%= f.input :COD_1, label: "COD1" %>
+                <%= f.input :CATE, label: "CATE",
+                                    input_html: { id: "cate", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } } %>
+                <%= f.input :CA1E, label: "CA1E",
+                                    input_html: { id: "cae", data: { checkbox_target: "cae" } } %>
+                <%= f.input :CE_INC, label: "CE_INC",
+                            input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
+                <%= f.input :EQ_INC, label: "EQ_INC",
+                            input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }} %>
+                <%= f.input :EQ_SAP, label: "EQ_SAP",
+                            input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" }} %>
+                <%= f.input :STG,
+                            label: "STG",
+                            autofocus: true%>
+                <%= f.input :validator, label: "Validateur" %>
+              </div>
             </div>
+            <div class="form-actions">
+              <%= f.button :submit, "Mettre à jour", class: "btn mb-3" %>
+            </div>
+        <% end %>
+          <div>
+            <%= button_to "Réactiver le compte", reactivate_user_path(user), method: :patch, class: "btn" %>
           </div>
-          <div class="form-actions">
-            <%= f.button :submit, "Mettre à jour", class: "btn mb-3" %>
-          </div>
-      <% end %>
-        <div>
-          <%= button_to "Réactiver le compte", reactivate_user_path(user), method: :patch, class: "btn" %>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

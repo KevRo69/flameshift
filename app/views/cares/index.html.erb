@@ -19,9 +19,13 @@
       <% end %>
     </select>
   </div>
-  <div class="filter">
-    <%= button_to "Générer PDF", reports_table_pdf_path, method: :post, params: { roles: @roles, cares: @cares.pluck(:id), week_size: @week_size }, data: { turbo: false }, class: "btn" %>
-  </div>
+  <% unless @cares.empty? %>
+    <div class="filter">
+      <%= button_to reports_table_pdf_path, method: :post, params: { roles: @roles, cares: @cares.pluck(:id), week_size: @week_size }, data: { turbo: false }, title: "Télécharger le PDF" do %>
+        <i class="fa-solid fa-download download-icon fa-xl"></i>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <%= render 'shared/cares' %>

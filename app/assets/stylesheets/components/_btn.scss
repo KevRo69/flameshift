@@ -44,3 +44,16 @@ input.btn {
   justify-content: center;
   margin: 20px;
 }
+
+.download-icon {
+  background-color: white; /* White background */
+  color: $red-fire;              /* Red icon color */
+  border: 1px solid #767676;   /* Red border */
+  padding: 20px;           /* Add padding around the icon */
+  border-radius: 8px;
+}
+
+button {
+  background: none;
+  border: none;
+}
