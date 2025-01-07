@@ -86,8 +86,8 @@ else
 
   puts "Creating cares for year..."
 
-  31.times do |i|
-    care = Care.new(day: "2025-01-#{i + 1}")
+  3.times do |i|
+    care = Care.new(day: "2025-01-#{i + 3}")
     user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
     user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
     user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
