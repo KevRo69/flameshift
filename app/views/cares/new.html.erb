@@ -4,7 +4,27 @@
       <%= f.submit "Générer les gardes de #{@month}", class: "btn" %>
     <% end %>
   </div>
-<% else %>
+  <div class="user-container">
+    <% @users.each do |user| %>
+    <h3><%= user.first_name %> <%= user.last_name %></h3>
+      <div class="availabilities-container">
+        <% 12.times do |month| %>
+          <div class="availabilities">
+            <div id="flatpickr-show">
+              <%= simple_form_for [user, @availability] do |f| %>
+                  <%= f.input :day,
+                            as: :string,
+                            label: "Disponibilités pour #{@month_next_array[month]}",
+                            input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_hash[user.id][:availabilities_next_days_array][month],
+                            datepicker_show_month_value: month, datepicker_show_lastday_value: @last_day_setting  } } %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% else %>
   <div class="center-btn">
     <%= link_to "Supprimer les gardes générées",
       cares_destroy_month_path,
