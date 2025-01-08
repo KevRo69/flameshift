@@ -59,6 +59,32 @@ class CaresController < ApplicationController
   end
 
   def new
+    @last_day_setting = Setting.first.last_day
+    @users = User.where(deactivated: false).reject { |user| user.first_name == "/" }.sort_by(&:first_name)
+    @availability = Availabilty.new
+
+    start_of_month = Date.today.beginning_of_month
+    end_of_month = Date.today.end_of_month
+
+    @month_next_array = []
+
+    @availabilities_next_hash = {}
+    @users.each do |user|
+      availabilities_next_array = []
+      availabilities_next_days_array = []
+      12.times do |i|
+        start_of_next = Date.today.day <= Setting.first.last_day ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
+        end_of_next = Date.today.day <= Setting.first.last_day ? Date.today.end_of_month + 1.months + i.month : Date.today.end_of_month + 2.months + i.month
+        month_next = I18n.t('date.month_names')[start_of_next.month]
+        @month_next_array << month_next
+        availabilities_next = user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)
+        availabilities_next_days = availabilities_next.map { |date| date.day }
+        availabilities_next_array << availabilities_next
+        availabilities_next_days_array << availabilities_next_days
+      end
+      @availabilities_next_hash[user.id] = { availabilities_next_days_array: availabilities_next_days_array }
+    end
+
     @care = Care.new
     @start_of_next = Date.today.beginning_of_month + 1.months
     @month = I18n.l(@start_of_next, format: '%B')
