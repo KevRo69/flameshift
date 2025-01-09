@@ -11,7 +11,9 @@ class User < ApplicationRecord
   has_many :user_cares, dependent: :destroy
   has_many :cares, through: :user_cares
   has_many :availabilties, dependent: :destroy
+  has_many :user_maneuvers, dependent: :destroy
   validates :first_name, :last_name, presence: true
+  accepts_nested_attributes_for :user_maneuvers, allow_destroy: true
 
   def active_for_authentication?
     super && !deactivated?
@@ -24,6 +26,11 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def maneuvers_count(year)
+    user_maneuvers.where(year: year).first.nil? ? 0 : user_maneuvers.where(year: year).first.number
+  end
+
 
   private
 

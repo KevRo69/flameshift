@@ -23,6 +23,7 @@
               <% end %>
               <%= link_to "Modifier mon compte", edit_user_registration_path, class: "dropdown-item" %>
               <% if current_user.validator %>
+                <%= link_to "Gérer les manœuvres", user_maneuvers_path, data: { turbo: false }, class: "dropdown-item" %>
                 <%= link_to "Modifier les profils", users_path, data: { turbo: false }, class: "dropdown-item" %>
                 <%= link_to "Paramètres", settings_path, data: { turbo: false }, class: "dropdown-item" %>
               <% end %>

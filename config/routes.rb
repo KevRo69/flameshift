@@ -39,4 +39,6 @@ Rails.application.routes.draw do
   get 'modify_cares', to: 'cares#modify_cares'
 
   delete 'cares/destroy_month', to: 'cares#destroy_month'
+
+  resources :user_maneuvers, only: [:index, :update]
 end
