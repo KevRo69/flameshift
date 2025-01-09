@@ -1,8 +1,7 @@
 <div class="form-container">
-  <div class="connect-card">
-    <h2>Connexion</h2>
-
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="connect-card">
+          <h2>Connexion</h2>
       <div class="form-inputs">
         <%= f.input :email,
                     required: false,
@@ -14,9 +13,9 @@
                     input_html: { autocomplete: "current-password" } %>
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>
-    </div>
+        </div>
       <div class="form-actions">
-        <%= f.button :submit, "Se connecter" %>
+        <%= f.button :submit, "Se connecter", id:"btn-connect" %>
       </div>
     <% end %>
 </div>
