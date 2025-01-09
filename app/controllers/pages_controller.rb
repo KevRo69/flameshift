@@ -47,6 +47,13 @@ class PagesController < ApplicationController
         sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 0).count
       }
     end
+    @maneuvers = @users.each_with_object({}) do |user, hash|
+      next if user.first_name == "/"
+      hash[user.id] = {
+        yearly_maneuvers: user.user_maneuvers.where("year = ?", @year).first.nil? ? 0 : user.user_maneuvers.where("year = ?", @year).first.number
+      }
+    end
+
     if params[:week].present?
       case params[:week]
       when "1"

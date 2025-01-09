@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center mt-3">
+  <h2>Manœuvres <%= @year %></h2>
+</div>
+<div class="modify-all-users">
+  <% @users_active.each do |user| %>
+    <% unless user.email == "nil" %>
+      <div class="edit-form-container">
+        <div class="edit-form">
+          <h2><%= user.first_name %></h2>
+          <h2 class="mb-3"><%= user.last_name %></h2>
+          <%= simple_form_for user, url: user_maneuver_path(user), html: { method: :patch } do |f| %>
+            <div class="form-inputs" data-controller="checkbox">
+              <%= f.input :user_maneuver, label: "Nombre de manœuvres", input_html: { value: user.maneuvers_count(@year), type: "number", min: 0 } %>
+              <%= f.hidden_field :year, value: @year %>
+            </div>
+        </div>
+        <div class="form-actions">
+          <%= f.button :submit, "Mettre à jour", data: { turbo: false }, class: "btn mb-3" %>
+        </div>
+          <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
