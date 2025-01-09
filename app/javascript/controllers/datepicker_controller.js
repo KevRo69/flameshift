@@ -18,7 +18,6 @@ export default class extends Controller {
     let year = today.getFullYear();
     let minDate = new Date();
     let maxDate = new Date();
-    console.log(this.lastdayValue);
 
     if (today.getDate() <= this.lastdayValue) {
       month = (today.getMonth() + 1 + this.monthValue) % 12;
