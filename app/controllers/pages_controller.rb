@@ -34,7 +34,7 @@ class PagesController < ApplicationController
 
     @current_week = week_of_month(Date.today, @cares_week5)
     params[:week] = @current_week.to_s if params[:week].nil?
-    @users = User.all
+    @users = User.all.sort_by(&:first_name)
 
     @weeks = ["Semaine 1", "Semaine 2", "Semaine 3", "Semaine 4"]
     @weeks << "Semaine 5" if !@cares_week5.empty?

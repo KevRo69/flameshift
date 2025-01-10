@@ -5,7 +5,7 @@ class CaresController < ApplicationController
   def index
     @cares = Care.all
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
-    @users = User.all
+    @users = User.all.sort_by(&:first_name)
     @month = I18n.t('date.month_names').index(params[:month].capitalize)
     @cares_data = @users.each_with_object({}) do |user, hash|
       next if user.first_name == "/"
