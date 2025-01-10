@@ -85,4 +85,9 @@ td.active {
     display: block; /* Ensure table respects the scrolling container */
     border-collapse: collapse; /* Optional: Neater table appearance */
   }
+
+  #cares-year-table th {
+    padding: 12px 0;
+    font-size: 10px;
+  }
 }
