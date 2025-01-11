@@ -5,7 +5,7 @@
         <%= f.error_notification %>
 
         <div class="form-inputs" data-controller="checkbox">
-          <%= f.input :email, label: "Identifiant", required: true, autofocus: true %>
+          <%= f.input :email, label: "Identifiant", required: true, autofocus: true, input_html: { readonly: true }  %>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

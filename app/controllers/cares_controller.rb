@@ -5,7 +5,7 @@ class CaresController < ApplicationController
   def index
     @cares = Care.all
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
-    @users = User.all.sort_by(&:first_name)
+    @users = User.all.sort_by(&:last_name)
     @month = I18n.t('date.month_names').index(params[:month].capitalize)
     @cares_data = @users.each_with_object({}) do |user, hash|
       next if user.first_name == "/"
@@ -60,7 +60,7 @@ class CaresController < ApplicationController
 
   def new
     @last_day_setting = Setting.first.last_day
-    @users = User.where(deactivated: false).reject { |user| user.first_name == "/" }.sort_by(&:first_name)
+    @users = User.where(deactivated: false).reject { |user| user.first_name == "/" }.sort_by(&:last_name)
     @availability = Availabilty.new
 
     @month_next_array = []
