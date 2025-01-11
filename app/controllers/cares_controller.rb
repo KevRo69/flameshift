@@ -163,13 +163,14 @@ class CaresController < ApplicationController
   end
 
   def edit
-    @users_cod = User.where(COD_1:"1")
-    @users_cate = User.where(CATE:"1")
-    @users_ca1e = User.where(CA1E:"1")
-    @users_ce_inc = User.where(CE_INC:"1")
-    @users_eq_inc = User.where(EQ_INC:"1")
-    @users_eq_sap = User.where(EQ_SAP:"1")
-    @users_stg = User.where(STG:"1")
+    @users_cod = User.where(COD_1:"1", deactivated: false).sort_by(&:last_name)
+    @users_cate = User.where(CATE:"1", deactivated: false).sort_by(&:last_name)
+    @users_ca1e = User.where(CA1E:"1", deactivated: false).sort_by(&:last_name)
+    @users_others = User.where(STG:"0", deactivated: false).sort_by(&:last_name) - @users_cate - @users_ca1e
+    @users_ce_inc = User.where(CE_INC:"1", deactivated: false).sort_by(&:last_name)
+    @users_eq_inc = User.where(EQ_INC:"1", deactivated: false).sort_by(&:last_name)
+    @users_eq_sap = User.where(EQ_SAP:"1", deactivated: false).sort_by(&:last_name)
+    @users_stg = User.where(STG:"1", deactivated: false).sort_by(&:last_name)
   end
 
   def update

@@ -49,6 +49,10 @@
                 <% @users_ca1e.reject { |user| @users_cate.include?(user) }.each do |user| %>
                   <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
                 <% end %>
+                <option value="" disabled>------ Autres ------</option>
+                <% @users_others.each do |user| %>
+                  <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
+                <% end %>
               </select>
             <% end %>
             <% when 2 %>
