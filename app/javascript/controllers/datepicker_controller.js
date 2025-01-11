@@ -85,13 +85,30 @@ export default class extends Controller {
         // Remove existing listeners before re-attaching
         day.removeEventListener("mouseenter", this.showTooltip);
         day.removeEventListener("mouseleave", this.hideTooltip);
+        day.removeEventListener("click", this.toggleTooltip);
 
         // Add event listeners for tooltip functionality
         day.addEventListener("mouseenter", (event) => this.showTooltip(event, day));
         day.addEventListener("mouseleave", () => this.hideTooltip());
+        day.addEventListener("click", (event) => this.toggleTooltip(event, day));
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".day")) {
+            days.forEach((day) => this.hideTooltip(day));
+          }
+        });
       });
     }
   }
+
+  toggleTooltip = (event, day) => {
+    // Check if the tooltip is already visible
+    if (day.classList.contains("tooltip-visible")) {
+      this.hideTooltip(day);
+    } else {
+      this.showTooltip(event, day);
+    }
+  };
 
   showTooltip(event, day) {
     // Check if the tooltip exists, and remove it if necessary
@@ -153,9 +170,14 @@ export default class extends Controller {
     }
 
     this.tooltip.innerHTML = text;
+
+    // Calculate the correct position including scroll offsets
+    const scrollOffsetX = window.scrollX || 0;
+    const scrollOffsetY = window.scrollY || 0;
+
     this.tooltip.style.position = "absolute";
-    this.tooltip.style.left = `${x + 10}px`; // Offset slightly from cursor
-    this.tooltip.style.top = `${y + 10}px`;
+    this.tooltip.style.left = `${x + 10 + scrollOffsetX}px`; // Offset slightly from cursor
+    this.tooltip.style.top = `${y + 10 + scrollOffsetY}px`;
     this.tooltip.style.display = "block";
   }
 
