@@ -63,12 +63,10 @@ class CaresController < ApplicationController
     @users = User.where(deactivated: false).reject { |user| user.first_name == "/" }.sort_by(&:first_name)
     @availability = Availabilty.new
 
-    start_of_month = Date.today.beginning_of_month
-    end_of_month = Date.today.end_of_month
-
     @month_next_array = []
 
     @availabilities_next_hash = {}
+    users_with_zero_availabilities = 0
     @users.each do |user|
       availabilities_next_array = []
       availabilities_next_days_array = []
@@ -81,6 +79,11 @@ class CaresController < ApplicationController
         availabilities_next_days = availabilities_next.map { |date| date.day }
         availabilities_next_array << availabilities_next
         availabilities_next_days_array << availabilities_next_days
+        if i == 0
+          if availabilities_next.empty?
+            users_with_zero_availabilities += 1
+          end
+        end
       end
       @availabilities_next_hash[user.id] = { availabilities_next_days_array: availabilities_next_days_array }
     end
@@ -88,6 +91,11 @@ class CaresController < ApplicationController
     @care = Care.new
     @start_of_next = Date.today.beginning_of_month + 1.months
     @month = I18n.l(@start_of_next, format: '%B')
+    @alert_message = users_with_zero_availabilities == 0 ?
+                    "Tout le monde a rempli ses disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?" :
+                    users_with_zero_availabilities == 1 ?
+                    "Attention, #{users_with_zero_availabilities} utilisateur n'a pas rempli ses disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?" :
+                    "Attention, #{users_with_zero_availabilities} utilisateurs n'ont pas rempli leurs disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?"
     end_of_next = Date.today.end_of_month + 1.months
     @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
     @cares_missing = @cares_next.reject do |care|
@@ -208,7 +216,6 @@ class CaresController < ApplicationController
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
       year = params[:year].to_i
-      date = Date.new(year, month, 1)
       @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
     end
   end
@@ -220,7 +227,6 @@ class CaresController < ApplicationController
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer
       year = params[:year].to_i
-      date = Date.new(year, month, 1)
       @cares = @cares.where('extract(month from day) = ? AND extract(year from day) = ?', month, year)
     end
   end
