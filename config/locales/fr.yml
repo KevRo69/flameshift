@@ -161,6 +161,10 @@ fr:
       unlocked: Votre compte a bien été déverrouillé. Veuillez vous connecter.
   errors:
     messages:
+      too_short: "est trop court (minimum %{count} caractères)."
+      too_long: "est trop long (maximum %{count} caractères)."
+      confirmation: "ne correspond pas."
+      invalid: "est invalide."
       already_confirmed: a déjà été confirmé(e)
       confirmation_period_expired: doit être confirmé(e) en %{period}, veuillez en demander un(e) autre
       expired: est expiré, veuillez en demander un autre
@@ -169,3 +173,13 @@ fr:
       not_saved:
         one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e) :'
         other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être enregistré(e) :"
+    models:
+        user:
+          attributes:
+            current_password:
+              invalid: "Le mot de passe actuel est incorrect."
+            password_confirmation:
+              confirmation: "La confirmation du mot de passe ne correspond pas."
+            password:
+              too_short: "est trop court (minimum %{count} caractères)."
+              too_long: "est trop long (maximum %{count} caractères)."
