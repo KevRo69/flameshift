@@ -21,7 +21,7 @@
                 <%= link_to "Générer les gardes", new_care_path, class: "dropdown-item" %>
                 <%= link_to "Modifier les gardes", modify_cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "dropdown-item" %>
               <% end %>
-              <%= link_to "Modifier mon compte", edit_user_registration_path, class: "dropdown-item" %>
+              <%= link_to "Modifier mon compte", edit_user_registration_path, data: { turbo: false }, class: "dropdown-item" %>
               <% if current_user.validator %>
                 <%= link_to "Gérer les manœuvres", user_maneuvers_path, data: { turbo: false }, class: "dropdown-item" %>
                 <%= link_to "Modifier les profils", users_path, data: { turbo: false }, class: "dropdown-item" %>
