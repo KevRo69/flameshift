@@ -6,7 +6,7 @@ if Rails.env.production?
   Team.create!(number: 4)
 
   puts "Creating users..."
-  User.create!(email: "nil", password: "123456", first_name: "/", last_name: "/", EQ_SAP: "1", STG: "1", team_id: Team.where(number: 4)[0].id)
+  User.create!(email: "nil", password: "123456", first_name: "/", last_name: "/", CATE: "1", CE_INC: "1", EQ_INC: "1", COD_1: "1", EQ_SAP: "1", STG: "1", validator: "1", team_id: Team.where(number: 4)[0].id)
   User.create!(email: "denisd", password: "123456", first_name: "Denis", last_name: "Dannaud", CATE: "1", COD_1: "1", team_id: Team.where(number: 3)[0].id)
   User.create!(email: "davidq", password: "123456", first_name: "David", last_name: "Quibel", CATE: "1", COD_1: "1", validator: "1", team_id: Team.where(number: 2)[0].id)
   User.create!(email: "franckc", password: "123456", first_name: "Franck", last_name: "Combe", CATE: "1", COD_1: "1", team_id: Team.where(number: 1)[0].id)
