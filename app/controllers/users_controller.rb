@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     12.times do |i|
       start_of_next = Date.today.day <= Setting.first.last_day ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
-      end_of_next = Date.today.day <= Setting.first.last_day ? Date.today.end_of_month + 1.months + i.month : Date.today.end_of_month + 2.months + i.month
+      end_of_next = Date.today.day <= Setting.first.last_day ? (Date.today + 1.months).end_of_month  + i.month : (Date.today + 2.months).end_of_month + i.month
       month_next = I18n.t('date.month_names')[start_of_next.month]
       @month_next_array << month_next
       availabilities_next = @user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)
