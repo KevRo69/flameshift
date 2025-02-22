@@ -116,50 +116,54 @@ class CaresController < ApplicationController
   def create
     start_of_month = Date.today.beginning_of_month + 1.months
     end_of_month = (Date.today.at_beginning_of_month + 2.months - 1.day)
-    usernil = User.find_by(first_name: "/")
-    days = (start_of_month..end_of_month).to_a.select { |day| [5, 6, 0].include?(day.wday) }
-    days = (start_of_month..end_of_month).to_a if start_of_month.mon == 7 || start_of_month.mon == 8
-    days.each do |day|
-      @care = Care.new(day: day)
-      user_cod = weight_care(day, get_users_cod(day))
-      user_cate = weight_care(day, (get_users_cate(day) - [user_cod]))
-      user_ce_inc = weight_care(day, (get_users_ce_inc(day) - [user_cod] - [user_cate]))
-      user_eq_inc = weight_care(day, (get_users_eq_inc(day) - [user_cod] - [user_cate] - [user_ce_inc]))
-      user_eq_sap = weight_care(day, (get_users_eq_sap(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc]))
-      user_stg = weight_care(day, (get_users_stg(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc] - [user_eq_sap]))
-      unless get_users_cod(day).empty? || user_cod.nil?
-        @care.users << user_cod
-      else
-        @care.users << usernil
+    if Care.where("EXTRACT(MONTH FROM day) = ?", start_of_month.month).count == 0
+      usernil = User.find_by(first_name: "/")
+      days = (start_of_month..end_of_month).to_a.select { |day| [5, 6, 0].include?(day.wday) }
+      days = (start_of_month..end_of_month).to_a if start_of_month.mon == 7 || start_of_month.mon == 8
+      days.each do |day|
+        @care = Care.new(day: day)
+        user_cod = weight_care(day, get_users_cod(day))
+        user_cate = weight_care(day, (get_users_cate(day) - [user_cod]))
+        user_ce_inc = weight_care(day, (get_users_ce_inc(day) - [user_cod] - [user_cate]))
+        user_eq_inc = weight_care(day, (get_users_eq_inc(day) - [user_cod] - [user_cate] - [user_ce_inc]))
+        user_eq_sap = weight_care(day, (get_users_eq_sap(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc]))
+        user_stg = weight_care(day, (get_users_stg(day) - [user_cod] - [user_cate] - [user_ce_inc] - [user_eq_inc] - [user_eq_sap]))
+        unless get_users_cod(day).empty? || user_cod.nil?
+          @care.users << user_cod
+        else
+          @care.users << usernil
+        end
+        unless get_users_cate(day).empty? || user_cate.nil?
+          @care.users << user_cate
+        else
+          @care.users << usernil
+        end
+        unless get_users_ce_inc(day).empty? || user_ce_inc.nil?
+          @care.users << user_ce_inc
+        else
+          @care.users << usernil
+        end
+        unless get_users_eq_inc(day).empty? || user_eq_inc.nil?
+          @care.users << user_eq_inc
+        else
+          @care.users << usernil
+        end
+        unless get_users_eq_sap(day).empty? || user_eq_sap.nil?
+          @care.users << user_eq_sap
+        else
+          @care.users << usernil
+        end
+        unless get_users_stg(day).empty? || user_stg.nil?
+          @care.users << user_stg
+        else
+          @care.users << usernil
+        end
+        @care.save
       end
-      unless get_users_cate(day).empty? || user_cate.nil?
-        @care.users << user_cate
-      else
-        @care.users << usernil
-      end
-      unless get_users_ce_inc(day).empty? || user_ce_inc.nil?
-        @care.users << user_ce_inc
-      else
-        @care.users << usernil
-      end
-      unless get_users_eq_inc(day).empty? || user_eq_inc.nil?
-        @care.users << user_eq_inc
-      else
-        @care.users << usernil
-      end
-      unless get_users_eq_sap(day).empty? || user_eq_sap.nil?
-        @care.users << user_eq_sap
-      else
-        @care.users << usernil
-      end
-      unless get_users_stg(day).empty? || user_stg.nil?
-        @care.users << user_stg
-      else
-        @care.users << usernil
-      end
-      @care.save
+      redirect_to new_care_path, notice: 'Gardes créées avec succès.'
+    else
+      redirect_to new_care_path, alert: 'Les gardes du mois ont déjà été créées.'
     end
-    redirect_to new_care_path, notice: 'Gardes créées avec succès.'
   end
 
   def edit
@@ -203,11 +207,15 @@ class CaresController < ApplicationController
   def destroy_month
     start_of_next =  Date.today.beginning_of_month + 1.months
     end_of_next =  (Date.today.at_beginning_of_month + 2.months - 1.day)
-    @cares = Care.where(day: (start_of_next)..(end_of_next))
-    @cares.each do |care|
-      care.destroy
+    unless Care.where("EXTRACT(MONTH FROM day) = ?", start_of_next.month).count == 0
+      @cares = Care.where(day: (start_of_next)..(end_of_next))
+      @cares.each do |care|
+        care.destroy
+      end
+      redirect_to new_care_path, status: :see_other
+    else
+      redirect_to new_care_path, alert: 'Les gardes du mois ont déjà été supprimées.'
     end
-    redirect_to new_care_path, status: :see_other
   end
 
   def monthly_cares
