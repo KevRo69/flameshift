@@ -20,6 +20,6 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:rules, :last_day, :warning)
+    params.require(:setting).permit(:rules, :last_day, :warning, :infos)
   end
 end

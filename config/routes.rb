@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     post 'availabilties/create3', to: 'availabilties#create3'
   end
 
+  get 'infos', to: 'pages#infos'
+
   resources :users, only: [:index, :update]
 
   resources :users do

@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-center align-items-center flex-column mt-3">
+  <h2>Infos centre</h2>
+  <% unless @infos == "" || @infos.nil? %>
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <div id="infos">
+        <p><%= @infos %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

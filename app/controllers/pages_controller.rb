@@ -70,6 +70,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def infos
+    @infos = Setting.first.infos
+  end
+
   private
 
   def week_of_month(date, cares_week5, week_start_day: :monday)
