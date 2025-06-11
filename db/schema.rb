@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_22_193922) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_17_191057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_22_193922) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "day"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_cares_on_user_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -89,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_22_193922) do
   end
 
   add_foreign_key "availabilties", "users"
+  add_foreign_key "cares", "users", on_delete: :nullify
   add_foreign_key "user_cares", "cares"
   add_foreign_key "user_cares", "users"
   add_foreign_key "user_maneuvers", "users"

@@ -167,6 +167,8 @@ class CaresController < ApplicationController
   end
 
   def edit
+    @users= User.where(deactivated: false).sort_by(&:last_name)
+    @user_sog = User.where(id: Care.find(params[:id]).user_id).first
     @users_cod = User.where(COD_1:"1", deactivated: false).sort_by(&:last_name)
     @users_cate = User.where(CATE:"1", deactivated: false).sort_by(&:last_name)
     @users_ca1e = User.where(CA1E:"1", deactivated: false).sort_by(&:last_name)
@@ -185,8 +187,11 @@ class CaresController < ApplicationController
 
     @users_cod = get_users_cod(@care.day)
 
-    user_cares_params.each do |user_care_params|
-      if user_care_params[:user_id].blank? && user_care_params[:id].present?
+    user_cares_params.each_with_index do |user_care_params, index|
+      if index == 6
+        @care.user_id = user_care_params[:user_id]
+        @care.save
+      elsif user_care_params[:user_id].blank? && user_care_params[:id].present?
         # If the user_id is blank and an id is present, destroy the user_care
         user_care = @care.user_cares.find_by(id: user_care_params[:id])
         user_care.destroy if user_care
@@ -198,7 +203,7 @@ class CaresController < ApplicationController
       end
     end
 
-    redirect_to new_care_path, notice: 'Garde modifiée avec succès.'
+    redirect_to modify_cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), notice: 'Garde modifiée avec succès.'
     # rescue ActiveRecord::RecordInvalid => e
     #   flash.now[:error] = e.message
     #   render :edit
@@ -231,7 +236,7 @@ class CaresController < ApplicationController
 
   def modify_cares
     @user = current_user
-    @cares = Care.all
+    @cares = Care.order(:day)
     # Filter by selected month and year
     if params[:month].present? && params[:year].present?
       month = I18n.t('date.month_names').index(params[:month].capitalize) # Get month as integer

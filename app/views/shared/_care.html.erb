@@ -48,8 +48,37 @@
                 <% end %>
               <% end %>
             <% end %>
-          </tr>
+  </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+            <% if week == "1"%>
+              <% (@week_size - @cares.size).times do %>
+                <td></td>
+              <% end %>
+            <% end %>
+            <% @cares.each do |care| %>
+              <% user = care.user %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% unless user.nil? %>
+                <% if user.first_name != "/" %>
+                  <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                <% end %>
+              <% else %>
+                /
+              <% end %>
+              </td>
+              <% if week == "5"%>
+                <% (@week_size - @cares.size).times do %>
+                  <td></td>
+                <% end %>
+              <% end %>
+            <% end %>
+  </tr>
       </tbody>
     </table>
   </div>
