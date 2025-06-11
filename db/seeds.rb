@@ -242,7 +242,7 @@ else
 
   User.all.each do |user|
     rand(100).times do
-      random_date = Faker::Date.between(from: '2025-06-01', to: '2025-06-30')
+      random_date = Faker::Date.between(from: '2025-07-01', to: '2025-07-31')
       user.availabilties.create!(day: random_date)
     end
     # Find days that have duplicates

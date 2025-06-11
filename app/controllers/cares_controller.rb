@@ -158,6 +158,7 @@ class CaresController < ApplicationController
         else
           @care.users << usernil
         end
+        @care.user_id = User.where(email:"nil").first.id
         @care.save
       end
       redirect_to new_care_path, notice: 'Gardes créées avec succès.'
