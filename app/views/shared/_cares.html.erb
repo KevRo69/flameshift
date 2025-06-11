@@ -36,6 +36,24 @@
             <% end %>
           </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+          <% (@week_size - @cares_week1.size).times do %>
+            <td></td>
+          <% end %>
+          <% @cares_week1.each do |care| %>
+            <% user = care.user %>
+            <% if user == current_user %>
+              <td class="active">
+            <% else %>
+              <td>
+            <% end %>
+            <% if user.first_name != "/" %>
+              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+            <% end %>
+            </td>
+          <% end %>
+</tr>
       </tbody>
     </table>
 
@@ -69,6 +87,24 @@
             <% end %>
           </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+          <% (@week_size - @cares_week2.size).times do %>
+            <td></td>
+          <% end %>
+          <% @cares_week2.each do |care| %>
+            <% user = care.user %>
+            <% if user == current_user %>
+              <td class="active">
+            <% else %>
+              <td>
+            <% end %>
+            <% if user.first_name != "/" %>
+              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+            <% end %>
+            </td>
+          <% end %>
+</tr>
       </tbody>
     </table>
 
@@ -102,6 +138,24 @@
             <% end %>
           </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+          <% (@week_size - @cares_week3.size).times do %>
+            <td></td>
+          <% end %>
+          <% @cares_week3.each do |care| %>
+            <% user = care.user %>
+            <% if user == current_user %>
+              <td class="active">
+            <% else %>
+              <td>
+            <% end %>
+            <% if user.first_name != "/" %>
+              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+            <% end %>
+            </td>
+          <% end %>
+</tr>
       </tbody>
     </table>
 
@@ -135,6 +189,24 @@
             <% end %>
           </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+          <% (@week_size - @cares_week4.size).times do %>
+            <td></td>
+          <% end %>
+          <% @cares_week4.each do |care| %>
+            <% user = care.user %>
+            <% if user == current_user %>
+              <td class="active">
+            <% else %>
+              <td>
+            <% end %>
+            <% if user.first_name != "/" %>
+              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+            <% end %>
+            </td>
+          <% end %>
+</tr>
       </tbody>
     </table>
 
@@ -175,6 +247,24 @@
             <% end %>
           </tr>
         <% end %>
+        <tr>
+          <th>SOG</th>
+          <% (@week_size - @cares_week5.size).times do %>
+            <td></td>
+          <% end %>
+          <% @cares_week5.each do |care| %>
+            <% user = care.user %>
+            <% if user == current_user %>
+              <td class="active">
+            <% else %>
+              <td>
+            <% end %>
+            <% if user.first_name != "/" %>
+              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+            <% end %>
+            </td>
+          <% end %>
+</tr>
       </tbody>
     </table>
     <% end %>

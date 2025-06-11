@@ -65,25 +65,6 @@ else
 
   puts "Users created!"
 
-  # puts "Creating cares for November..."
-
-  # 31.times do |i|
-  #   care = Care.new(day: "2024-11-#{i + 1}")
-  #   user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
-  #   user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
-  #   user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
-
-  #   care.users << User.where(COD_1: "1").sample
-  #   care.users << User.where(CATE: "1").sample
-  #   care.users << user_ce
-  #   care.users << user_eq
-  #   care.users << user_sap
-  #   care.users << User.where(STG: "1").sample
-  #   care.save
-  # end
-
-  # puts "Cares for November created!"
-
   # puts "Creating cares for year..."
 
   # 3.times do |i|
@@ -261,7 +242,7 @@ else
 
   User.all.each do |user|
     rand(100).times do
-      random_date = Faker::Date.between(from: '2025-03-01', to: '2025-03-31')
+      random_date = Faker::Date.between(from: '2025-07-01', to: '2025-07-31')
       user.availabilties.create!(day: random_date)
     end
     # Find days that have duplicates
@@ -274,6 +255,26 @@ else
   end
 
   puts "Availabilities created!"
+
+    puts "Creating cares for June..."
+
+  30.times do |i|
+    care = Care.new(day: "2025-06-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.user_id = User.where(email:"nil").first.id
+    care.save!
+  end
+
+  puts "Cares for June created!"
 
   # puts "Creating availabilities for February..."
 
@@ -292,4 +293,7 @@ else
   # end
 
   # puts "Availabilities created!"
+  #
+
+
 end

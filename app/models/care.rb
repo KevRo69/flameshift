@@ -1,4 +1,6 @@
 class Care < ApplicationRecord
+  belongs_to :user
+
   has_many :user_cares, dependent: :destroy
   has_many :users, -> { order('user_cares.created_at ASC') }, through: :user_cares
 

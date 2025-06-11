@@ -23,7 +23,7 @@
         <%= link_to care_path(care) do %>
           <div class="care-card">
             <h3><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></h3>
-              <% 6.times do |index| %>
+              <% 7.times do |index| %>
                 <% case index %>
                   <% when 0 %>
                   <h4>COD1</h4>
@@ -37,9 +37,14 @@
                   <h4>EQ SAP / EQ INC</h4>
                   <% when 5 %>
                   <h4>STG</h4>
+                  <% when 6 %>
+                  <h4>SOG</h4>
                 <% end %>
                 <% unless care.users[index].nil? %>
                   <p><%= care.users[index].first_name %> <%= care.users[index].last_name %></p>
+                <% end %>
+                <% if index == 6 %>
+                  <p><%= care.user.first_name %> <%= care.user.last_name %></p>
                 <% end %>
             <% end %>
           </div>

@@ -3,21 +3,23 @@
     <div class="form-container">
     <%= simple_form_for @care, url: care_path(@care), method: :patch do |f| %>
     <div class="edit-care-container">
-      <% 6.times do |index| %>
+      <% 7.times do |index| %>
         <div class="form-card">
           <% case index %>
             <% when 0 %>
-            <h4>COD1</h4>
+              <h4>COD1</h4>
             <% when 1 %>
-            <h4>CATE</h4>
+              <h4>CATE</h4>
             <% when 2 %>
-            <h4>CE INC</h4>
+              <h4>CE INC</h4>
             <% when 3 %>
-            <h4>EQ INC</h4>
+              <h4>EQ INC</h4>
             <% when 4 %>
-            <h4>EQ SAP / EQ INC</h4>
+              <h4>EQ SAP / EQ INC</h4>
             <% when 5 %>
-            <h4>STG</h4>
+              <h4>STG</h4>
+            <% when 6 %>
+              <h4>SOG</h4>
           <% end %>
 
           <% case index %>
@@ -94,7 +96,16 @@
                         options_from_collection_for_select(@users_stg, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                         label: "Sélectionner une autre personne",
                         class: "users-dropdown" %>
-              <% end %>
+            <% end %>
+            <% when 6 %>
+              <%= simple_fields_for "care[users_attributes][#{index}]", @user_sog do |uf| %>
+                <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
+                <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
+                  <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
+                        options_from_collection_for_select(@users, :id, :full_name, @user_sog.nil? ? nil : @user_sog.id),
+                        label: "Sélectionner une autre personne",
+                        class: "users-dropdown" %>
+            <% end %>
           <% end %>
         </div>
       <% end %>

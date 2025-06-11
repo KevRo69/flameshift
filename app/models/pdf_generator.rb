@@ -66,7 +66,19 @@ class PdfGenerator
       row
     end
 
-    [header] + body
+    # Add custom "SOG" row based on care.user_id
+  sog_row = ["SOG"] # First column label
+  sog_row += ([@week_size - week_cares.size].map { "" }) # Padding
+  sog_row += week_cares.map do |care|
+    user = User.find_by(id: care.user_id)
+    if user && user.first_name != "/"
+      "#{user.first_name.chars.first(2).join}. #{user.last_name}"
+    else
+      ""
+    end
+  end
+
+  [header] + body + [sog_row]
   end
 
 end
