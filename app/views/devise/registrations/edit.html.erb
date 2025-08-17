@@ -4,24 +4,31 @@
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs" data-controller="checkbox">
-          <%= f.input :email, label: "Identifiant", required: true, autofocus: true, input_html: { readonly: true }  %>
+        <div class="form-inputs" data-controller="checkbox autocomplete-username">
+          <%= f.input :first_name, label: "Prénom", required: true, input_html: {class: "name", data: {"autocomplete-username-target": "firstName",
+                                  action: "input->autocomplete-username#updateUsername"}
+                                  } %>
+          <%= f.input :last_name, label: "Nom", required: true, input_html: {class: "name", data: {"autocomplete-username-target": "lastName",
+                                  action: "input->autocomplete-username#updateUsername"}
+                                  } %>
+          <%= f.input :email, label: "Identifiant", required: true, autofocus: true, input_html: { readonly: true, autocomplete: "email", data: {"autocomplete-username-target": "username" }}   %>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
           <% end %>
+          <%= f.input :current_password,
+                      hint: "Mot de passe actuel nécessaire pour mettre à jour les informations",
+                      required: true,
+                      input_html: { autocomplete: "current-password" } %>
 
           <%= f.input :password,
+                      label: "Nouveau mot de passe",
                       hint: "Laissez vide si vous ne voulez pas le changer",
                       required: false,
                       input_html: { autocomplete: "new-password" } %>
           <%= f.input :password_confirmation,
                       required: false,
                       input_html: { autocomplete: "new-password" } %>
-          <%= f.input :current_password,
-                      hint: "Mot de passe actuel nécessaire pour mettre à jour les informations",
-                      required: true,
-                      input_html: { autocomplete: "current-password" } %>
       </div>
     </div>
 
