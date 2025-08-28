@@ -26,11 +26,11 @@ class PagesController < ApplicationController
 
     @week_size = start_of_month.mon == 7 || start_of_month.mon == 8 ? 7 : 3
 
-    @cares_week1 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month)..(start_of_month + 6.days)) : Care.where(day: (first_friday)..(first_sunday))
-    @cares_week2 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 7.days)..(start_of_month + 13.days)) : Care.where(day: (next_friday)..(first_sunday + 7.days))
-    @cares_week3 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 14.days)..(start_of_month + 20.days)) : Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days))
-    @cares_week4 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days)) : Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days))
-    @cares_week5 = start_of_month + 27.days <= end_of_month ? (start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 28.days)..(end_of_month)) : Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(@year, month)))) : []
+    @cares_week1 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month)..(start_of_month + 6.days)).sort_by(&:day) : Care.where(day: (first_friday)..(first_sunday)).sort_by(&:day)
+    @cares_week2 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 7.days)..(start_of_month + 13.days)).sort_by(&:day) : Care.where(day: (next_friday)..(first_sunday + 7.days)).sort_by(&:day)
+    @cares_week3 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 14.days)..(start_of_month + 20.days)).sort_by(&:day) : Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days)).sort_by(&:day)
+    @cares_week4 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days)).sort_by(&:day) : Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days)).sort_by(&:day)
+    @cares_week5 = start_of_month + 27.days <= end_of_month ? (start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 28.days)..(end_of_month)).sort_by(&:day) : Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(@year, month))).sort_by(&:day)) : []
 
     @current_week = week_of_month(Date.today, @cares_week5)
     params[:week] = @current_week.to_s if params[:week].nil?

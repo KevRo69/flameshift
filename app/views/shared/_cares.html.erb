@@ -249,9 +249,6 @@
         <% end %>
         <tr>
           <th>SOG</th>
-          <% (@week_size - @cares_week5.size).times do %>
-            <td></td>
-          <% end %>
           <% @cares_week5.each do |care| %>
             <% user = care.user %>
             <% if user == current_user %>
@@ -263,6 +260,9 @@
               <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
             <% end %>
             </td>
+          <% end %>
+          <% (@week_size - @cares_week5.size).times do %>
+            <td></td>
           <% end %>
 </tr>
       </tbody>

@@ -237,6 +237,43 @@ else
   # end
 
   # puts "Cares for December created!"
+  #
+  ## creating cares for July and August
+  31.times do |i|
+    care = Care.new(day: "2025-07-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.user_id = User.where(email:"nil").first.id
+    care.save!
+  end
+
+  puts "Cares for July created!"
+
+  31.times do |i|
+    care = Care.new(day: "2025-08-#{i + 1}")
+    user_ce = User.where('"CE_INC" = ? OR "CA1E" = ?', "1", "1").sample
+    user_eq = (User.where('"CE_INC" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1") - [user_ce]).sample
+    user_sap = (User.where('"CE_INC" = ? OR "EQ_SAP" = ? OR "EQ_INC" = ? OR "CA1E" = ?', "1", "1", "1", "1") - [user_ce] - [user_eq]).sample
+
+    care.users << User.where(COD_1: "1").sample
+    care.users << User.where(CATE: "1").sample
+    care.users << user_ce
+    care.users << user_eq
+    care.users << user_sap
+    care.users << User.where(STG: "1").sample
+    care.user_id = User.where(email:"nil").first.id
+    care.save!
+  end
+
+  puts "Cares for August created!"
 
   puts "Creating availabilities..."
 
