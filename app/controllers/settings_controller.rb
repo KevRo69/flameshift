@@ -9,11 +9,12 @@ class SettingsController < ApplicationController
 
   def update
     @setting = Setting.find(params[:id])
+
     if @setting.update(setting_params)
       redirect_to settings_path, notice: 'Paramètres mis à jour.'
     else
       flash[:alert] = 'Échec de mise à jour des paramètres.'
-      render :edit
+      redirect_to settings_path, notice: 'Échec de mise à jour des paramètres.'
     end
   end
 

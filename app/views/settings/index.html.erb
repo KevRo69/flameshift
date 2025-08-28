@@ -3,13 +3,13 @@
   <div class="setting-form">
     <%= simple_form_for @setting, url: setting_path(@setting), html: { method: :patch } do |f| %>
       <div class="form-inputs" data-controller="checkbox">
-      <div class="d-flex justify-content-center align-item-center">
-        <%= f.input :last_day, label: "Jour de validation", input_html: {type: "number", min: 1, max: 28 } %>
-      </div>
-        <%= f.input :rules, label: "Règles"%>
-        <%= f.input :warning, label: "Avertissement"%>
-        <%= f.input :infos, label: "Infos centre"%>
-      </div>
+        <div class="d-flex justify-content-center align-item-center">
+          <%= f.input :last_day, label: "Jour de validation", input_html: {type: "number", min: 1, max: 28 } %>
+        </div>
+          <%= f.input :rules, label: "Règles"%>
+          <%= f.input :warning, label: "Avertissement"%>
+          <%= f.input :infos, label: "Infos centre"%>
+        </div>
     </div>
     <div class="form-actions">
       <%= f.button :submit, "Mettre à jour", data: { turbo: false }, class: "btn mb-3" %>
