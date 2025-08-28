@@ -86,7 +86,6 @@ class PagesController < ApplicationController
     }
 
     weeks.find { |_, week| week.include?(Date.today) }&.first
-    debugger
   end
 
   def last_weekend_day_of_month(year, month)
