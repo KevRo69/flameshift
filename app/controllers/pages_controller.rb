@@ -32,7 +32,7 @@ class PagesController < ApplicationController
     @cares_week4 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days)).sort_by(&:day) : Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days)).sort_by(&:day)
     @cares_week5 = start_of_month + 27.days <= end_of_month ? (start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 28.days)..(end_of_month)).sort_by(&:day) : Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(@year, month))).sort_by(&:day)) : []
 
-    @current_week = week_of_month(Date.today, @cares_week5)
+    @current_week = week_of_month
     params[:week] = @current_week.to_s if params[:week].nil?
     @users = User.all.sort_by(&:last_name)
 
@@ -76,19 +76,17 @@ class PagesController < ApplicationController
 
   private
 
-  def week_of_month(date, cares_week5, week_start_day: :monday)
-    # Determine the first week start aligned with the chosen day
-    first_week_start = date.beginning_of_month.beginning_of_week(week_start_day)
+  def week_of_month
+    weeks = {
+      1 => @cares_week1.map{ |care| care.day },
+      2 => @cares_week2.map{ |care| care.day },
+      3 => @cares_week3.map{ |care| care.day },
+      4 => @cares_week4.map{ |care| care.day },
+      5 => @cares_week5.map{ |care| care.day }
+    }
 
-    # Calculate the week number
-    week_number = ((date - first_week_start).to_i / 7) + 1
-
-    # Cap the result at 5
-    if cares_week5.empty?
-      week_number > 4 ? 4 : week_number
-    else
-      week_number > 5 ? 5 : week_number
-    end
+    weeks.find { |_, week| week.include?(Date.today) }&.first
+    debugger
   end
 
   def last_weekend_day_of_month(year, month)
