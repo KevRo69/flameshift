@@ -21,6 +21,17 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    unless resource.valid_password?(params[:user][:current_password])
+      flash[:alert] = "Mot de passe actuel incorrect."
+      render :edit
+      return
+    end
+
+    super
+
+  end
+
   protected
 
   def configure_sign_up_params
