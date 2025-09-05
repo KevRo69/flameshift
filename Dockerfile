@@ -21,6 +21,14 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
 
+# Installer Node.js et Yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+  && apt-get install -y nodejs
+
+# Installer Yarn (optionnel mais recommandé pour Rails 7 + jsbundling-rails)
+RUN npm install -g yarn
+
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
