@@ -82,3 +82,4 @@ production:
   database: flameshift_production
   username: flameshift
   password: <%= ENV["FLAMESHIFT_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
