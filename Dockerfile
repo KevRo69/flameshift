@@ -17,17 +17,15 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
+# Installer Node.js 18 (ou 20) + Yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+  && apt-get update -qq \
+  && apt-get install -y nodejs \
+  && npm install -g yarn
+
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
-
-# Installer Node.js et Yarn
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-  && apt-get install -y nodejs
-
-# Installer Yarn (optionnel mais recommandé pour Rails 7 + jsbundling-rails)
-RUN npm install -g yarn
-
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
