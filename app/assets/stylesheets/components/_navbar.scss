@@ -1,6 +1,7 @@
 .navbar-lewagon {
   justify-content: space-evenly;
   background: $red-fire;
+  width: 100vw;
 }
 
 .container-fluid {
@@ -27,7 +28,7 @@
 
 #firestation-name {
   color: white;
-  margin: 0;
+  margin: 0 32px 0 0;
 }
 
 @media (max-width: 768px) {
