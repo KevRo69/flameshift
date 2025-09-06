@@ -27,6 +27,8 @@ fr:
   activerecord:
     attributes:
       user:
+        first_name: Prénom
+        last_name: Nom
         confirmation_sent_at: Date d'envoi de la confirmation
         confirmation_token: Clé de confirmation du mot de passe
         confirmed_at: Date de confirmation
