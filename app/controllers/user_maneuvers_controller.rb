@@ -17,7 +17,7 @@ class UserManeuversController < ApplicationController
       redirect_to user_maneuvers_path, notice: "Mise à jour des manœuvres effectuée."
     else
       flash[:error] = "Échec de la mise à jour des manœuvres."
-      render :edit
+      redirect_to user_maneuvers_path
     end
   end
 
