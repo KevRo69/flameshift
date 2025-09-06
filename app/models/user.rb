@@ -13,7 +13,8 @@ class User < ApplicationRecord
   has_many :availabilties, dependent: :destroy
   has_many :user_maneuvers, dependent: :destroy
   validates :first_name, :last_name, presence: true
-  validates :password, presence: true, confirmation: true, length: { within: 6..128 }, if: -> { password.present? }
+  validates :password, presence: true, confirmation: true, length: { within: 6..128 }, on: :create
+  validates :password, confirmation: true, length: { within: 6..128 }, allow_blank: true, on: :update
   accepts_nested_attributes_for :user_maneuvers, allow_destroy: true
 
   def active_for_authentication?

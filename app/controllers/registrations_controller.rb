@@ -17,7 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:notice] = "Utilisateur créé avec succès."
       redirect_to root_path # Adjust as needed
     else
-      render :new
+      redirect_to new_user_registration_path, alert: @user.errors.full_messages
     end
   end
 
