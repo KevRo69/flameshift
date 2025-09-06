@@ -11,3 +11,11 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.form-control.is-valid {
+  background-image: none !important;
+}
+
+.form-check-label {
+  color: white !important;
+}
