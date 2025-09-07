@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
+    <%= link_to root_path(year: Date.today.strftime('%Y')), class: "navbar-brand" do %>
       <%= image_tag "logo.png" %>
     <% end %>
 
@@ -14,7 +14,7 @@
               <i class="fa-solid fa-bars fa-xl" style="color: #ffffff; width: 24px;"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Accueil", root_path, class: "dropdown-item" %>
+              <%= link_to "Accueil", root_path(year: Date.today.strftime('%Y')), class: "dropdown-item" %>
               <%= link_to "Mes dispos / gardes", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Toutes les gardes", cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "dropdown-item" %>
               <% if current_user.validator %>
