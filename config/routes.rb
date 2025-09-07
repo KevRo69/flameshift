@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :settings, only: [:index, :edit, :update]
 
   post 'reports/table_pdf', to: 'reports#table_pdf'
+  post 'reports/annual_table_pdf', to: 'reports#annual_table_pdf'
 
   resources :cares, only: [:index, :show, :new, :create, :edit, :update]
 

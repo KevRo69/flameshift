@@ -33,6 +33,11 @@
       <% end %>
     </select>
   </div>
+  <div class="filter">
+    <%= button_to reports_annual_table_pdf_path, method: :post, params: { cares_data: @cares_data, maneuvers: @maneuvers, year: params[:year] }, data: { turbo: false }, title: "Télécharger le PDF" do %>
+      <i class="fa-solid fa-download download-icon fa-xl"></i>
+    <% end %>
+  </div>
 </div>
 
 <div class="table-container">
