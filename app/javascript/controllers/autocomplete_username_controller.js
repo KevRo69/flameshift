@@ -11,7 +11,24 @@ export default class extends Controller {
     const lastName = this.lastNameTarget.value.trim();
 
     if (firstName && lastName) {
-      this.usernameTarget.value = firstName.toLowerCase() + lastName.charAt(0).toLowerCase();
+        this.usernameTarget.value = firstName.toLowerCase() + lastName.charAt(0).toLowerCase();
     }
+
+    this.#checkUsername();
   }
+
+    #checkUsername() {
+        clearTimeout(this.checkTimeout);
+
+        this.checkTimeout = setTimeout(() => {
+            const username = this.usernameTarget.value.trim();
+            if (username.length === 0) return;
+
+            fetch(`/check_username?username=${encodeURIComponent(username)}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    data.exists === false ? this.usernameTarget.value = username : this.usernameTarget.value = `${username}${data.highest_username + 1}`;
+                });
+        }, 300);
+    }
 }
