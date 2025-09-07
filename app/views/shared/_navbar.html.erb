@@ -11,7 +11,7 @@
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+              <i class="fa-solid fa-bars fa-xl" style="color: #ffffff; width: 24px;"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Accueil", root_path, class: "dropdown-item" %>
@@ -33,7 +33,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to new_user_session_path, class: "nav-link" do %>
+            <%= link_to new_user_session_path, class: "nav-link", style: "width: 24px;" do %>
               <i class="fa-solid fa-right-to-bracket fa-xl" style="color: #ffffff;"></i>
             <% end %>
           </li>

@@ -8,7 +8,7 @@
     <div class="availabilities-container">
       <% 12.times do |month| %>
         <% if @availabilities_next_array[month].empty? %>
-          <div class="availabilities">
+          <div class="availabilities-carousel">
             <%= simple_form_for [@user, @availability] do |f| %>
               <%= f.input :day,
                         as: :string,
