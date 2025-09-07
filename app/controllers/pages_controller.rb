@@ -21,7 +21,7 @@ class PagesController < ApplicationController
 
     first_friday = first_sunday if first_friday > first_sunday
     next_friday = first_sunday.next_occurring(:friday)
-    @year = Date.today.year
+    year = params[:year].to_i
     month = Date.today.month
 
     @week_size = start_of_month.mon == 7 || start_of_month.mon == 8 ? 7 : 3
@@ -30,7 +30,7 @@ class PagesController < ApplicationController
     @cares_week2 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 7.days)..(start_of_month + 13.days)).sort_by(&:day) : Care.where(day: (next_friday)..(first_sunday + 7.days)).sort_by(&:day)
     @cares_week3 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 14.days)..(start_of_month + 20.days)).sort_by(&:day) : Care.where(day: (next_friday + 7.days)..(first_sunday + 14.days)).sort_by(&:day)
     @cares_week4 = start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 21.days)..(start_of_month + 27.days)).sort_by(&:day) : Care.where(day: (next_friday + 14.days)..(first_sunday + 21.days)).sort_by(&:day)
-    @cares_week5 = start_of_month + 27.days <= end_of_month ? (start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 28.days)..(end_of_month)).sort_by(&:day) : Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(@year, month))).sort_by(&:day)) : []
+    @cares_week5 = start_of_month + 27.days <= end_of_month ? (start_of_month.mon == 7 || start_of_month.mon == 8 ? Care.where(day: (start_of_month + 28.days)..(end_of_month)).sort_by(&:day) : Care.where(day: (next_friday + 21.days)..(last_weekend_day_of_month(year, month))).sort_by(&:day)) : []
 
     @current_week = week_of_month
     params[:week] = @current_week.to_s if params[:week].nil?
@@ -40,17 +40,17 @@ class PagesController < ApplicationController
     @weeks << "Semaine 5" if !@cares_week5.empty?
     @cares_data = @users.each_with_object({}) do |user, hash|
       next if user.first_name == "/"
-      yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", @year).count
+      yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", year).count
       hash[user.id] = {
         yearly_cares: yearly_cares,
-        saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 6).count,
-        sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 0).count
+        saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", year, 6).count,
+        sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", year, 0).count
       }
     end
     @maneuvers = @users.each_with_object({}) do |user, hash|
       next if user.first_name == "/"
       hash[user.id] = {
-        yearly_maneuvers: user.user_maneuvers.where("year = ?", @year).first.nil? ? 0 : user.user_maneuvers.where("year = ?", @year).first.number
+        yearly_maneuvers: user.user_maneuvers.where("year = ?", year).first.nil? ? 0 : user.user_maneuvers.where("year = ?", year).first.number
       }
     end
 

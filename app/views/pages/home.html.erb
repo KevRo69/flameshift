@@ -23,8 +23,20 @@
 
 <%= render "shared/care", week: params[:week] %>
 
+<div data-controller="sort-cares" class="filters">
+  <div class="filter">
+    <select id="year" name="year" data-action="change->sort-cares#updateAnnualTable" data-sort-cares-target="year">
+      <% (2024..2100).each do |year| %>
+        <option value="<%= year %>" <%= 'selected' if year.to_s == params[:year] %>>
+          <%= year %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+</div>
+
 <div class="table-container">
-  <h2>Total des gardes (<%= @year %>)</h2>
+  <h2>Total des gardes (<%= params[:year] %>)</h2>
   <table id="cares-year-table">
     <thead>
       <tr>
