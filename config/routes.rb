@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/check_username", to: "users#check_username", as: "check_username"
+
   resources :settings, only: [:index, :edit, :update]
 
   post 'reports/table_pdf', to: 'reports#table_pdf'

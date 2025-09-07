@@ -76,6 +76,17 @@ class UsersController < ApplicationController
     @users_stg = get_number_user_available_per_day("STG")
   end
 
+  def check_username
+    existing_usernames = User.where("email ~* ?", "^#{params[:username]}[0-9]*$")
+    username_exists = existing_usernames.length > 0
+
+    max_suffix = existing_usernames
+                   .pluck(Arel.sql("COALESCE(NULLIF(REGEXP_REPLACE(email, '^#{params[:username]}', ''), ''), '0')::int"))
+                   .max || 0
+
+    render json: { exists: username_exists, highest_username: max_suffix}
+  end
+
   private
 
   def user_params
