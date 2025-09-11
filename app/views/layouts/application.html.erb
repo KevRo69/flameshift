@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= favicon_link_tag 'logo.ico' %>
+    <%= favicon_link_tag 'logo.ico' %> <!-- pour navigateur desktop classique -->
+
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path 'logo.png' %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= asset_path 'logo.png' %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path 'logo.png' %>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path 'logo.png' %>">
+
+    <!-- Android / Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="<%= asset_path 'logo.png' %>">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <%= javascript_importmap_tags %>
