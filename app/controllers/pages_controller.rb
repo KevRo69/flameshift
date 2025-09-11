@@ -76,7 +76,7 @@ class PagesController < ApplicationController
 
     result = weeks.find { |_, week| week&.first&.cweek == Date.today.cweek }&.first
     return result unless result.nil?
-    weeks.reject { |_, week| week.empty? }.to_a.last.first
+    weeks.reject { |_, week| week.empty? }.to_a.last&.first
   end
 
   def last_weekend_day_of_month(year, month)
