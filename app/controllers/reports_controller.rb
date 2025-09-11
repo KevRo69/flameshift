@@ -6,8 +6,19 @@ class ReportsController < ApplicationController
   end
 
   def annual_table_pdf
+    year = params[:year].to_i
+    report = Reports::AnnualReportBuilder.new(year: year).build
 
-    pdf = AnnualPdfGenerator.new().generate
-    send_data pdf, filename: "Recap_annuel_#{params[:year]}.pdf", type: "application/pdf", disposition: "attachment"
+    pdf = AnnualPdfGenerator.new(
+      report[:users],
+      report[:cares_data],
+      report[:maneuvers],
+      year
+    ).generate
+
+    send_data pdf,
+              filename: "Recap_annuel_#{year}.pdf",
+              type: "application/pdf",
+              disposition: "attachment"
   end
 end

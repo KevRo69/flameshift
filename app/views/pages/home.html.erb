@@ -33,7 +33,11 @@
     </select>
   </div>
   <div class="filter">
-    <%= button_to reports_annual_table_pdf_path, method: :post, params: { cares_data: @cares_data, maneuvers: @maneuvers, year: params[:year] }, data: { turbo: false }, title: "Télécharger le PDF" do %>
+    <%= button_to reports_annual_table_pdf_path, method: :post, params: { users: @users.map { |u| { id: u.id, first_name: u.first_name, last_name: u.last_name } },
+                                                                          cares_data: @cares_data,
+                                                                          maneuvers: @maneuvers,
+                                                                          year: params[:year] },
+                                                                          data: { turbo: false }, title: "Télécharger le PDF" do %>
       <i class="fa-solid fa-download download-icon fa-xl"></i>
     <% end %>
   </div>
