@@ -34,25 +34,14 @@ class PagesController < ApplicationController
 
     @current_week = week_of_month
     params[:week] = @current_week.to_s if params[:week].nil?
-    @users = User.all.sort_by(&:last_name)
+
+    report = Reports::AnnualReportBuilder.new(year: year).build
+    @users      = report[:users]
+    @cares_data = report[:cares_data]
+    @maneuvers  = report[:maneuvers]
 
     @weeks = ["Semaine 1", "Semaine 2", "Semaine 3", "Semaine 4"]
     @weeks << "Semaine 5" if !@cares_week5.empty?
-    @cares_data = @users.each_with_object({}) do |user, hash|
-      next if user.first_name == "/"
-      yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", year).count
-      hash[user.id] = {
-        yearly_cares: yearly_cares,
-        saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", year, 6).count,
-        sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", year, 0).count
-      }
-    end
-    @maneuvers = @users.each_with_object({}) do |user, hash|
-      next if user.first_name == "/"
-      hash[user.id] = {
-        yearly_maneuvers: user.user_maneuvers.where("year = ?", year).first.nil? ? 0 : user.user_maneuvers.where("year = ?", year).first.number
-      }
-    end
 
     if params[:week].present?
       case params[:week]
@@ -85,7 +74,9 @@ class PagesController < ApplicationController
       5 => @cares_week5.map{ |care| care.day }
     }
 
-    weeks.find { |_, week| week.include?(Date.today) }&.first
+    result = weeks.find { |_, week| week&.first&.cweek == Date.today.cweek }&.first
+    return result unless result.nil?
+    weeks.reject { |_, week| week.empty? }.to_a.last.first
   end
 
   def last_weekend_day_of_month(year, month)
