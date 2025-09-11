@@ -33,7 +33,7 @@ class AnnualPdfGenerator
       next if user.first_name == "/"
 
       data << [
-        "#{user.first_name.chars.first(2).join}. #{user.last_name}",
+        "#{user.first_name} #{user.last_name}",
         @cares_data[user.id][:yearly_cares],
         @cares_data[user.id][:saturday_cares],
         @cares_data[user.id][:sunday_cares],
