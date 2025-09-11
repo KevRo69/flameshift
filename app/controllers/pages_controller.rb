@@ -85,7 +85,9 @@ class PagesController < ApplicationController
       5 => @cares_week5.map{ |care| care.day }
     }
 
-    weeks.find { |_, week| week.include?(Date.today) }&.first
+    result = weeks.find { |_, week| week&.first&.cweek == Date.today.cweek }&.first
+    return result unless result.nil?
+    weeks.reject { |_, week| week.empty? }.to_a.last.first
   end
 
   def last_weekend_day_of_month(year, month)
