@@ -49,9 +49,9 @@
     <thead>
       <tr>
         <th>Nom</th>
-        <th>Nombre de gardes</th>
-        <th>Nombre de samedis</th>
-        <th>Nombre de dimanches</th>
+        <th>Nombre de <br>gardes</th>
+        <th>Nombre de <br>samedis</th>
+        <th>Nombre de <br>dimanches</th>
         <th>Manœuvres</th>
       </tr>
     </thead>
@@ -59,7 +59,7 @@
     <% @users.each do |user| %>
       <% unless user.first_name == "/" %>
         <tr>
-          <td><%= user.first_name.chars.first(2).join %>. <%= user.last_name %></td>
+          <td><%= user.first_name %><br><%= user.last_name %></td>
           <td><%= @cares_data[user.id][:yearly_cares] %></td>
           <td><%= @cares_data[user.id][:saturday_cares] %></td>
           <td><%= @cares_data[user.id][:sunday_cares] %></td>

@@ -5,7 +5,7 @@ module Reports
     end
 
     def build
-      users = User.all
+      users = User.all.sort_by(&:last_name)
 
       cares_data = build_cares_data(users)
       maneuvers  = build_maneuvers(users)

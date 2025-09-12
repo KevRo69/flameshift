@@ -14,7 +14,11 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 64px;
+  width: 96px;
+}
+
+.navbar-lewagon .navbar-brand {
+  margin-right: 0 !important;
 }
 
 .dropdown-item:hover {
@@ -26,6 +30,10 @@
   background-color: $red-light;
 }
 
+.icon-navbar {
+  margin-right: 16px;
+}
+
 #firestation-name {
   color: white;
   margin: 0 32px 0 0;
@@ -34,5 +42,18 @@
 @media (max-width: 768px) {
   .dropdown-menu {
     position: absolute !important;
+  }
+
+  .navbar-lewagon .navbar-brand img {
+    width: 64px;
+  }
+
+  .icon-navbar {
+    margin-right: 0;
+  }
+
+  #firestation-name {
+    color: white;
+    margin: 0 8px 0 0;
   }
 }
