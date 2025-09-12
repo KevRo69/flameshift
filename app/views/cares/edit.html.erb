@@ -2,7 +2,7 @@
     <h3><%= @care.day %></h3>
     <div class="form-container">
     <%= simple_form_for @care, url: care_path(@care), method: :patch do |f| %>
-    <div class="edit-care-container">
+    <div class="edit-care-container" data-controller="users-dropdown">
       <% 7.times do |index| %>
         <div class="form-card">
           <% case index %>
@@ -28,7 +28,8 @@
               <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
               <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
 
-              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown" data-users-dropdown-target="select"
+                      data-action="change->users-dropdown#change">
                 <% @users_cod.each do |user| %>
                   <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
                 <% end %>
@@ -43,7 +44,8 @@
               <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
               <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
 
-              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+              <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown" data-users-dropdown-target="select"
+                      data-action="change->users-dropdown#change">
                 <% @users_cate.each do |user| %>
                   <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
                 <% end %>
@@ -62,7 +64,8 @@
                 <%= uf.input :first_name, label: "Prénom", input_html: { disabled: true } %>
                 <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
 
-                <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown">
+                <select name="care[user_cares_attributes][<%= index %>][user_id]" class="users-dropdown" data-users-dropdown-target="select"
+                        data-action="change->users-dropdown#change">
                   <% @users_ce_inc.each do |user| %>
                     <option value="<%= user.id %>" <%= 'selected' if @care.users[index]&.id == user.id %>><%= user.full_name %></option>
                   <% end %>
@@ -78,7 +81,11 @@
                 <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_eq_inc, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
-                        label: "Sélectionner une autre personne", class: "users-dropdown" %>
+                        label: "Sélectionner une autre personne", class: "users-dropdown",
+                        data: {
+                          users_dropdown_target: "select",
+                          action: "change->users-dropdown#change"
+                        } %>
               <% end %>
             <% when 4 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
@@ -86,7 +93,11 @@
                 <%= uf.input :last_name, label: "Nom", input_html: { disabled: true } %>
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_eq_sap, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
-                        label: "Sélectionner une autre personne", class: "users-dropdown" %>
+                        label: "Sélectionner une autre personne", class: "users-dropdown",
+                        data: {
+                          users_dropdown_target: "select",
+                          action: "change->users-dropdown#change"
+                        } %>
               <% end %>
             <% when 5 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
@@ -95,7 +106,11 @@
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_stg, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                         label: "Sélectionner une autre personne",
-                        class: "users-dropdown" %>
+                        class: "users-dropdown",
+                        data: {
+                          users_dropdown_target: "select",
+                          action: "change->users-dropdown#change"
+                        } %>
             <% end %>
             <% when 6 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @user_sog do |uf| %>
