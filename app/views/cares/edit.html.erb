@@ -82,10 +82,10 @@
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_eq_inc, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                         label: "Sélectionner une autre personne", class: "users-dropdown",
-                                 data: {
-                                   users_dropdown_target: "select",
-                                   action: "change->users-dropdown#change"
-                                 } %>
+                        data: {
+                          users_dropdown_target: "select",
+                          action: "change->users-dropdown#change"
+                        } %>
               <% end %>
             <% when 4 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
@@ -94,10 +94,10 @@
                   <%= select_tag "care[user_cares_attributes][#{index}][user_id]",
                         options_from_collection_for_select(@users_eq_sap, :id, :full_name, @care.users[index].nil? ? nil : @care.users[index].id),
                         label: "Sélectionner une autre personne", class: "users-dropdown",
-                                 data: {
-                                   users_dropdown_target: "select",
-                                   action: "change->users-dropdown#change"
-                                 } %>
+                        data: {
+                          users_dropdown_target: "select",
+                          action: "change->users-dropdown#change"
+                        } %>
               <% end %>
             <% when 5 %>
               <%= simple_fields_for "care[users_attributes][#{index}]", @care.users[index] do |uf| %>
