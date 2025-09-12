@@ -30,13 +30,21 @@ class PdfGenerator
         pdf.move_down 10
 
         # Generate table data for the current week
-        pdf.table(table_data(week_cares), header: true, cell_style: { inline_format: true, size: 14, align: :center }, row_colors: ["F0F0F0", "FFFFFF"]) do
+        pdf.table(table_data(week_cares), header: true, position: :center, cell_style: { inline_format: true, size: 14, align: :center }) do
           row(0).font_style = :bold
-          row(0).background_color = "CCCCCC"
-          self.cell_style = { borders: [:top, :bottom, :left, :right] }
+          row(0).background_color = "B72614"
+          row(0).text_color = 'FFFFFF'
+          self.row_colors = ['F4F4F4', 'FFB0B0']
+          self.cell_style = { borders: [:top, :bottom, :right, :left], border_width: 0.5 }
           columns(0).font_style = :bold
         end
       end
+      pdf.number_pages "<page>/<total>",
+                       at: [pdf.bounds.right - 50, 0],
+                       width: 50,
+                       align: :right,
+                       start_count_at: 1,
+                       size: 10
     end.render
   end
 
@@ -44,13 +52,12 @@ class PdfGenerator
 
   def table_data(week_cares)
     # Header row
-    header = [""] + ([@week_size - week_cares.size].map { "" }) +
+    header = ([@week_size - week_cares.size].map { "" }) +
     week_cares.map { |care| "#{I18n.t('date.day_names')[care.day.wday]}\n#{care.day.strftime('%d-%m-%Y')}" }
 
     # Body rows
     body = @roles.each_with_index.map do |role, role_index|
       row = [role] # First column for role
-      row += ([@week_size - week_cares.size].map { "" }) # Empty cells for padding
       row += week_cares.map do |care|
         user = care.users[role_index]
         if user
@@ -68,7 +75,6 @@ class PdfGenerator
 
     # Add custom "SOG" row based on care.user_id
   sog_row = ["SOG"] # First column label
-  sog_row += ([@week_size - week_cares.size].map { "" }) # Padding
   sog_row += week_cares.map do |care|
     user = User.find_by(id: care.user_id)
     if user && user.first_name != "/"
