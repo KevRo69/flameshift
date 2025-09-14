@@ -32,6 +32,9 @@ Rails.application.routes.draw do
 
   resources :settings, only: [:index, :edit, :update]
 
+  get 'admin', to: 'admin#index'
+  post 'admin/create_data', to: 'admin#create_data', as: 'create_data'
+
   post 'reports/table_pdf', to: 'reports#table_pdf'
   post 'reports/annual_table_pdf', to: 'reports#annual_table_pdf'
 

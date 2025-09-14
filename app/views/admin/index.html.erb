@@ -1,0 +1,10 @@
+<div class="center-btn">
+    <%= button_to "Générer des données pour #{@month}",
+                  create_data_path,
+                  method: :post,
+                  class: "btn",
+                  data: { confirm: @alert_message, turbo_confirm: @alert_message },
+                  disabled: @availabilities_present %>
+</div>
+
+

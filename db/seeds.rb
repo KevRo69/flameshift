@@ -277,19 +277,9 @@ else
 
   puts "Creating availabilities..."
 
-  User.all.each do |user|
-    rand(100).times do
-      random_date = Faker::Date.between(from: '2025-07-01', to: '2025-07-31')
-      user.availabilties.create!(day: random_date)
-    end
-    # Find days that have duplicates
-    user.availabilties.group(:day).having('COUNT(*) > 1').pluck(:day).each do |day|
-      # Get all availabilities for that day, sorted by ID
-      duplicates = user.availabilties.where(day: day).order(:id)
-      # Keep the first one, delete the rest
-      duplicates.offset(1).delete_all
-    end
-  end
+  users = User.where(deactivated: false).reject { |user| user.email == "nil" }
+  start_date = Date.new(2025, Date.today.month, 1)
+  Availabilties::CreateFakeAvailabilties.new(users, start_date).execute
 
   puts "Availabilities created!"
 
