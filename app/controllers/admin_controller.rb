@@ -6,6 +6,7 @@ class AdminController < ApplicationController
     @alert_message = "L'action va générer des disponibilités et des gardes pour le mois de #{@month} et des disponibilités pour le mois suivant."
     @availabilities_present = Availabilty.where(day: Date.today.beginning_of_month..Date.today.end_of_month).present?
   end
+
   def create_data
     users = User.where(deactivated: false).reject { |user| user.email == "nil" }
     start_date = Date.new(2025, Date.today.month, 1)

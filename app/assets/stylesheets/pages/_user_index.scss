@@ -1,8 +1,13 @@
 .modify-all-users {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 40px;
-  margin: auto;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 48px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.modify-all-users > * {
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
