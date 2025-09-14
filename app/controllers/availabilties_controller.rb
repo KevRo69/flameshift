@@ -11,7 +11,7 @@ class AvailabiltiesController < ApplicationController
   def create
     month = availability_params[:month].to_i
     start_of_next = Date.today.day <= Setting.first.last_day ? Date.today.beginning_of_month + 1.months + month.month : Date.today.beginning_of_month + 2.months + month.month
-    end_of_next = Date.today.day <= Setting.first.last_day ? (Date.today.at_beginning_of_month + 2.months + month.month).end_of_month : (Date.today.at_beginning_of_month + 3.months + month.month).end_of_month
+    end_of_next = start_of_next.end_of_month
     availabilities_next = current_user.availabilties.where(day: (start_of_next)..(end_of_next))
     avaibilities_next_days = availabilities_next.map { |date| date.day.strftime('%Y-%m-%d') }
     availabilities = availability_params[:day].split(", ")
