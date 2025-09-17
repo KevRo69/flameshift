@@ -161,6 +161,8 @@ class CaresController < ApplicationController
         @care.user_id = User.where(email:"nil").first.id
         @care.save
       end
+      users = User.where(deactivated: false).reject { |user| user.email == "nil" }
+      Availabilties::CreateMonthlyAvailabilities.new(users).execute
       redirect_to new_care_path, notice: 'Gardes créées avec succès.'
     else
       redirect_to new_care_path, alert: 'Les gardes du mois ont déjà été créées.'

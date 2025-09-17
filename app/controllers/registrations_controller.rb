@@ -14,8 +14,9 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
 
     if @user.save
+      Availabilties::CreateYearlyAvailabilities.new(@user).execute
       flash[:notice] = "Utilisateur créé avec succès."
-      redirect_to root_path # Adjust as needed
+      redirect_to root_path
     else
       redirect_to new_user_registration_path, alert: @user.errors.full_messages
     end
