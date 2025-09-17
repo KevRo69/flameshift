@@ -169,7 +169,8 @@ class CaresController < ApplicationController
 
   def edit
     care = Care.find(params[:id])
-    users_in_care = care.users
+    @usernil_id = User.where(email:'nil').first.id
+    users_in_care = care.users - care.users.where(email: "nil")
     user_cod1 = [care.users[0]]
     user_cate = [care.users[1]]
     user_ce_inc = [care.users[2]]
@@ -178,14 +179,14 @@ class CaresController < ApplicationController
     user_stg = [care.users[5]]
     @users = User.where(deactivated: false).sort_by(&:last_name)
     @user_sog = User.where(id: Care.find(params[:id]).user_id).first
-    @users_cod = User.where(COD_1:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_cod1
-    @users_cate = User.where(CATE:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_cate
-    @users_ca1e = User.where(CA1E:"1", deactivated: false).sort_by(&:last_name) - users_in_care
-    @users_others = User.where(STG:"0", deactivated: false).sort_by(&:last_name) - @users_cate - @users_ca1e - users_in_care
-    @users_ce_inc = User.where(CE_INC:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_ce_inc
-    @users_eq_inc = User.where(EQ_INC:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_eq_inc
-    @users_eq_sap = User.where(EQ_SAP:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_eq_sap
-    @users_stg = User.where(STG:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_stg
+    @users_cod = (User.where(COD_1:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_cod1).uniq
+    @users_cate = (User.where(CATE:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_cate).uniq
+    @users_ca1e = (User.where(CA1E:"1", deactivated: false).sort_by(&:last_name) - users_in_care).uniq
+    @users_others = (User.where(STG:"0", deactivated: false).sort_by(&:last_name) - @users_cate - @users_ca1e - users_in_care).uniq
+    @users_ce_inc = (User.where(CE_INC:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_ce_inc).uniq
+    @users_eq_inc = (User.where(EQ_INC:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_eq_inc).uniq
+    @users_eq_sap = (User.where(EQ_SAP:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_eq_sap).uniq
+    @users_stg = (User.where(STG:"1", deactivated: false).sort_by(&:last_name) - users_in_care + user_stg).uniq
   end
 
   def update
