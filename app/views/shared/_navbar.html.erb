@@ -14,6 +14,7 @@
               <i class="fa-solid fa-bars fa-2xl icon-navbar" style="color: #ffffff; width: 24px;"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <p class="full-name"> <%= current_user.full_name %></p>
               <%= link_to "Accueil", root_path(year: Date.today.strftime('%Y')), class: "dropdown-item" %>
               <%= link_to "Mes dispos / gardes", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Toutes les gardes", cares_path(month: I18n.l(Date.today, format: '%B').downcase, year: Date.today.strftime('%Y')), class: "dropdown-item" %>
