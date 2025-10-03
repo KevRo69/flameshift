@@ -8,7 +8,7 @@ class AdminController < ApplicationController
   end
 
   def create_data
-    users = User.where(deactivated: false).reject { |user| user.email == "nil" }
+    users = User.where(deactivated: false, unavailable: false).reject { |user| user.email == "nil" }
     start_date = Date.new(2025, Date.today.month, 1)
     Availabilties::CreateFakeAvailabilties.new(users, start_date).execute
     Availabilties::CreateFakeAvailabilties.new(users, start_date >> 1).execute

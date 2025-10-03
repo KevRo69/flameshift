@@ -277,7 +277,7 @@ else
 
   puts "Creating availabilities..."
 
-  users = User.where(deactivated: false).reject { |user| user.email == "nil" }
+  users = User.where(deactivated: false, unavailable: false).reject { |user| user.email == "nil" }
   start_date = Date.new(2025, Date.today.month, 1)
   Availabilties::CreateFakeAvailabilties.new(users, start_date).execute
 
