@@ -17,7 +17,7 @@ class AvailabiltiesController < ApplicationController
     availabilities = availability_params[:day].split(", ")
     saturdays = availabilities.select { |day| Date.parse(day).saturday? }
     sundays = availabilities.select { |day| Date.parse(day).sunday? }
-    @no_weekend = !((saturdays.size > 0 && sundays.size > 0) || (saturdays.size == 0 && sundays.size > 1))
+    @no_weekend_and_days = (!((saturdays.size > 0 && sundays.size > 0) || (saturdays.size == 0 && sundays.size > 1))) || availabilities.size < 5
     days_to_destroy = avaibilities_next_days - availabilities
 
     days_to_destroy.each do |day|
@@ -29,8 +29,8 @@ class AvailabiltiesController < ApplicationController
         availability.save
       end
     end
-    if @no_weekend
-      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois."
+    if @no_weekend_and_days
+      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois avec 5 dispos."
     end
     redirect_to user_path(current_user)
   end

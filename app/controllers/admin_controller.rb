@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   def index
     @month = I18n.l(Date.today.beginning_of_month, format: '%B')
     @alert_message = "L'action va générer des disponibilités et des gardes pour le mois de #{@month} et des disponibilités pour le mois suivant."
-    @availabilities_present = Availabilty.where(day: Date.today.beginning_of_month..Date.today.end_of_month).present?
+    @cares_present = Care.where(day: Date.today.beginning_of_month..Date.today.end_of_month).present?
   end
 
   def create_data
