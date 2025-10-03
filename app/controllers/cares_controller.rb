@@ -170,7 +170,6 @@ class CaresController < ApplicationController
   def edit
     care = Care.find(params[:id])
     @usernil_id = User.where(email:'nil').first.id
-    users_in_care = care.users - care.users.where(email: "nil")
     user_cod1 = [care.users[0]]
     user_cate = [care.users[1]]
     user_ce_inc = [care.users[2]]
