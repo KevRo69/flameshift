@@ -30,7 +30,7 @@ class AvailabiltiesController < ApplicationController
       end
     end
     if @no_weekend_and_days
-      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois avec 5 dispos."
+      flash[:alert] = "Il faut au moins un samedi et un dimanche ou deux dimanches dans le mois avec 5 disponibilités."
     end
     redirect_to user_path(current_user)
   end
