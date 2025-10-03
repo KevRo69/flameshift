@@ -10,6 +10,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      Availabilties::DeleteUserAvailabilities.new(@user).execute if user_params[:unavailable] == '1'
+      Availabilties::CreateYearlyAvailabilities.new(@user).execute if user_params[:unavailable] == '0'
+      Availabilties::CreateMonthlyAvailabilities.new([@user]).execute if user_params[:unavailable] == '0'
       redirect_to users_path, notice: 'Informations mises à jour.'
     else
       flash[:alert] = 'Échec de mise à jour des informations.'
@@ -90,10 +93,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :COD_1, :CATE, :CE_INC, :EQ_INC, :EQ_SAP, :CA1E, :STG, :validator, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:email, :COD_1, :CATE, :CE_INC, :EQ_INC, :EQ_SAP, :CA1E, :STG, :validator, :password, :password_confirmation, :current_password, :unavailable)
   end
-
-  private
 
   def authorize_user
     unless current_user&.validator?

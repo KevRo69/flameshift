@@ -15,7 +15,7 @@ namespace :availabilities do
     puts "Création des nouvelles disponibilités..."
 
     #Create availabilities for all users all year
-    users = User.where(deactivated: false).reject { |user| user.email == "nil" }
+    users = User.where(deactivated: false, unavailable: false).reject { |user| user.email == "nil" }
     users.each do |user|
       (start_date..end_date).each do |date|
         user.availabilties.find_or_create_by(day: date)
