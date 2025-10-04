@@ -14,22 +14,23 @@
           <h3 class="mb-3">(<%= user.email %>)</h3>
           <%= simple_form_for user, url: user_path(user), html: { method: :put } do |f| %>
             <div class="form-inputs" data-controller="checkbox">
-              <%= f.input :COD_1, label: "COD1" %>
+              <%= f.input :COD_1, label: "COD1", input_html: { id: "cod_#{user.id}" } %>
               <%= f.input :CATE, label: "CATE",
-                                  input_html: { id: "cate", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } } %>
+                                  input_html: { id: "cate_#{user.id}", data: { checkbox_target: "cate", action: "change->checkbox#toggleCA1E" } } %>
               <%= f.input :CA1E, label: "CA1E",
-                                  input_html: { id: "cae", data: { checkbox_target: "cae" } } %>
+                                  input_html: { id: "cae_#{user.id}", data: { checkbox_target: "cae" } } %>
               <%= f.input :CE_INC, label: "CE_INC",
-                          input_html: { id: "ce_inc", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
+                          input_html: { id: "ce_inc_#{user.id}", data: { checkbox_target: "ceInc", action: "change->checkbox#toggleEqInc" } } %>
               <%= f.input :EQ_INC, label: "EQ_INC",
-                          input_html: { id: "eq_inc", data: { checkbox_target: "eqInc" }} %>
+                          input_html: { id: "eq_inc_#{user.id}", data: { checkbox_target: "eqInc" }} %>
               <%= f.input :EQ_SAP, label: "EQ_SAP",
-                          input_html: { id: "eq_sap", data: { checkbox_target: "eqSap" }} %>
+                          input_html: { id: "eq_sap_#{user.id}", data: { checkbox_target: "eqSap" }} %>
               <%= f.input :STG,
                           label: "STG",
+                          input_html: { id: "stg_#{user.id}" },
                           autofocus: true%>
-              <%= f.input :validator, label: "Administrateur" %>
-              <%= f.input :unavailable, label: "Indisponible" %>
+              <%= f.input :validator, label: "Administrateur", input_html: { id: "validator_#{user.id}" } %>
+              <%= f.input :unavailable, label: "Indisponible", input_html: { id: "unavailable_#{user.id}" } %>
             </div>
           </div>
           <div class="form-actions">
