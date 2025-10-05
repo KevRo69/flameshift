@@ -69,7 +69,7 @@
                               as: :string,
                               label: "Disponibilités pour #{@month_next_array[month]}",
                               input_html: { data: { controller: "datepicker-show", datepicker_show_availabilities_value: @availabilities_next_hash[user.id][:availabilities_next_days_array][month],
-                              datepicker_show_month_value: month, datepicker_show_lastday_value: @last_day_setting  } } %>
+                              datepicker_show_month_value: month, datepicker_show_lastday_value: @last_day_availabilities_setting  } } %>
                 <% end %>
               </div>
             </div>

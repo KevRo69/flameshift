@@ -59,7 +59,11 @@ class CaresController < ApplicationController
   end
 
   def new
-    @last_day_setting = Setting.first.last_day
+    today = Date.today
+    last_day_setting = Setting.first.last_day
+    days_waiting_setting = Setting.first.days_waiting
+    @last_day_availabilities_setting = last_day_setting + days_waiting_setting
+    last_day_availabilities = Date.new(today.year, today.month, last_day_setting) + days_waiting_setting.days
     @users = User.where(deactivated: false).reject { |user| user.first_name == "/" }.sort_by(&:last_name)
     @availability = Availabilty.new
 
@@ -71,8 +75,8 @@ class CaresController < ApplicationController
       availabilities_next_array = []
       availabilities_next_days_array = []
       12.times do |i|
-        start_of_next = Date.today.day <= Setting.first.last_day ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
-        end_of_next = Date.today.day <= Setting.first.last_day ? (Date.today.at_beginning_of_month + 2.months + i.month).end_of_month : (Date.today.at_beginning_of_month + 3.months + i.month).end_of_month
+        start_of_next = today <= last_day_availabilities ? today.beginning_of_month + 1.months + i.month : today.beginning_of_month + 2.months + i.month
+        end_of_next = today <= last_day_availabilities ? (today.at_beginning_of_month + 2.months + i.month).end_of_month : (today.at_beginning_of_month + 3.months + i.month).end_of_month
         month_next = I18n.t('date.month_names')[start_of_next.month]
         @month_next_array << month_next
         availabilities_next = user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)
@@ -89,14 +93,14 @@ class CaresController < ApplicationController
     end
 
     @care = Care.new
-    @start_of_next = Date.today.beginning_of_month + 1.months
+    @start_of_next = today.beginning_of_month + 1.months
     @month = I18n.l(@start_of_next, format: '%B')
     @alert_message = users_with_zero_availabilities == 0 ?
                     "Tout le monde a rempli ses disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?" :
                     users_with_zero_availabilities == 1 ?
                     "Attention, #{users_with_zero_availabilities} utilisateur n'a pas rempli ses disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?" :
                     "Attention, #{users_with_zero_availabilities} utilisateurs n'ont pas rempli leurs disponibilités du mois.\nÊtes-vous sûr de vouloir générer les gardes de #{@month} ?"
-    end_of_next = (Date.today.at_beginning_of_month + 2.months - 1.day)
+    end_of_next = (today.at_beginning_of_month + 2.months - 1.day)
     @cares_next = Care.where(day: (@start_of_next)..(end_of_next))
     @cares_missing = @cares_next.reject do |care|
       if care.users.where(first_name: "/").count.zero?
