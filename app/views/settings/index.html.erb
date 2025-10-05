@@ -4,15 +4,15 @@
     <%= simple_form_for @setting, url: setting_path(@setting), html: { method: :patch } do |f| %>
       <div class="form-inputs" data-controller="checkbox">
         <div class="d-flex justify-content-center align-item-center">
-          <%= f.input :last_day, label: "Jour de validation", input_html: {type: "number", min: 1, max: 28 } %>
+          <%= f.input :last_day, class: "setting-input-number", label: "Date de validation", input_html: {class: "setting-input-number",  type: "number", min: 1, max: 28 } %>
         </div>
         <div class="d-flex justify-content-center align-item-center">
-          <%= f.input :days_waiting, label: "Jours de flottement", input_html: {type: "number", min: 0, max: 5 } %>
+          <%= f.input :days_waiting, label: "Visualisation disponibilités", input_html: {class: "setting-input-number", type: "number", min: 0, max: 5 } %>
         </div>
-          <%= f.input :warning, label: "Avertissement"%>
-          <%= f.input :rules, label: "Règles"%>
-          <%= f.input :infos, label: "Infos centre"%>
-        </div>
+        <%= f.input :warning, label: "Avertissement"%>
+        <%= f.input :rules, label: "Règles"%>
+        <%= f.input :infos, label: "Infos centre"%>
+      </div>
     </div>
     <div class="form-actions">
       <%= f.button :submit, "Mettre à jour", data: { turbo: false }, class: "btn mb-3" %>
