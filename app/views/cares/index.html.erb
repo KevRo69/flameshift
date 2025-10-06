@@ -30,13 +30,14 @@
 
 <%= render 'shared/cares' %>
 
-<div class="table-container">
-  <h2>Total des gardes du mois</h2>
+<h2 style="margin: 20px 20px 0 20px;">Total des gardes du mois</h2>
+<div class="table-container table-responsive">
   <table id="cares-year-table">
     <thead>
       <tr>
         <th>Nom</th>
         <th>Nombre de <br>gardes</th>
+        <th>Nombre de <br>vendredis</th>
         <th>Nombre de <br>samedis</th>
         <th>Nombre de <br>dimanches</th>
 
@@ -48,6 +49,7 @@
         <tr>
           <td><%= user.first_name %><br><%= user.last_name %></td>
           <td><%= @cares_data[user.id][:monthly_cares] %></td>
+          <td><%= @cares_data[user.id][:friday_cares] %></td>
           <td><%= @cares_data[user.id][:saturday_cares] %></td>
           <td><%= @cares_data[user.id][:sunday_cares] %></td>
         </tr>

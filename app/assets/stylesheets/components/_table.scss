@@ -17,13 +17,6 @@ thead {
   margin: 20px;
 }
 
-.cares-table th, td {
-  border: 1px solid #ddd; /* Thin border around cells */
-  padding: 12px 15px; /* Padding inside cells */
-  text-align: center; /* Left-align text in all cells */
-  overflow: hidden; /* Hide the overflow */
-}
-
 th, td {
   border: 1px solid #ddd; /* Thin border around cells */
   padding: 12px 15px; /* Padding inside cells */
@@ -54,21 +47,16 @@ td.active {
   margin: 20px;
 }
 
-#cares-year-table {
-  width: 650px;
-}
-
 @media (max-width: 768px) {
   .table-container table {
-    width: 650px; /* largeur mini pour forcer le scroll si écran trop petit */
+    width: 1150px; /* largeur mini pour forcer le scroll si écran trop petit */
   }
 
-  #cares-year-table {
-    width: 95%;
-    th, td {
-      overflow: hidden; /* Hide the overflow */
-      text-overflow: ellipsis;
-    }
+  #cares-year-table table {
+    max-width: 95%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    display: block; /* Ensure table respects the scrolling container */
+    border-collapse: collapse; /* Optional: Neater table appearance */
   }
 
   th, td {
@@ -92,6 +80,6 @@ td.active {
 
   #cares-year-table th {
     padding: 12px 0;
-    font-size: 10px;
+    font-size: 16px;
   }
 }

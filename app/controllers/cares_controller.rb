@@ -12,6 +12,7 @@ class CaresController < ApplicationController
       monthly_cares = user.cares.where("EXTRACT(MONTH FROM day) = ?", @month).count
       hash[user.id] = {
         monthly_cares: monthly_cares,
+        friday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 5).count,
         saturday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 6).count,
         sunday_cares: user.cares.where("EXTRACT(MONTH FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @month, 0).count
       }
