@@ -1,8 +1,9 @@
 <% unless @cares_week1.empty? %>
-  <div class="table-container cares-table">
-    <table>
-      <!-- Table Header -->
-      <thead>
+  <div class="table-container">
+    <div class="table-responsive">
+      <table>
+        <!-- Table Header -->
+        <thead>
         <tr>
           <th></th>
           <% (@week_size - @cares_week1.size).times do %>
@@ -12,10 +13,10 @@
             <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
         </tr>
-      </thead>
+        </thead>
 
-      <!-- Table Body -->
-      <tbody>
+        <!-- Table Body -->
+        <tbody>
         <% @roles.each_with_index do |role, role_index| %>
           <tr>
             <th><%= role %></th>
@@ -53,220 +54,230 @@
             <% end %>
             </td>
           <% end %>
-</tr>
-      </tbody>
-    </table>
-
-    <table>
-      <!-- Table Header -->
-      <thead>
-        <tr>
-          <th></th>
-          <% @cares_week2.each do |care| %>
-            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
-          <% end %>
         </tr>
-      </thead>
+        </tbody>
+      </table>
+    </div>
 
-      <!-- Table Body -->
-      <tbody>
-        <% @roles.each_with_index do |role, role_index| %>
-          <tr>
-            <th><%= role %></th>
-            <% @cares_week2.each do |care| %>
-            <% user = care.users[role_index] %>
-              <% if user == current_user %>
-                <td class="active">
-              <% else %>
-                <td>
-              <% end %>
-              <% if user.first_name != "/" %>
-                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-              <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-        <tr>
-          <th>SOG</th>
-          <% (@week_size - @cares_week2.size).times do %>
-            <td></td>
-          <% end %>
-          <% @cares_week2.each do |care| %>
-            <% user = care.user %>
-            <% if user == current_user %>
-              <td class="active">
-            <% else %>
-              <td>
-            <% end %>
-            <% if user.first_name != "/" %>
-              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-            <% end %>
-            </td>
-          <% end %>
-</tr>
-      </tbody>
-    </table>
-
-    <table>
-      <!-- Table Header -->
-      <thead>
-        <tr>
-          <th></th>
-          <% @cares_week3.each do |care| %>
-            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
-          <% end %>
-        </tr>
-      </thead>
-
-      <!-- Table Body -->
-      <tbody>
-        <% @roles.each_with_index do |role, role_index| %>
-          <tr>
-            <th><%= role %></th>
-            <% @cares_week3.each do |care| %>
-              <% user = care.users[role_index] %>
-              <% if user == current_user %>
-                <td class="active">
-              <% else %>
-                <td>
-              <% end %>
-              <% if user.first_name != "/" %>
-                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-              <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-        <tr>
-          <th>SOG</th>
-          <% (@week_size - @cares_week3.size).times do %>
-            <td></td>
-          <% end %>
-          <% @cares_week3.each do |care| %>
-            <% user = care.user %>
-            <% if user == current_user %>
-              <td class="active">
-            <% else %>
-              <td>
-            <% end %>
-            <% if user.first_name != "/" %>
-              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-            <% end %>
-            </td>
-          <% end %>
-</tr>
-      </tbody>
-    </table>
-
-    <table>
-      <!-- Table Header -->
-      <thead>
-        <tr>
-          <th></th>
-          <% @cares_week4.each do |care| %>
-            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
-          <% end %>
-        </tr>
-      </thead>
-
-      <!-- Table Body -->
-      <tbody>
-        <% @roles.each_with_index do |role, role_index| %>
-          <tr>
-            <th><%= role %></th>
-            <% @cares_week4.each do |care| %>
-              <% user = care.users[role_index] %>
-              <% if user == current_user %>
-                <td class="active">
-              <% else %>
-                <td>
-              <% end %>
-              <% if user.first_name != "/" %>
-                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-              <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-        <tr>
-          <th>SOG</th>
-          <% (@week_size - @cares_week4.size).times do %>
-            <td></td>
-          <% end %>
-          <% @cares_week4.each do |care| %>
-            <% user = care.user %>
-            <% if user == current_user %>
-              <td class="active">
-            <% else %>
-              <td>
-            <% end %>
-            <% if user.first_name != "/" %>
-              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-            <% end %>
-            </td>
-          <% end %>
-</tr>
-      </tbody>
-    </table>
-
-    <% unless @cares_week5.empty? %>
+    <div class="table-responsive">
       <table>
-      <!-- Table Header -->
-      <thead>
+        <!-- Table Header -->
+        <thead>
         <tr>
           <th></th>
-          <% @cares_week5.each do |care| %>
+          <% @cares_week2.each do |care| %>
             <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
-          <% (@week_size - @cares_week5.size).times do %>
-            <th></th>
-          <% end %>
         </tr>
-      </thead>
+        </thead>
 
-      <!-- Table Body -->
-      <tbody>
-        <% @roles.each_with_index do |role, role_index| %>
+        <!-- Table Body -->
+        <tbody>
+          <% @roles.each_with_index do |role, role_index| %>
+            <tr>
+              <th><%= role %></th>
+              <% @cares_week2.each do |care| %>
+                <% user = care.users[role_index] %>
+                <% if user == current_user %>
+                  <td class="active">
+                <% else %>
+                  <td>
+                <% end %>
+                <% if user.first_name != "/" %>
+                  <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
           <tr>
-            <th><%= role %></th>
-            <% @cares_week5.each do |care| %>
-              <% user = care.users[role_index] %>
-              <% if user == current_user %>
-                <td class="active">
-              <% else %>
-                <td>
-              <% end %>
-              <% if user.first_name != "/" %>
-                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-              <% end %>
-              </td>
-            <% end %>
-            <% (@week_size - @cares_week5.size).times do %>
+            <th>SOG</th>
+            <% (@week_size - @cares_week2.size).times do %>
               <td></td>
             <% end %>
+            <% @cares_week2.each do |care| %>
+              <% user = care.user %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+              <% end %>
+              </td>
+            <% end %>
           </tr>
-        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <!-- Table Header -->
+        <thead>
         <tr>
-          <th>SOG</th>
-          <% @cares_week5.each do |care| %>
-            <% user = care.user %>
-            <% if user == current_user %>
-              <td class="active">
-            <% else %>
-              <td>
-            <% end %>
-            <% if user.first_name != "/" %>
-              <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
-            <% end %>
-            </td>
+          <th></th>
+          <% @cares_week3.each do |care| %>
+            <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
           <% end %>
-          <% (@week_size - @cares_week5.size).times do %>
-            <td></td>
+        </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody>
+          <% @roles.each_with_index do |role, role_index| %>
+            <tr>
+              <th><%= role %></th>
+              <% @cares_week3.each do |care| %>
+                <% user = care.users[role_index] %>
+                <% if user == current_user %>
+                  <td class="active">
+                <% else %>
+                  <td>
+                <% end %>
+                <% if user.first_name != "/" %>
+                  <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                <% end %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
-</tr>
-      </tbody>
-    </table>
+          <tr>
+            <th>SOG</th>
+            <% (@week_size - @cares_week3.size).times do %>
+              <td></td>
+            <% end %>
+            <% @cares_week3.each do |care| %>
+              <% user = care.user %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+              <% end %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <!-- Table Header -->
+        <thead>
+          <tr>
+            <th></th>
+            <% @cares_week4.each do |care| %>
+              <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
+            <% end %>
+          </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody>
+          <% @roles.each_with_index do |role, role_index| %>
+            <tr>
+              <th><%= role %></th>
+              <% @cares_week4.each do |care| %>
+                <% user = care.users[role_index] %>
+                <% if user == current_user %>
+                  <td class="active">
+                <% else %>
+                  <td>
+                <% end %>
+                <% if user.first_name != "/" %>
+                  <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+          <tr>
+            <th>SOG</th>
+            <% (@week_size - @cares_week4.size).times do %>
+              <td></td>
+            <% end %>
+            <% @cares_week4.each do |care| %>
+              <% user = care.user %>
+              <% if user == current_user %>
+                <td class="active">
+              <% else %>
+                <td>
+              <% end %>
+              <% if user.first_name != "/" %>
+                <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+              <% end %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <% unless @cares_week5.empty? %>
+      <div class="table-responsive">
+
+        <table>
+          <!-- Table Header -->
+          <thead>
+          <tr>
+            <th></th>
+            <% @cares_week5.each do |care| %>
+              <th><%=I18n.t('date.day_names')[care.day.wday]%><br><%= care.day.strftime('%d-%m-%Y') %></th>
+            <% end %>
+            <% (@week_size - @cares_week5.size).times do %>
+              <th></th>
+            <% end %>
+          </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody>
+            <% @roles.each_with_index do |role, role_index| %>
+              <tr>
+                <th><%= role %></th>
+                <% @cares_week5.each do |care| %>
+                  <% user = care.users[role_index] %>
+                  <% if user == current_user %>
+                    <td class="active">
+                  <% else %>
+                    <td>
+                  <% end %>
+                  <% if user.first_name != "/" %>
+                    <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                  <% end %>
+                  </td>
+                <% end %>
+                <% (@week_size - @cares_week5.size).times do %>
+                  <td></td>
+                <% end %>
+              </tr>
+            <% end %>
+            <tr>
+              <th>SOG</th>
+              <% @cares_week5.each do |care| %>
+                <% user = care.user %>
+                <% if user == current_user %>
+                  <td class="active">
+                <% else %>
+                  <td>
+                <% end %>
+                <% if user.first_name != "/" %>
+                  <%= user.first_name.chars.first(2).join %>. <%= user.last_name %>
+                <% end %>
+                </td>
+              <% end %>
+              <% (@week_size - @cares_week5.size).times do %>
+                <td></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     <% end %>
   </div>
 <% end %>
