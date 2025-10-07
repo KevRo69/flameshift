@@ -16,24 +16,54 @@ module Reports
     private
 
     def build_cares_data(users)
-      users.each_with_object({}) do |user, hash|
-        next if user.first_name == "/"
-        yearly_cares = user.cares.where("EXTRACT(YEAR FROM day) = ?", @year).count
-        hash[user.id] = {
-          yearly_cares: yearly_cares,
-          friday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 5).count,
-          saturday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 6).count,
-          sunday_cares: user.cares.where("EXTRACT(YEAR FROM day) = ? AND EXTRACT(DOW FROM day) = ?", @year, 0).count
+      user_cares = UserCare
+                     .joins(:care, :user)
+                     .where("EXTRACT(YEAR FROM cares.day) = ?", @year)
+                     .select('user_cares.*, cares.day AS "day", users.first_name, users.last_name')
+
+      grouped = user_cares.group_by(&:user_id)
+
+      data = grouped.each_with_object({}) do |(user_id, cares), hash|
+        next if cares.first.first_name == "/"
+
+        hash[user_id] = {
+          yearly_cares: cares.size,
+          friday_cares: cares.count { |user_care| user_care.day.wday == 5 },
+          saturday_cares: cares.count { |user_care| user_care.day.wday == 6 },
+          sunday_cares: cares.count { |user_care| user_care.day.wday == 0 }
         }
       end
+
+      # 💡 Ajouter les users sans cares
+      users.each do |user|
+        next if user.first_name == "/"
+        data[user.id] ||= { yearly_cares: 0, friday_cares: 0, saturday_cares: 0, sunday_cares: 0 }
+      end
+
+      data
     end
 
     def build_maneuvers(users)
-      users.each_with_object({}) do |user, hash|
-        hash[user.id] = {
-          yearly_maneuvers: user.user_maneuvers.where("year = ?", @year).first.nil? ? 0 : user.user_maneuvers.where("year = ?", @year).first.number
+      user_maneuvers = UserManeuver
+                         .joins(:user)
+                         .where("year = ?", @year)
+                         .select('user_maneuvers.*, users.first_name, users.last_name')
+      grouped = user_maneuvers.group_by(&:user_id)
+
+      data = grouped.each_with_object({}) do |(user_id, maneuvers), hash|
+        next if maneuvers.first.first_name == "/"
+
+        hash[user_id] = {
+          yearly_maneuvers: maneuvers.sum(&:number)
         }
       end
+
+      users.each do |user|
+        next if user.first_name == "/"
+        data[user.id] ||= { yearly_maneuvers: 0 }
+      end
+
+      data
     end
   end
 end
