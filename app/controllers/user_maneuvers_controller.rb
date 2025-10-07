@@ -1,6 +1,6 @@
 class UserManeuversController < ApplicationController
   def index
-    @users_active = User.where(deactivated: false).sort_by(&:last_name)
+    @users_active = User.where(deactivated: false).sort_by(&:last_name).reject { |user| user.first_name == "/" }
     @resource_name = :user
     @year = Date.today.year
   end
