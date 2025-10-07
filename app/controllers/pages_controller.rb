@@ -2,10 +2,11 @@ class PagesController < ApplicationController
   # skip_before_action :authenticate_user!, only: :home
 
   def home
-    params[:year] ||= Date.today.year.to_s
+    today = Date.today
+    params[:year] ||= today.year.to_s
     @warning = Setting.first.warning
-    start_of_month = Date.today.beginning_of_month
-    end_of_month = Date.today.end_of_month
+    start_of_month = today.beginning_of_month
+    end_of_month = today.end_of_month
     days = (start_of_month..end_of_month).to_a
     @cares = Care.where(day: days)
     @roles = ["COD1", "CATE", "CE INC", "EQ INC", "EQ SAP / EQ INC", "STG"]
@@ -23,7 +24,7 @@ class PagesController < ApplicationController
     first_friday = first_sunday if first_friday > first_sunday
     next_friday = first_sunday.next_occurring(:friday)
     year = params[:year].to_i
-    month = Date.today.month
+    month = today.month
 
     @week_size = start_of_month.mon == 7 || start_of_month.mon == 8 ? 7 : 3
 
