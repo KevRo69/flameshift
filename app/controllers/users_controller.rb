@@ -41,22 +41,24 @@ class UsersController < ApplicationController
   end
 
   def show
-    @last_day_setting = Setting.first.last_day
-    @rules = Setting.first.rules
+    setting = Setting.first
+    today = Date.today
+    @last_day_setting = setting.last_day
+    @rules = setting.rules
     @user = current_user
     @care = Care.new
 
     @availability = Availabilty.new
-    start_of_month = Date.today.beginning_of_month
-    end_of_month = Date.today.end_of_month
+    start_of_month = today.beginning_of_month
+    end_of_month = today.end_of_month
 
     @month_next_array = []
     @availabilities_next_array = []
     @availabilities_next_days_array = []
 
     12.times do |i|
-      start_of_next = Date.today.day <= @last_day_setting ? Date.today.beginning_of_month + 1.months + i.month : Date.today.beginning_of_month + 2.months + i.month
-      end_of_next = Date.today.day <= @last_day_setting ? (Date.today.at_beginning_of_month + 2.months + i.month).end_of_month : (Date.today.at_beginning_of_month + 3.months + i.month).end_of_month
+      start_of_next = today.day <= @last_day_setting ? today.beginning_of_month + 1.months + i.month : today.beginning_of_month + 2.months + i.month
+      end_of_next = today.day <= @last_day_setting ? (today.at_beginning_of_month + 2.months + i.month).end_of_month : (today.at_beginning_of_month + 3.months + i.month).end_of_month
       month_next = I18n.t('date.month_names')[start_of_next.month]
       @month_next_array << month_next
       availabilities_next = @user.availabilties.where(day: (start_of_next)..(end_of_next)).uniq { |t| t.day }.sort_by(&:day)
@@ -65,8 +67,8 @@ class UsersController < ApplicationController
       @availabilities_next_days_array << availabilities_next_days
     end
 
-    start_of_next_care = Date.today.beginning_of_month + 1.months
-    end_of_next_care = (Date.today.at_beginning_of_month + 2.months - 1.day)
+    start_of_next_care = today.beginning_of_month + 1.months
+    end_of_next_care = (today.at_beginning_of_month + 2.months - 1.day)
 
     @cares_month = @user.cares.where(day: (start_of_month)..(end_of_month)).uniq { |t| t.day }.sort_by(&:day).map { |date| date.day }
     @cares_next = @user.cares.where(day: (start_of_next_care)..(end_of_next_care)).uniq { |t| t.day }.sort_by(&:day).map { |date| date.day }
