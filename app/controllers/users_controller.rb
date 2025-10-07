@@ -2,8 +2,9 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: [:index, :update]
 
   def index
-    @users_active = User.where(deactivated: false).sort_by(&:last_name)
-    @users_inactive = User.where(deactivated: true).sort_by(&:last_name)
+    users = User.all.reject { |user| user.first_name == "/" }
+    @users_active = users.select { |user| user.deactivated == false }.sort_by(&:last_name)
+    @users_inactive = users.reject { |user| user.deactivated == false }.sort_by(&:last_name)
     @resource_name = :user
   end
 
